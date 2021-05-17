@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# before commit, we run lint:staged command, please check .lintstagedrc
+npm run lint:staged
