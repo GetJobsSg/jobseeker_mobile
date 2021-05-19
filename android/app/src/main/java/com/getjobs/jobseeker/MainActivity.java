@@ -1,4 +1,4 @@
-package com.jobseeker_app;
+package com.getjobs.jobseeker;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "jobseeker_app";
+    return "GetJobs";
   }
 }

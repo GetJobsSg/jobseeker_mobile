@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.jobseeker_app">
+  package="com.getjobs.jobseeker">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
