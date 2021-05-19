@@ -30,62 +30,60 @@ type BottomTabParams = {
 
 const Tab = createBottomTabNavigator<BottomTabParams>();
 
-const BottomTabNavigator = () => {
-  return (
-    <Tab.Navigator
-      initialRouteName="homeStack"
-      tabBarOptions={{ inactiveTintColor: colors.darkGrey0, activeTintColor: colors.primary, showLabel: false }}
-    >
-      <Tab.Screen
-        name="homeStack"
-        component={HomeStack}
-        options={{
-          tabBarIcon: ({ focused }) =>
-            focused ? (
-              <Icon icon="home_active" style={styles.iconStyle} />
-            ) : (
-              <Icon icon="home_inactive" style={styles.iconStyle} />
-            ),
-        }}
-      />
-      <Tab.Screen
-        name="myjobStack"
-        component={MyJobStack}
-        options={{
-          tabBarIcon: ({ focused }) =>
-            focused ? (
-              <Icon icon="myjobs_active" style={styles.iconStyle} />
-            ) : (
-              <Icon icon="myjobs_inactive" style={styles.iconStyle} />
-            ),
-        }}
-      />
-      <Tab.Screen
-        name="inboxStack"
-        component={InboxStack}
-        options={{
-          tabBarIcon: ({ focused }) =>
-            focused ? (
-              <Icon icon="inbox_active" style={styles.iconStyle} />
-            ) : (
-              <Icon icon="inbox_inactive" style={styles.iconStyle} />
-            ),
-        }}
-      />
-      <Tab.Screen
-        name="accountStack"
-        component={AccountStack}
-        options={{
-          tabBarIcon: ({ focused }) =>
-            focused ? (
-              <Icon icon="account_active" style={styles.iconStyle} />
-            ) : (
-              <Icon icon="account_inactive" style={styles.iconStyle} />
-            ),
-        }}
-      />
-    </Tab.Navigator>
-  );
-};
+const BottomTabNavigator = () => (
+  <Tab.Navigator
+    initialRouteName="homeStack"
+    tabBarOptions={{ inactiveTintColor: colors.darkGrey0, activeTintColor: colors.primary, showLabel: false }}
+  >
+    <Tab.Screen
+      name="homeStack"
+      component={HomeStack}
+      options={{
+        tabBarIcon: ({ focused }: any) =>
+          focused ? (
+            <Icon icon="home_active" style={styles.iconStyle} />
+          ) : (
+            <Icon icon="home_inactive" style={styles.iconStyle} />
+          ),
+      }}
+    />
+    <Tab.Screen
+      name="myjobStack"
+      component={MyJobStack}
+      options={{
+        tabBarIcon: ({ focused }: any) =>
+          focused ? (
+            <Icon icon="myjobs_active" style={styles.iconStyle} />
+          ) : (
+            <Icon icon="myjobs_inactive" style={styles.iconStyle} />
+          ),
+      }}
+    />
+    <Tab.Screen
+      name="inboxStack"
+      component={InboxStack}
+      options={{
+        tabBarIcon: ({ focused }: any) =>
+          focused ? (
+            <Icon icon="inbox_active" style={styles.iconStyle} />
+          ) : (
+            <Icon icon="inbox_inactive" style={styles.iconStyle} />
+          ),
+      }}
+    />
+    <Tab.Screen
+      name="accountStack"
+      component={AccountStack}
+      options={{
+        tabBarIcon: ({ focused }: any) =>
+          focused ? (
+            <Icon icon="account_active" style={styles.iconStyle} />
+          ) : (
+            <Icon icon="account_inactive" style={styles.iconStyle} />
+          ),
+      }}
+    />
+  </Tab.Navigator>
+);
 
 export default BottomTabNavigator;

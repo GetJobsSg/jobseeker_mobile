@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Text, TextStyle, View, ViewStyle } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { firebaseLogin } from '../../utils/firebase';
 
 type AuthParamList = {
   auth: undefined;
@@ -25,16 +26,21 @@ const DEFAULT_FONTS: TextStyle = {
 
 const Stack = createStackNavigator<AuthParamList>();
 
-const AuthModalStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="auth" component={Auth} />
-    </Stack.Navigator>
-  );
-};
-
 const Auth = () => {
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    const data = {
+      email: 'benson7667@gmail.com',
+      password: 'asdasd',
+    };
+
+    firebaseLogin(data.email, data.password)
+      .then((value) => {
+        console.log(value);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const handleCreateAccount = () => {};
 
@@ -48,5 +54,11 @@ const Auth = () => {
     </SafeAreaView>
   );
 };
+
+const AuthModalStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="auth" component={Auth} />
+  </Stack.Navigator>
+);
 
 export default AuthModalStack;

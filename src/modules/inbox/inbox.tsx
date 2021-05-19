@@ -25,22 +25,18 @@ const DEFAULT_FONTS: TextStyle = {
 
 const Stack = createStackNavigator<InboxParamList>();
 
-const InboxStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="inbox" component={Inbox} />
-    </Stack.Navigator>
-  );
-};
+const Inbox = () => (
+  <SafeAreaView style={FULL}>
+    <View style={[FULL, CENTER]}>
+      <Text style={[DEFAULT_FONTS]}>Hello Inbox</Text>
+    </View>
+  </SafeAreaView>
+);
 
-const Inbox = () => {
-  return (
-    <SafeAreaView style={FULL}>
-      <View style={[FULL, CENTER]}>
-        <Text style={[DEFAULT_FONTS]}>Hello Inbox</Text>
-      </View>
-    </SafeAreaView>
-  );
-};
+const InboxStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="inbox" component={Inbox} />
+  </Stack.Navigator>
+);
 
 export default InboxStack;

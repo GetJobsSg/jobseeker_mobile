@@ -25,22 +25,18 @@ const DEFAULT_FONTS: TextStyle = {
 
 const Stack = createStackNavigator<MyJobsParamList>();
 
-const MyJobsStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="myjobs" component={MyJobs} />
-    </Stack.Navigator>
-  );
-};
+const MyJobs = () => (
+  <SafeAreaView style={FULL}>
+    <View style={[FULL, CENTER]}>
+      <Text style={[DEFAULT_FONTS]}>Hello MyJobs</Text>
+    </View>
+  </SafeAreaView>
+);
 
-const MyJobs = () => {
-  return (
-    <SafeAreaView style={FULL}>
-      <View style={[FULL, CENTER]}>
-        <Text style={[DEFAULT_FONTS]}>Hello MyJobs</Text>
-      </View>
-    </SafeAreaView>
-  );
-};
+const MyJobsStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="myjobs" component={MyJobs} />
+  </Stack.Navigator>
+);
 
 export default MyJobsStack;

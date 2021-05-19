@@ -25,22 +25,18 @@ const DEFAULT_FONTS: TextStyle = {
 
 const Stack = createStackNavigator<HomeParamList>();
 
-const HomeStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="home" component={Home} />
-    </Stack.Navigator>
-  );
-};
+const Home = () => (
+  <SafeAreaView style={FULL}>
+    <View style={[FULL, CENTER]}>
+      <Text style={[DEFAULT_FONTS]}>Hello Home</Text>
+    </View>
+  </SafeAreaView>
+);
 
-const Home = () => {
-  return (
-    <SafeAreaView style={FULL}>
-      <View style={[FULL, CENTER]}>
-        <Text style={[DEFAULT_FONTS]}>Hello Home</Text>
-      </View>
-    </SafeAreaView>
-  );
-};
+const HomeStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="home" component={Home} />
+  </Stack.Navigator>
+);
 
 export default HomeStack;
