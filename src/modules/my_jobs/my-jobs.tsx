@@ -1,12 +1,46 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, TextStyle, View, ViewStyle } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-const MyJobs = () => {
+type MyJobsParamList = {
+  myjobs: undefined;
+};
+
+const FULL: ViewStyle = {
+  flex: 1,
+};
+
+const CENTER: ViewStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flex: 1,
+};
+
+const DEFAULT_FONTS: TextStyle = {
+  fontSize: 26,
+  fontWeight: 'bold',
+};
+
+const Stack = createStackNavigator<MyJobsParamList>();
+
+const MyJobsStack = () => {
   return (
-    <View>
-      <Text>MyJobs screen</Text>
-    </View>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="myjobs" component={MyJobs} />
+    </Stack.Navigator>
   );
 };
 
-export default MyJobs;
+const MyJobs = () => {
+  return (
+    <SafeAreaView style={FULL}>
+      <View style={[FULL, CENTER]}>
+        <Text style={[DEFAULT_FONTS]}>Hello MyJobs</Text>
+      </View>
+    </SafeAreaView>
+  );
+};
+
+export default MyJobsStack;

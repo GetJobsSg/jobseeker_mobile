@@ -1,11 +1,9 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen, MyJobScreen, InboxScreen, AccountScreen } from '../modules';
+import { AccountStack, HomeStack, InboxStack, MyJobStack } from '../modules';
 import { Icon } from '../components';
 import { colors } from '../themes';
-
-const BottomTab = createBottomTabNavigator();
 
 const styles = StyleSheet.create({
   labelActive: {
@@ -23,15 +21,25 @@ const styles = StyleSheet.create({
   },
 });
 
+type BottomTabParams = {
+  homeStack: undefined;
+  myjobStack: undefined;
+  inboxStack: undefined;
+  accountStack: undefined;
+};
+
+const Tab = createBottomTabNavigator<BottomTabParams>();
+
 const BottomTabNavigator = () => {
   return (
-    <BottomTab.Navigator>
-      <BottomTab.Screen
-        name="home"
-        component={HomeScreen}
+    <Tab.Navigator
+      initialRouteName="homeStack"
+      tabBarOptions={{ inactiveTintColor: colors.darkGrey0, activeTintColor: colors.primary, showLabel: false }}
+    >
+      <Tab.Screen
+        name="homeStack"
+        component={HomeStack}
         options={{
-          tabBarLabel: ({ focused }) =>
-            focused ? <Text style={styles.labelActive}>Home</Text> : <Text style={styles.labelInactive}>Home</Text>,
           tabBarIcon: ({ focused }) =>
             focused ? (
               <Icon icon="home_active" style={styles.iconStyle} />
@@ -40,16 +48,10 @@ const BottomTabNavigator = () => {
             ),
         }}
       />
-      <BottomTab.Screen
-        name="my-jobs"
-        component={MyJobScreen}
+      <Tab.Screen
+        name="myjobStack"
+        component={MyJobStack}
         options={{
-          tabBarLabel: ({ focused }) =>
-            focused ? (
-              <Text style={styles.labelActive}>My Jobs</Text>
-            ) : (
-              <Text style={styles.labelInactive}>My Jobs</Text>
-            ),
           tabBarIcon: ({ focused }) =>
             focused ? (
               <Icon icon="myjobs_active" style={styles.iconStyle} />
@@ -58,12 +60,10 @@ const BottomTabNavigator = () => {
             ),
         }}
       />
-      <BottomTab.Screen
-        name="inbox"
-        component={InboxScreen}
+      <Tab.Screen
+        name="inboxStack"
+        component={InboxStack}
         options={{
-          tabBarLabel: ({ focused }) =>
-            focused ? <Text style={styles.labelActive}>Inbox</Text> : <Text style={styles.labelInactive}>Inbox</Text>,
           tabBarIcon: ({ focused }) =>
             focused ? (
               <Icon icon="inbox_active" style={styles.iconStyle} />
@@ -72,16 +72,10 @@ const BottomTabNavigator = () => {
             ),
         }}
       />
-      <BottomTab.Screen
-        name="account"
-        component={AccountScreen}
+      <Tab.Screen
+        name="accountStack"
+        component={AccountStack}
         options={{
-          tabBarLabel: ({ focused }) =>
-            focused ? (
-              <Text style={styles.labelActive}>Account</Text>
-            ) : (
-              <Text style={styles.labelInactive}>Account</Text>
-            ),
           tabBarIcon: ({ focused }) =>
             focused ? (
               <Icon icon="account_active" style={styles.iconStyle} />
@@ -90,7 +84,7 @@ const BottomTabNavigator = () => {
             ),
         }}
       />
-    </BottomTab.Navigator>
+    </Tab.Navigator>
   );
 };
 

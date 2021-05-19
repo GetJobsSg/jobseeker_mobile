@@ -1,12 +1,46 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, TextStyle, View, ViewStyle } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Home = () => {
+type HomeParamList = {
+  home: undefined;
+};
+
+const FULL: ViewStyle = {
+  flex: 1,
+};
+
+const CENTER: ViewStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flex: 1,
+};
+
+const DEFAULT_FONTS: TextStyle = {
+  fontSize: 26,
+  fontWeight: 'bold',
+};
+
+const Stack = createStackNavigator<HomeParamList>();
+
+const HomeStack = () => {
   return (
-    <View>
-      <Text>Home screen</Text>
-    </View>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="home" component={Home} />
+    </Stack.Navigator>
   );
 };
 
-export default Home;
+const Home = () => {
+  return (
+    <SafeAreaView style={FULL}>
+      <View style={[FULL, CENTER]}>
+        <Text style={[DEFAULT_FONTS]}>Hello Home</Text>
+      </View>
+    </SafeAreaView>
+  );
+};
+
+export default HomeStack;

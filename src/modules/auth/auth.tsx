@@ -2,10 +2,9 @@ import React from 'react';
 import { Button, Text, TextStyle, View, ViewStyle } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/core';
 
-type AccountParamList = {
-  account: undefined;
+type AuthParamList = {
+  auth: undefined;
 };
 
 const FULL: ViewStyle = {
@@ -24,28 +23,30 @@ const DEFAULT_FONTS: TextStyle = {
   fontWeight: 'bold',
 };
 
-const Stack = createStackNavigator<AccountParamList>();
+const Stack = createStackNavigator<AuthParamList>();
 
-const AccountStack = () => {
+const AuthModalStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="account" component={Account} />
+      <Stack.Screen name="auth" component={Auth} />
     </Stack.Navigator>
   );
 };
 
-const Account = () => {
-  const navigation = useNavigation();
-  const navigateLogin = () => navigation.navigate('authModal');
+const Auth = () => {
+  const handleLogin = () => {};
+
+  const handleCreateAccount = () => {};
 
   return (
     <SafeAreaView style={FULL}>
       <View style={[FULL, CENTER]}>
-        <Text style={[DEFAULT_FONTS]}>Hello Account</Text>
-        <Button title="Login" onPress={navigateLogin} />
+        <Text style={[DEFAULT_FONTS]}>Hello Auth</Text>
+        <Button title="Sign In" onPress={handleLogin} />
+        <Button title="Create Account" onPress={handleCreateAccount} />
       </View>
     </SafeAreaView>
   );
 };
 
-export default AccountStack;
+export default AuthModalStack;
