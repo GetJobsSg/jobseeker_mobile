@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Text, TextStyle, View, ViewStyle } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { firebaseLogin } from '../../utils/firebase';
+import { firebaseLogin, firebaseLogout, getIdToken } from '../../utils/firebase';
 
 type AuthParamList = {
   auth: undefined;
@@ -33,16 +33,15 @@ const Auth = () => {
       password: 'asdasd',
     };
 
-    firebaseLogin(data.email, data.password)
-      .then((value) => {
-        console.log(value);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    firebaseLogin(data.email, data.password).then((user) => {
+      getIdToken()?.then((token) => console.log('token>>>>', token));
+      console.log('user', user);
+    });
   };
 
   const handleCreateAccount = () => {};
+
+  const handleLogout = () => firebaseLogout();
 
   return (
     <SafeAreaView style={FULL}>
@@ -50,6 +49,7 @@ const Auth = () => {
         <Text style={[DEFAULT_FONTS]}>Hello Auth</Text>
         <Button title="Sign In" onPress={handleLogin} />
         <Button title="Create Account" onPress={handleCreateAccount} />
+        <Button title="Logout" onPress={handleLogout} />
       </View>
     </SafeAreaView>
   );
