@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { node } from 'prop-types';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { onAuthStateChanged } from '../../utils/firebase';
+import { getIdToken, onAuthStateChanged } from '../../utils/firebase';
 
 const AuthProvider: React.FC = (props) => {
   const { children } = props;
@@ -9,6 +9,7 @@ const AuthProvider: React.FC = (props) => {
   const handleOnAuthStateChanged = (user: FirebaseAuthTypes.UserCredential) => {
     if (user) {
       // user is authenticated; set storage token
+      console.log(getIdToken()?.then((t) => console.log(t)));
       console.log(user);
     } else {
       // clear storage token

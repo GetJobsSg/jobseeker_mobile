@@ -9,4 +9,7 @@ export const colors = {
   lightGrey1: '#ececec',
   lightGrey2: '#bbbbbb',
   darkGrey0: '#707070',
+
+  textPrimary: '#000',
+  textSecondary: '#bbb',
 };
