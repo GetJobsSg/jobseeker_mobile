@@ -3,7 +3,7 @@ import { View, ViewStyle } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { spacing } from '../../themes';
+import { spacing, colors } from '../../themes';
 import { Button, Text } from '../../components';
 
 type AccountParamList = {
@@ -14,25 +14,28 @@ const FULL: ViewStyle = {
   flex: 1,
 };
 
-const CENTER: ViewStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flex: 1,
+const CONTAINER: ViewStyle = {
+  paddingHorizontal: spacing.lg,
 };
 
 const Stack = createStackNavigator<AccountParamList>();
 
 const Account = () => {
   const navigation = useNavigation();
-  const navigateLogin = () => navigation.navigate('authModal');
+  const toLoginScreen = () => navigation.navigate('authModal', { screen: 'authModal.login' });
+  const toRegisterScreen = () => navigation.navigate('authModal', { screen: 'authModal.register' });
 
   return (
     <SafeAreaView style={FULL}>
-      <View style={[FULL, CENTER]}>
-        <Text preset="header">Hello Account</Text>
-        <Button preset="primary" label="Login" onPress={navigateLogin} />
-        <Button preset="ghost" style={{ marginTop: spacing.md }} label="Login" onPress={navigateLogin} />
+      <View style={[FULL, CONTAINER]}>
+        <Text preset="header">Your account</Text>
+        <Button preset="primary" block label="Log in" onPress={toLoginScreen} />
+        <Text style={{ marginTop: spacing.md }}>
+          <Text preset="hint">Don&apos;t have account? </Text>
+          <Text onPress={toRegisterScreen} preset="hint" style={{ color: colors.darkBlue0, fontWeight: '500' }}>
+            Create Account
+          </Text>
+        </Text>
       </View>
     </SafeAreaView>
   );

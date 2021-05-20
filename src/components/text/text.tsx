@@ -6,10 +6,14 @@ import { presets } from './text.presets';
 const { flatten } = StyleSheet;
 
 const Text = (props: TextProps) => {
-  const { children, preset = 'default', style: overrideStyle } = props;
+  const { children, preset = 'default', onPress, style: overrideStyle } = props;
   const textStyle = flatten([presets[preset], overrideStyle]);
 
-  return <ReactNativeText style={textStyle}>{children}</ReactNativeText>;
+  return (
+    <ReactNativeText onPress={onPress} style={textStyle}>
+      {children}
+    </ReactNativeText>
+  );
 };
 
 export default Text;

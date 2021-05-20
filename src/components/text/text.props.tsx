@@ -5,5 +5,6 @@ import { TextPresets } from './text.presets';
 export interface TextProps {
   children?: React.ReactNode;
   style?: StyleProp<TextStyle>;
+  onPress?: () => void;
   preset?: TextPresets;
 }
