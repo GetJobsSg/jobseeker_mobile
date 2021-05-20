@@ -15,5 +15,6 @@ module.exports = {
   env: { es6: true },
   rules: {
     'import/prefer-default-export': 'off',
+    'global-require': 'off',
   },
 };

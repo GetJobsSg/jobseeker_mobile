@@ -1,1 +1,10 @@
-export const spacing = [0, 4, 8, 12, 16, 24, 32, 48, 64];
+export const spacing = {
+  none: 0,
+  xxs: 2,
+  xs: 4,
+  sm: 8,
+  md: 12,
+  lg: 18,
+  xl: 28,
+  xxl: 36,
+};

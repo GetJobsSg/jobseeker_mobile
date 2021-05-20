@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, View, ViewStyle } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { Text } from '../../components';
+import { spacing } from '../../themes';
+import { Button, Text } from '../../components';
 
 type AccountParamList = {
   account: undefined;
@@ -30,7 +31,8 @@ const Account = () => {
     <SafeAreaView style={FULL}>
       <View style={[FULL, CENTER]}>
         <Text preset="header">Hello Account</Text>
-        <Button title="Login" onPress={navigateLogin} />
+        <Button preset="primary" label="Login" onPress={navigateLogin} />
+        <Button preset="ghost" style={{ marginTop: spacing.md }} label="Login" onPress={navigateLogin} />
       </View>
     </SafeAreaView>
   );
