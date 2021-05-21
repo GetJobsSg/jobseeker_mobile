@@ -1,9 +1,10 @@
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+
 import { TextStyle, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { colors } from '../../../themes';
-import { Button, Text } from '../../../components';
+import { colors, spacing } from '../../../themes';
+import { Button, Text, TextField } from '../../../components';
 import { commonStyles } from '../../../common';
 
 const DEFAULT_FONTS: TextStyle = {
@@ -13,6 +14,8 @@ const DEFAULT_FONTS: TextStyle = {
 
 const LoginScreen = () => {
   const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = () => {};
   const navigateToRegister = () => navigation.navigate('authModal.register');
@@ -23,8 +26,21 @@ const LoginScreen = () => {
         <Text preset="header" style={[DEFAULT_FONTS]}>
           Login
         </Text>
-        <Button preset="ghost" label="login" onPress={handleLogin} />
-        <Text style={{ color: colors.darkBlue0 }} onPress={navigateToRegister}>
+
+        <TextField
+          label="Email"
+          onChangeText={(text) => setEmail(text)}
+          value={email}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        <TextField label="Password" onChangeText={(text) => setPassword(text)} value={password} secureTextEntry />
+
+        <Button preset="outlined" label="login" onPress={handleLogin} />
+        <Text
+          style={{ color: colors.darkBlue0, marginTop: spacing.lg, textAlign: 'right' }}
+          onPress={navigateToRegister}
+        >
           Create Account
         </Text>
       </View>

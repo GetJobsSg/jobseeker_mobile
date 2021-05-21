@@ -11,7 +11,7 @@ const BASE: ViewStyle = {
 };
 
 const BORDER: ViewStyle = {
-  borderWidth: 2,
+  borderWidth: 1.5,
   borderRadius: 4,
   borderColor: colors.primary,
 };
@@ -22,7 +22,7 @@ export const btnPresets = {
     ...BORDER,
   } as ViewStyle,
 
-  ghost: {
+  outlined: {
     ...BASE,
     ...BORDER,
     backgroundColor: colors.transparent,
@@ -35,7 +35,7 @@ export const btnTextPresets = {
     fontWeight: '600',
   } as TextStyle,
 
-  ghost: {
+  outlined: {
     color: colors.primary,
     fontWeight: '600',
   } as TextStyle,

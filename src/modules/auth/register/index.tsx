@@ -8,7 +8,7 @@ const RegisterScreen = () => (
   <SafeAreaView style={commonStyles.FULL}>
     <View style={[commonStyles.FULL, commonStyles.CONTAINER]}>
       <Text preset="header">Create Account</Text>
-      <Button preset="ghost" label="Create" onPress={() => {}} />
+      <Button preset="outlined" label="Create" onPress={() => {}} />
     </View>
   </SafeAreaView>
 );

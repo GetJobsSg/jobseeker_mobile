@@ -11,7 +11,7 @@ export const colors = {
   // gray series
   lightGrey0: '#fafafa',
   lightGrey1: '#ececec',
-  lightGrey2: '#bbbbbb',
+  lightGrey2: '#bbb',
   darkGrey0: '#707070',
 
   // blue series
@@ -20,4 +20,5 @@ export const colors = {
   // text
   textPrimary: '#000',
   textSecondary: '#707070',
+  textLight: '#bbb',
 };
