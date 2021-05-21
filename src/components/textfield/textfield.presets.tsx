@@ -3,7 +3,7 @@ import { colors, fontSize, spacing } from '../../themes';
 
 const BASE = {
   textDecorationColor: colors.darkBlue0,
-  paddingTop: spacing.lg,
+  paddingTop: spacing.xl,
   paddingBottom: spacing.sm,
   paddingHorizontal: spacing.sm,
   marginBottom: spacing.md,

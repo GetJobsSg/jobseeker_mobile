@@ -3,6 +3,7 @@ import { View, ViewStyle } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import { firebaseLogout } from '../../utils/firebase';
 import { spacing, colors } from '../../themes';
 import { Button, Text } from '../../components';
 
@@ -36,6 +37,16 @@ const Account = () => {
             Create Account
           </Text>
         </Text>
+        <Button
+          preset="outlined"
+          block
+          label="Logout"
+          onPress={() =>
+            firebaseLogout().then(() => {
+              console.log('signed out...');
+            })
+          }
+        />
       </View>
     </SafeAreaView>
   );

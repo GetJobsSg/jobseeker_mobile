@@ -1,28 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { node } from 'prop-types';
-import { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { getIdToken, onAuthStateChanged } from '../../../utils/firebase';
+import auth from '@react-native-firebase/auth';
 
 const AuthProvider: React.FC = (props) => {
+  const [initializing, setInitializing] = useState(true);
   const { children } = props;
 
-  const handleOnAuthStateChanged = (user: FirebaseAuthTypes.UserCredential) => {
-    if (user) {
-      // user is authenticated; set storage token
-      console.log(getIdToken()?.then((t) => console.log(t)));
-    } else {
-      // clear storage token
-      console.log('user not login');
-    }
+  const onAuthStateChanged = (user: any) => {
+    console.log(user);
+    setInitializing(false);
   };
 
-  // create observer to observe if user is login
   useEffect(() => {
-    const sub = onAuthStateChanged(handleOnAuthStateChanged);
-    return sub;
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
   }, []);
 
-  return <>{children}</>;
+  return initializing ? null : <>{children}</>;
 };
 
 AuthProvider.propTypes = {

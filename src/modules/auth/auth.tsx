@@ -2,13 +2,9 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './login';
 import RegisterScreen from './register';
+import { AuthModalStackParamList } from './types';
 
-type AuthScreenParams = {
-  'authModal.login': undefined;
-  'authModal.register': undefined;
-};
-
-const Stack = createStackNavigator<AuthScreenParams>();
+const Stack = createStackNavigator<AuthModalStackParamList>();
 
 const AuthModalStack = () => (
   <Stack.Navigator initialRouteName="authModal.login" screenOptions={{ headerShown: false }}>

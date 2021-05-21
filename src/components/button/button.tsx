@@ -8,7 +8,7 @@ const { flatten } = StyleSheet;
 
 const Button = (props: ButtonProps) => {
   const {
-    block,
+    block = false,
     children,
     label,
     onPress,
@@ -20,7 +20,7 @@ const Button = (props: ButtonProps) => {
   const btnTextStyle = flatten([btnTextPresets[preset], textStyleOverride]);
   const content = children || <Text style={btnTextStyle}>{label}</Text>;
 
-  const asBlock = block ? ({ width: '100%' } as ViewStyle) : {};
+  const asBlock = block ? ({ alignSelf: 'auto' } as ViewStyle) : ({ alignSelf: 'flex-start' } as ViewStyle);
   const buttonStyle = flatten([btnPresets[preset], asBlock, btnOverrideStyle]);
 
   return (
