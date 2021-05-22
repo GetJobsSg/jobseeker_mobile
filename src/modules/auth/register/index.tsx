@@ -3,11 +3,8 @@ import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Text } from '../../../components';
 import { commonStyles } from '../../../common';
-import { RegisterProps } from './types';
 
-const RegisterScreen = (props: RegisterProps) => {
-  console.log(props);
-
+const RegisterScreen = () => {
   const handleLogin = () => {};
 
   const handleRegister = () => {};

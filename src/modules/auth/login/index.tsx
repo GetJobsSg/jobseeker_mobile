@@ -1,31 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextStyle, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { observer } from 'mobx-react-lite';
 import { colors, spacing } from '../../../themes';
 import { Button, Text, TextField } from '../../../components';
 import { commonStyles } from '../../../common';
 import { LoginProps } from './types';
-import { firebaseLogin } from '../../../utils/firebase';
+import { useMst } from '../../../store';
 
 const DEFAULT_FONTS: TextStyle = {
   fontSize: 26,
   fontWeight: 'bold',
 };
 
-const LoginScreen = (props: LoginProps) => {
-  console.log(props);
+const LoginScreen = observer((props: LoginProps) => {
+  const { navigation } = props;
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const {
+    authStore: { isAuthenticated, login },
+  } = useMst();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigation.goBack();
+    }
+  }, [navigation, isAuthenticated]);
+
   const handleLogin = () => {
-    firebaseLogin(email, password)
-      .then((user) => {
-        console.log('login successfull.>>>>>', user);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // TODO1 : add validation
+    // TODO2 : add snackbar component to display error message
+    login(email, password);
   };
 
   const navigateToRegister = () => {};
@@ -57,6 +64,6 @@ const LoginScreen = (props: LoginProps) => {
       </View>
     </SafeAreaView>
   );
-};
+});
 
 export default LoginScreen;
