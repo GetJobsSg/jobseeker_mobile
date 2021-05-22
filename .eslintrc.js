@@ -18,5 +18,6 @@ module.exports = {
     'global-require': 'off',
     'react-native/no-inline-styles': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'no-param-reassign': 'off',
   },
 };
