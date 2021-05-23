@@ -2,7 +2,7 @@ import React from 'react';
 import { View, ViewStyle } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { spacing, colors } from '../../themes';
 import { Button, Text } from '../../components';
@@ -24,8 +24,14 @@ const Stack = createStackNavigator<AccountParamList>();
 
 const LoginHeader = () => {
   const navigation = useNavigation();
-  const toLoginScreen = () => navigation.navigate('authModal', { screen: 'authModal.login' });
-  const toRegisterScreen = () => navigation.navigate('authModal', { screen: 'authModal.register' });
+  const { name: routeName } = useRoute();
+
+  const toLoginScreen = () =>
+    navigation.navigate('authModal', { screen: 'authModal.login', params: { prevScreen: routeName } });
+
+  const toRegisterScreen = () =>
+    navigation.navigate('authModal', { screen: 'authModal.register', params: { prevScreen: routeName } });
+
   return (
     <>
       <Text preset="header">Your account</Text>

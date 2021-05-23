@@ -35,7 +35,10 @@ const LoginScreen = observer((props: LoginProps) => {
     login(email, password);
   };
 
-  const navigateToRegister = () => {};
+  const navigateToRegister = () => {
+    const currRouteName = props.route.name;
+    navigation.navigate('authModal.register', { prevScreen: currRouteName });
+  };
 
   return (
     <SafeAreaView style={commonStyles.FULL}>

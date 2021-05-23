@@ -15,9 +15,11 @@ const TextField = (props: TextFieldProps) => {
   const focusStyle = focus ? ({ borderWidth: 1, borderColor: colors.black } as TextStyle) : {};
   const textFieldStyle = flatten([presets[preset], focusStyle, overrideStyle]);
 
+  const labelStyle = focus ? ({ color: colors.black } as TextStyle) : {};
+
   return (
     <View style={{ position: 'relative' }}>
-      <Text style={FIELD_LABEL}>{label}</Text>
+      <Text style={[FIELD_LABEL, labelStyle]}>{label}</Text>
       <TextInput
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}

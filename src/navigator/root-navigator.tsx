@@ -5,7 +5,7 @@ import BottomTabNavigator from './bottom-tab-navigator';
 import { AuthModalStack } from '../modules';
 
 type RootParams = {
-  bottomStack: undefined;
+  bottomTabStack: undefined;
   authModal: undefined;
 };
 
@@ -14,7 +14,7 @@ const RootStack = createStackNavigator<RootParams>();
 const RootNavigator = () => (
   <NavigationContainer>
     <RootStack.Navigator mode="modal" headerMode="none">
-      <RootStack.Screen name="bottomStack" component={BottomTabNavigator} />
+      <RootStack.Screen name="bottomTabStack" component={BottomTabNavigator} />
       <RootStack.Screen name="authModal" component={AuthModalStack} />
     </RootStack.Navigator>
   </NavigationContainer>
