@@ -19,16 +19,20 @@ export const AuthStore = types
   })
   .views((self) => ({
     get isAuthenticated() {
-      console.log('self.uid', self.uid);
-      console.log('self.access_token', self.access_token);
-      return self.uid;
+      return !!(self.uid && self.access_token);
     },
   }))
   .actions((self) => ({
-    setAuth(user: FirebaseAuthTypes.User | null) {
-      self.uid = user?.uid || '';
-      //   self.access_token = (await user?.getIdToken()) || '';
-    },
+    setAuth: flow(function* setAuth(user: FirebaseAuthTypes.User | null) {
+      if (user) {
+        self.uid = user.uid;
+        self.access_token = yield user.getIdToken();
+        return;
+      }
+      self.uid = '';
+      self.access_token = '';
+    }),
+
     login: flow(function* login(email: string, password: string) {
       self.isLoading = true;
       yield* toGenerator(firebaseLogin(email, password));
@@ -36,6 +40,7 @@ export const AuthStore = types
 
       // TODO: set error firebase error message
     }),
+
     logout: flow(function* logout() {
       yield* toGenerator(firebaseLogout());
     }),
