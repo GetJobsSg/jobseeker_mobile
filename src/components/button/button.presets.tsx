@@ -5,7 +5,7 @@ const BASE: ViewStyle = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  paddingVertical: spacing.md,
+  paddingVertical: spacing.sm + spacing.xs,
   paddingHorizontal: spacing.xl,
   backgroundColor: colors.primary,
 };
@@ -32,12 +32,14 @@ export const btnPresets = {
 export const btnTextPresets = {
   primary: {
     color: colors.white,
-    fontWeight: '600',
+    fontWeight: '500',
+    letterSpacing: 1.2,
   } as TextStyle,
 
   outlined: {
     color: colors.primary,
-    fontWeight: '600',
+    fontWeight: '500',
+    letterSpacing: 1.2,
   } as TextStyle,
 };
 
