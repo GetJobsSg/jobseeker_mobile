@@ -44,7 +44,6 @@ export const AuthStore = types
         ...data,
         first_name: data.firstName,
         last_name: data.lastName,
-        mobile: '90449045', // TO REMOVE THIS
       };
       try {
         self.error = null;
