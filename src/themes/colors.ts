@@ -3,6 +3,7 @@ export const colors = {
   black: '#000',
   white: '#fff',
   transparent: 'rgba(0, 0, 0, 0)',
+  semiTransparent: 'rgba(255, 255, 255, 0.5)',
 
   // main
   primary: '#003647',
@@ -21,4 +22,5 @@ export const colors = {
   textPrimary: '#000',
   textSecondary: '#707070',
   textLight: '#bbb',
+  textDanger: '#ff0000',
 };

@@ -18,15 +18,30 @@ const BORDER: ViewStyle = {
 
 export const btnPresets = {
   primary: {
-    ...BASE,
-    ...BORDER,
-  } as ViewStyle,
+    normal: {
+      ...BASE,
+      ...BORDER,
+    } as ViewStyle,
+    disabled: {
+      ...BASE,
+      ...BORDER,
+      opacity: 0.6,
+    } as ViewStyle,
+  },
 
   outlined: {
-    ...BASE,
-    ...BORDER,
-    backgroundColor: colors.transparent,
-  } as ViewStyle,
+    normal: {
+      ...BASE,
+      ...BORDER,
+      backgroundColor: colors.transparent,
+    } as ViewStyle,
+    disabled: {
+      ...BASE,
+      ...BORDER,
+      backgroundColor: colors.transparent,
+      opacity: 0.2,
+    } as ViewStyle,
+  },
 };
 
 export const btnTextPresets = {

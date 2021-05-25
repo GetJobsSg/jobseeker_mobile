@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
     color: colors.lightGrey2,
   },
   iconStyle: {
-    width: 24,
-    height: 24,
+    width: 26,
+    height: 26,
   },
 });
 
@@ -33,12 +33,13 @@ const Tab = createBottomTabNavigator<BottomTabParams>();
 const BottomTabNavigator = () => (
   <Tab.Navigator
     initialRouteName="homeStack"
-    tabBarOptions={{ inactiveTintColor: colors.darkGrey0, activeTintColor: colors.primary, showLabel: false }}
+    tabBarOptions={{ inactiveTintColor: colors.darkGrey0, activeTintColor: colors.primary, showLabel: true }}
   >
     <Tab.Screen
       name="homeStack"
       component={HomeStack}
       options={{
+        tabBarLabel: 'Home',
         tabBarIcon: ({ focused }: any) =>
           focused ? (
             <Icon icon="home_active" style={styles.iconStyle} />
@@ -51,6 +52,7 @@ const BottomTabNavigator = () => (
       name="myjobStack"
       component={MyJobStack}
       options={{
+        tabBarLabel: 'MyJobs',
         tabBarIcon: ({ focused }: any) =>
           focused ? (
             <Icon icon="myjobs_active" style={styles.iconStyle} />
@@ -63,6 +65,7 @@ const BottomTabNavigator = () => (
       name="inboxStack"
       component={InboxStack}
       options={{
+        tabBarLabel: 'Inbox',
         tabBarIcon: ({ focused }: any) =>
           focused ? (
             <Icon icon="inbox_active" style={styles.iconStyle} />
@@ -75,6 +78,7 @@ const BottomTabNavigator = () => (
       name="accountStack"
       component={AccountStack}
       options={{
+        tabBarLabel: 'Account',
         tabBarIcon: ({ focused }: any) =>
           focused ? (
             <Icon icon="account_active" style={styles.iconStyle} />

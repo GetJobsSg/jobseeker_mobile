@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { TextStyle, View } from 'react-native';
+import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
+import { Formik, FormikHelpers } from 'formik';
 import { colors, spacing } from '../../../themes';
 import { Button, Text, TextField } from '../../../components';
 import { commonStyles } from '../../../common';
-import { LoginProps } from './types';
+import { LoginProps, LoginFormData } from './types';
 import { useMst } from '../../../store';
+import { loginValidationSchema } from './validation';
 
-const DEFAULT_FONTS: TextStyle = {
-  fontSize: 26,
-  fontWeight: 'bold',
+const initialValues: LoginFormData = {
+  email: '',
+  password: '',
 };
 
 const LoginScreen = observer((props: LoginProps) => {
   const { navigation } = props;
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [validationRequred, setOnChangeValidation] = useState(false);
 
   const {
     authStore: { isAuthenticated, login },
@@ -29,9 +29,11 @@ const LoginScreen = observer((props: LoginProps) => {
     }
   }, [navigation, isAuthenticated]);
 
-  const handleLogin = () => {
-    // TODO1 : add validation
-    // TODO2 : add snackbar component to display error message
+  const handleFormSubmit = (value: LoginFormData, action: FormikHelpers<LoginFormData>) => {
+    const { setSubmitting } = action;
+    const { email, password } = value;
+
+    setSubmitting(true);
     login(email, password);
   };
 
@@ -42,29 +44,59 @@ const LoginScreen = observer((props: LoginProps) => {
 
   return (
     <SafeAreaView style={commonStyles.FULL}>
-      <View style={[commonStyles.FULL, commonStyles.CONTAINER]}>
-        <Text preset="header" style={[DEFAULT_FONTS]}>
-          Login
-        </Text>
+      <Formik
+        validateOnChange={validationRequred}
+        initialValues={initialValues}
+        onSubmit={handleFormSubmit}
+        validationSchema={loginValidationSchema}
+      >
+        {({ dirty, handleChange, values, isValid, errors, handleSubmit, touched }) => (
+          <View style={[commonStyles.FULL, commonStyles.CONTAINER]}>
+            <Text preset="header">Login</Text>
 
-        <TextField
-          label="Email"
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        <TextField label="Password" onChangeText={(text) => setPassword(text)} value={password} secureTextEntry />
+            <TextField
+              error={{
+                shown: touched.email && errors.email,
+                message: errors.email,
+              }}
+              label="Email"
+              onChangeText={handleChange('email')}
+              value={values.email}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
 
-        <Button preset="outlined" block label="login" onPress={handleLogin} />
+            <TextField
+              error={{
+                shown: touched.password && errors.password,
+                message: errors.password,
+              }}
+              label="Password"
+              onChangeText={handleChange('password')}
+              value={values.password}
+              secureTextEntry
+            />
 
-        <Text
-          style={{ color: colors.darkBlue0, marginTop: spacing.lg, textAlign: 'right' }}
-          onPress={navigateToRegister}
-        >
-          Create Account
-        </Text>
-      </View>
+            <Button
+              preset="outlined"
+              block
+              disabled={!isValid || !dirty}
+              label="Login"
+              onPress={() => {
+                setOnChangeValidation(true);
+                handleSubmit();
+              }}
+            />
+
+            <Text
+              style={{ color: colors.darkBlue0, marginTop: spacing.lg, textAlign: 'right' }}
+              onPress={navigateToRegister}
+            >
+              Create Account
+            </Text>
+          </View>
+        )}
+      </Formik>
     </SafeAreaView>
   );
 });

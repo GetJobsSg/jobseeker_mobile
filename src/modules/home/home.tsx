@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextStyle, View, ViewStyle } from 'react-native';
+import { StatusBar, Text, TextStyle, View, ViewStyle } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -27,6 +27,7 @@ const Stack = createStackNavigator<HomeParamList>();
 
 const Home = () => (
   <SafeAreaView style={FULL}>
+    <StatusBar barStyle="dark-content" />
     <View style={[FULL, CENTER]}>
       <Text style={[DEFAULT_FONTS]}>Hello Home</Text>
     </View>

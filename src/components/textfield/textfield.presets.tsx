@@ -6,7 +6,6 @@ const BASE = {
   paddingTop: spacing.xl,
   paddingBottom: spacing.sm,
   paddingHorizontal: spacing.sm,
-  marginBottom: spacing.md,
   color: colors.black,
   fontWeight: '600',
   fontSize: fontSize.xs,

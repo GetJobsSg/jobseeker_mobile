@@ -1,5 +1,5 @@
 import { TextStyle } from 'react-native';
-import { colors, fontSize } from '../../themes';
+import { colors, fontSize, spacing } from '../../themes';
 
 export const FIELD_LABEL: TextStyle = {
   position: 'absolute',
@@ -10,4 +10,11 @@ export const FIELD_LABEL: TextStyle = {
   color: colors.textSecondary,
   fontWeight: '300',
   marginTop: -10,
+};
+
+export const ERROR_HINTS: TextStyle = {
+  color: colors.textDanger,
+  fontSize: fontSize.xxs,
+  marginTop: spacing.xxs,
+  marginBottom: spacing.sm,
 };

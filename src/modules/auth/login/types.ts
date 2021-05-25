@@ -11,3 +11,8 @@ export type LoginProps = {
   route: LoginScreenRouteProps;
   navigation: LoginScreenNavigateProps;
 };
+
+export interface LoginFormData {
+  email: string;
+  password: string;
+}
