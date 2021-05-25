@@ -40,15 +40,11 @@ export const AuthStore = types
     }),
 
     register: flow(function* register(data: FormDataTypeOmit) {
-      const transformedData = {
-        ...data,
-        first_name: data.firstName,
-        last_name: data.lastName,
-      };
+      const transformed = { ...data, first_name: data.firstName, last_name: data.lastName };
       try {
         self.error = null;
         self.isLoadingRegister = true;
-        yield* toGenerator(registerUser(transformedData));
+        yield* toGenerator(registerUser(transformed));
         self.isLoadingRegister = false;
       } catch (e) {
         self.error = e;

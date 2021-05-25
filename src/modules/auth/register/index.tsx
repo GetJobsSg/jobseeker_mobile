@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
+import { Formik, FormikHelpers } from 'formik';
 import { useMst } from '../../../store';
 import { Button, Text, TextField } from '../../../components';
 import { commonStyles } from '../../../common';
-import { FormDataType, FieldType, RegisterProps } from './types';
+import { RegisterFormData, RegisterProps } from './types';
 import { usePrevious } from '../../../custom_hooks';
+import { registerValidationSchema } from './validation';
 
-const initialFormData: FormDataType = {
+const initialValues: RegisterFormData = {
   email: '',
   password: '',
   cPassword: '',
@@ -17,11 +19,12 @@ const initialFormData: FormDataType = {
 };
 
 const RegisterScreen = observer((props: RegisterProps) => {
-  const [formData, setFormData] = useState<FormDataType>(initialFormData);
   const [success, setSuccess] = useState(false);
   const {
     authStore: { register, error, isLoadingRegister },
   } = useMst();
+
+  const [validationRequred, setOnChangeValidation] = useState(false);
 
   const previous = usePrevious({ isLoadingRegister, error });
   useEffect(() => {
@@ -34,17 +37,11 @@ const RegisterScreen = observer((props: RegisterProps) => {
     }
   }, [previous, isLoadingRegister, error]);
 
-  const handleRegister = () => {
-    // TODO: validation
-    const { cPassword, ...rest } = formData;
+  const handleFormSubmit = (values: RegisterFormData, action: FormikHelpers<RegisterFormData>) => {
+    const { setSubmitting } = action;
+    const { cPassword, ...rest } = values; // omit cPassword
+    setSubmitting(true);
     register(rest);
-  };
-
-  const handleOnChange = (fieldName: FieldType) => (text: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [fieldName]: text,
-    }));
   };
 
   const handlePostRegisterLogin = () => {
@@ -64,46 +61,85 @@ const RegisterScreen = observer((props: RegisterProps) => {
     <SafeAreaView style={commonStyles.FULL}>
       <View style={[commonStyles.FULL, commonStyles.CONTAINER]}>
         {!success && (
-          <>
-            <Text preset="header">Create Account</Text>
-            <TextField
-              label="Email"
-              onChangeText={handleOnChange('email')}
-              value={formData.email}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              returnKeyType="next"
-            />
-            <TextField
-              label="Password"
-              onChangeText={handleOnChange('password')}
-              value={formData.password}
-              secureTextEntry
-              returnKeyType="next"
-            />
-            <TextField
-              label="Confirm Password"
-              onChangeText={handleOnChange('cPassword')}
-              value={formData.cPassword}
-              secureTextEntry
-              returnKeyType="next"
-            />
-            <TextField
-              label="First Name"
-              onChangeText={handleOnChange('firstName')}
-              value={formData.firstName}
-              autoCapitalize="none"
-              returnKeyType="next"
-            />
-            <TextField
-              label="Last Name"
-              onChangeText={handleOnChange('lastName')}
-              value={formData.lastName}
-              autoCapitalize="none"
-              returnKeyType="done"
-            />
-            <Button block preset="primary" label="Create Account" onPress={handleRegister} style={{ marginTop: 10 }} />
-          </>
+          <Formik
+            validateOnChange={validationRequred}
+            initialValues={initialValues}
+            onSubmit={handleFormSubmit}
+            validationSchema={registerValidationSchema}
+          >
+            {({ dirty, handleChange, values, isValid, errors, handleSubmit, touched }) => (
+              <>
+                <Text preset="header">Create Account</Text>
+                <TextField
+                  error={{
+                    shown: touched.email && errors.email,
+                    message: errors.email,
+                  }}
+                  label="Email"
+                  onChangeText={handleChange('email')}
+                  value={values.email}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  returnKeyType="next"
+                />
+                <TextField
+                  error={{
+                    shown: touched.password && errors.password,
+                    message: errors.password,
+                  }}
+                  label="Password"
+                  onChangeText={handleChange('password')}
+                  value={values.password}
+                  secureTextEntry
+                  returnKeyType="next"
+                />
+                <TextField
+                  error={{
+                    shown: touched.cPassword && errors.cPassword,
+                    message: errors.cPassword,
+                  }}
+                  label="Confirm Password"
+                  onChangeText={handleChange('cPassword')}
+                  value={values.cPassword}
+                  secureTextEntry
+                  returnKeyType="next"
+                />
+                <TextField
+                  error={{
+                    shown: touched.firstName && errors.firstName,
+                    message: errors.firstName,
+                  }}
+                  label="First Name"
+                  onChangeText={handleChange('firstName')}
+                  value={values.firstName}
+                  autoCapitalize="none"
+                  returnKeyType="next"
+                />
+                <TextField
+                  error={{
+                    shown: touched.lastName && errors.lastName,
+                    message: errors.lastName,
+                  }}
+                  label="Last Name"
+                  onChangeText={handleChange('lastName')}
+                  value={values.lastName}
+                  autoCapitalize="none"
+                  returnKeyType="done"
+                />
+                <Button
+                  block
+                  disabled={!dirty || !isValid}
+                  preset="primary"
+                  label="Create Account"
+                  onPress={() => {
+                    setOnChangeValidation(true);
+                    handleSubmit();
+                  }}
+                  style={{ marginTop: 10 }}
+                />
+              </>
+            )}
+          </Formik>
         )}
 
         {success && (

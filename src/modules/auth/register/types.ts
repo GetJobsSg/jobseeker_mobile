@@ -7,7 +7,7 @@ type RouteName = 'authModal.register';
 type RegisterScreenRouteProps = RouteProp<AuthModalStackParamList, RouteName>;
 type RegisterScreenNavigateProps = StackNavigationProp<AuthModalStackParamList, RouteName>;
 
-export interface FormDataType {
+export interface RegisterFormData {
   email: string;
   password: string;
   cPassword: string;
@@ -15,9 +15,7 @@ export interface FormDataType {
   lastName: string;
 }
 
-export type FormDataTypeOmit = Omit<FormDataType, 'cPassword'>;
-
-export type FieldType = keyof FormDataType;
+export type FormDataTypeOmit = Omit<RegisterFormData, 'cPassword'>;
 
 export type RegisterProps = {
   route: RegisterScreenRouteProps;
