@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { Formik, FormikHelpers } from 'formik';
+import Toast from 'react-native-toast-message';
 import { useMst } from '../../../store';
 import { Button, Text, TextField } from '../../../components';
 import { commonStyles } from '../../../common';
@@ -32,8 +33,18 @@ const RegisterScreen = observer((props: RegisterProps) => {
     if (!previous) return;
 
     // user successfully register
-    if (previous.isLoadingRegister !== isLoadingRegister && !isLoadingRegister && !error) {
+    if (previous.isLoadingRegister !== isLoadingRegister && !isLoadingRegister && error === '') {
       setSuccess(true);
+    }
+
+    // display registration error
+    if (previous.isLoadingRegister !== isLoadingRegister && !isLoadingRegister && error) {
+      Toast.show({
+        type: 'error',
+        visibilityTime: 5000,
+        position: 'bottom',
+        text1: error,
+      });
     }
   }, [previous, isLoadingRegister, error]);
 
@@ -128,7 +139,7 @@ const RegisterScreen = observer((props: RegisterProps) => {
                 />
                 <Button
                   block
-                  disabled={!dirty || !isValid}
+                  disabled={!dirty || !isValid || isLoadingRegister}
                   preset="primary"
                   label="Create Account"
                   onPress={() => {
@@ -143,10 +154,10 @@ const RegisterScreen = observer((props: RegisterProps) => {
         )}
 
         {success && (
-          <>
-            <Text>You have successfully register. Login now</Text>
-            <Button block preset="primary" label="Login" onPress={handlePostRegisterLogin} style={{ marginTop: 10 }} />
-          </>
+          <View style={[commonStyles.CENTER, commonStyles.FULL]}>
+            <Text style={{ maxWidth: 250, textAlign: 'center' }}>You have successfully register. Login now.</Text>
+            <Button preset="primary" label="Login" onPress={handlePostRegisterLogin} style={{ marginTop: 10 }} />
+          </View>
         )}
       </View>
     </SafeAreaView>

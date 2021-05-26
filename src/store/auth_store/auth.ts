@@ -3,14 +3,15 @@ import { Instance, SnapshotOut, types, flow, toGenerator } from 'mobx-state-tree
 import { firebaseLogin, firebaseLogout } from '../../utils/firebase';
 import { registerUser } from '../../apis';
 import { FormDataTypeOmit } from '../../modules/auth/register/types';
+import { withErrorHandler } from '../extensions/errorsHandler';
 
-const initialState: Partial<Auth> = {
+const initialState = {
   uid: '',
   access_token: '',
   isLoadingLogin: false,
   isLoadingLogout: false,
   isLoadingRegister: false,
-  error: null,
+  error: '',
 };
 
 export const AuthStore = types
@@ -21,13 +22,14 @@ export const AuthStore = types
     isLoadingLogin: types.optional(types.boolean, false),
     isLoadingLogout: types.optional(types.boolean, false),
     isLoadingRegister: types.optional(types.boolean, false),
-    error: types.maybeNull(types.string),
+    error: types.optional(types.string, ''),
   })
   .views((self) => ({
     get isAuthenticated() {
       return !!(self.uid && self.access_token);
     },
   }))
+  .extend(withErrorHandler)
   .actions((self) => ({
     setAuth: flow(function* setAuth(user: FirebaseAuthTypes.User | null) {
       if (user) {
@@ -42,40 +44,43 @@ export const AuthStore = types
     register: flow(function* register(data: FormDataTypeOmit) {
       const transformed = { ...data, first_name: data.firstName, last_name: data.lastName };
       try {
-        self.error = null;
+        self.error = '';
         self.isLoadingRegister = true;
         yield* toGenerator(registerUser(transformed));
-        self.isLoadingRegister = false;
       } catch (e) {
-        self.error = e;
+        self.error = self.getErrMsg(e);
+      } finally {
+        self.isLoadingRegister = false;
       }
     }),
 
     login: flow(function* login(email: string, password: string) {
       try {
-        self.error = null;
+        self.error = '';
         self.isLoadingLogin = true;
         yield* toGenerator(firebaseLogin(email, password));
-        self.isLoadingLogin = false;
       } catch (e) {
-        self.error = e.code;
+        self.error = self.getErrMsg(e);
+      } finally {
+        self.isLoadingLogin = false;
       }
     }),
 
     logout: flow(function* logout() {
       try {
-        self.error = null;
+        self.error = '';
         self.isLoadingLogout = true;
         yield* toGenerator(firebaseLogout());
-        self.isLoadingLogout = false;
       } catch (e) {
-        self.error = e.code;
+        self.error = self.getErrMsg(e);
+      } finally {
+        self.isLoadingLogout = false;
       }
     }),
   }));
 
-// initial state
-AuthStore.create(initialState);
+// authStore initial state
+export const authInitialState = AuthStore.create(initialState);
 
 type AuthStoreInstance = Instance<typeof AuthStore>;
 export interface Auth extends AuthStoreInstance {}

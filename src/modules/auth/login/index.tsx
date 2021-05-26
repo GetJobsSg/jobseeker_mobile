@@ -3,12 +3,14 @@ import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { Formik, FormikHelpers } from 'formik';
+import Toast from 'react-native-toast-message';
 import { colors, spacing } from '../../../themes';
 import { Button, Text, TextField } from '../../../components';
 import { commonStyles } from '../../../common';
 import { LoginProps, LoginFormData } from './types';
 import { useMst } from '../../../store';
 import { loginValidationSchema } from './validation';
+import { usePrevious } from '../../../custom_hooks';
 
 const initialValues: LoginFormData = {
   email: '',
@@ -20,14 +22,31 @@ const LoginScreen = observer((props: LoginProps) => {
   const [validationRequred, setOnChangeValidation] = useState(false);
 
   const {
-    authStore: { isAuthenticated, login },
+    authStore: { isAuthenticated, login, isLoadingLogin, error },
   } = useMst();
 
   useEffect(() => {
+    // successfully login
     if (isAuthenticated) {
       navigation.goBack();
     }
   }, [navigation, isAuthenticated]);
+
+  const previous = usePrevious({ isLoadingLogin, error });
+  useEffect(() => {
+    // do nothing if undefined
+    if (!previous) return;
+
+    // display login error
+    if (previous?.isLoadingLogin !== isLoadingLogin && !isLoadingLogin && error !== '') {
+      Toast.show({
+        type: 'error',
+        visibilityTime: 5000,
+        position: 'bottom',
+        text1: error,
+      });
+    }
+  }, [previous, isLoadingLogin, error]);
 
   const handleFormSubmit = (value: LoginFormData, action: FormikHelpers<LoginFormData>) => {
     const { setSubmitting } = action;
@@ -80,7 +99,7 @@ const LoginScreen = observer((props: LoginProps) => {
             <Button
               preset="outlined"
               block
-              disabled={!isValid || !dirty}
+              disabled={!isValid || !dirty || isLoadingLogin}
               label="Login"
               onPress={() => {
                 setOnChangeValidation(true);
