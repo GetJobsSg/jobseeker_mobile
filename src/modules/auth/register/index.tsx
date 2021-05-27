@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { Formik, FormikHelpers } from 'formik';
 import Toast from 'react-native-toast-message';
 import { useMst } from '../../../store';
-import { Button, Text, TextField } from '../../../components';
+import { Button, Screen, Text, TextField } from '../../../components';
 import { commonStyles } from '../../../common';
 import { RegisterFormData, RegisterProps } from './types';
 import { usePrevious } from '../../../custom_hooks';
@@ -69,98 +68,98 @@ const RegisterScreen = observer((props: RegisterProps) => {
   };
 
   return (
-    <SafeAreaView style={commonStyles.FULL}>
-      <View style={[commonStyles.FULL, commonStyles.CONTAINER]}>
-        {!success && (
-          <Formik
-            validateOnChange={validationRequred}
-            initialValues={initialValues}
-            onSubmit={handleFormSubmit}
-            validationSchema={registerValidationSchema}
-          >
-            {({ dirty, handleChange, values, isValid, errors, handleSubmit, touched }) => (
-              <>
-                <Text preset="header">Create Account</Text>
-                <TextField
-                  error={{
-                    shown: touched.email && errors.email,
-                    message: errors.email,
-                  }}
-                  label="Email"
-                  onChangeText={handleChange('email')}
-                  value={values.email}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  returnKeyType="next"
-                />
-                <TextField
-                  error={{
-                    shown: touched.password && errors.password,
-                    message: errors.password,
-                  }}
-                  label="Password"
-                  onChangeText={handleChange('password')}
-                  value={values.password}
-                  secureTextEntry
-                  returnKeyType="next"
-                />
-                <TextField
-                  error={{
-                    shown: touched.cPassword && errors.cPassword,
-                    message: errors.cPassword,
-                  }}
-                  label="Confirm Password"
-                  onChangeText={handleChange('cPassword')}
-                  value={values.cPassword}
-                  secureTextEntry
-                  returnKeyType="next"
-                />
-                <TextField
-                  error={{
-                    shown: touched.firstName && errors.firstName,
-                    message: errors.firstName,
-                  }}
-                  label="First Name"
-                  onChangeText={handleChange('firstName')}
-                  value={values.firstName}
-                  autoCapitalize="none"
-                  returnKeyType="next"
-                />
-                <TextField
-                  error={{
-                    shown: touched.lastName && errors.lastName,
-                    message: errors.lastName,
-                  }}
-                  label="Last Name"
-                  onChangeText={handleChange('lastName')}
-                  value={values.lastName}
-                  autoCapitalize="none"
-                  returnKeyType="done"
-                />
-                <Button
-                  block
-                  disabled={!dirty || !isValid || isLoadingRegister}
-                  preset="primary"
-                  label="Create Account"
-                  onPress={() => {
-                    setOnChangeValidation(true);
-                    handleSubmit();
-                  }}
-                  style={{ marginTop: 10 }}
-                />
-              </>
-            )}
-          </Formik>
-        )}
+    <Screen preset="scroll">
+      {!success && (
+        <Formik
+          validateOnChange={validationRequred}
+          initialValues={initialValues}
+          onSubmit={handleFormSubmit}
+          validationSchema={registerValidationSchema}
+        >
+          {({ dirty, handleChange, values, isValid, errors, handleSubmit, touched }) => (
+            <>
+              <Text preset="header">Create Account</Text>
+              <TextField
+                error={{
+                  shown: touched.email && errors.email,
+                  message: errors.email,
+                }}
+                label="Email"
+                onChangeText={handleChange('email')}
+                value={values.email}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                returnKeyType="next"
+              />
+              <TextField
+                autoCapitalize="none"
+                error={{
+                  shown: touched.password && errors.password,
+                  message: errors.password,
+                }}
+                label="Password"
+                onChangeText={handleChange('password')}
+                value={values.password}
+                secureTextEntry
+                returnKeyType="next"
+              />
+              <TextField
+                autoCapitalize="none"
+                error={{
+                  shown: touched.cPassword && errors.cPassword,
+                  message: errors.cPassword,
+                }}
+                label="Confirm Password"
+                onChangeText={handleChange('cPassword')}
+                value={values.cPassword}
+                secureTextEntry
+                returnKeyType="next"
+              />
+              <TextField
+                error={{
+                  shown: touched.firstName && errors.firstName,
+                  message: errors.firstName,
+                }}
+                label="First Name"
+                onChangeText={handleChange('firstName')}
+                value={values.firstName}
+                autoCapitalize="none"
+                returnKeyType="next"
+              />
+              <TextField
+                error={{
+                  shown: touched.lastName && errors.lastName,
+                  message: errors.lastName,
+                }}
+                label="Last Name"
+                onChangeText={handleChange('lastName')}
+                value={values.lastName}
+                autoCapitalize="none"
+                returnKeyType="done"
+              />
+              <Button
+                block
+                disabled={!dirty || !isValid || isLoadingRegister}
+                preset="primary"
+                label="Create Account"
+                onPress={() => {
+                  setOnChangeValidation(true);
+                  handleSubmit();
+                }}
+                style={{ marginTop: 10 }}
+              />
+            </>
+          )}
+        </Formik>
+      )}
 
-        {success && (
-          <View style={[commonStyles.CENTER, commonStyles.FULL]}>
-            <Text style={{ maxWidth: 250, textAlign: 'center' }}>You have successfully register. Login now.</Text>
-            <Button preset="primary" label="Login" onPress={handlePostRegisterLogin} style={{ marginTop: 10 }} />
-          </View>
-        )}
-      </View>
-    </SafeAreaView>
+      {success && (
+        <View style={[commonStyles.CENTER, commonStyles.FULL]}>
+          <Text style={{ maxWidth: 250, textAlign: 'center' }}>You have successfully register. Login now.</Text>
+          <Button preset="primary" label="Login" onPress={handlePostRegisterLogin} style={{ marginTop: 10 }} />
+        </View>
+      )}
+    </Screen>
   );
 });
 

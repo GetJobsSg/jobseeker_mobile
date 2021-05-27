@@ -1,23 +1,13 @@
 import React from 'react';
-import { View, ViewStyle } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { spacing, colors } from '../../themes';
-import { Button, Text } from '../../components';
+import { Button, Text, Screen } from '../../components';
 import { useMst } from '../../store';
 
 type AccountParamList = {
   account: undefined;
-};
-
-const FULL: ViewStyle = {
-  flex: 1,
-};
-
-const CONTAINER: ViewStyle = {
-  paddingHorizontal: spacing.lg,
 };
 
 const Stack = createStackNavigator<AccountParamList>();
@@ -70,9 +60,9 @@ const Account = observer(() => {
   } = useMst();
 
   return (
-    <SafeAreaView style={FULL}>
-      <View style={[FULL, CONTAINER]}>{isAuthenticated ? <ProfileHeader /> : <LoginHeader />}</View>
-    </SafeAreaView>
+    <Screen preset={isAuthenticated ? 'scroll' : 'fixed'}>
+      {isAuthenticated ? <ProfileHeader /> : <LoginHeader />}
+    </Screen>
   );
 });
 

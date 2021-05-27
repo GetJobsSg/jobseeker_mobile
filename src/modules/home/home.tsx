@@ -1,7 +1,7 @@
 import React from 'react';
-import { StatusBar, Text, TextStyle, View, ViewStyle } from 'react-native';
+import { Text, TextStyle, View, ViewStyle } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Screen } from '../../components';
 
 type HomeParamList = {
   home: undefined;
@@ -26,12 +26,11 @@ const DEFAULT_FONTS: TextStyle = {
 const Stack = createStackNavigator<HomeParamList>();
 
 const Home = () => (
-  <SafeAreaView style={FULL}>
-    <StatusBar barStyle="dark-content" />
+  <Screen preset="fixed">
     <View style={[FULL, CENTER]}>
       <Text style={[DEFAULT_FONTS]}>Hello Home</Text>
     </View>
-  </SafeAreaView>
+  </Screen>
 );
 
 const HomeStack = () => (

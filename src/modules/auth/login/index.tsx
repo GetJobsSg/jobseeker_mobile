@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { Formik, FormikHelpers } from 'formik';
 import Toast from 'react-native-toast-message';
 import { colors, spacing } from '../../../themes';
-import { Button, Text, TextField } from '../../../components';
-import { commonStyles } from '../../../common';
+import { Button, Screen, Text, TextField } from '../../../components';
 import { LoginProps, LoginFormData } from './types';
 import { useMst } from '../../../store';
 import { loginValidationSchema } from './validation';
@@ -62,7 +60,7 @@ const LoginScreen = observer((props: LoginProps) => {
   };
 
   return (
-    <SafeAreaView style={commonStyles.FULL}>
+    <Screen preset="fixed">
       <Formik
         validateOnChange={validationRequred}
         initialValues={initialValues}
@@ -70,7 +68,7 @@ const LoginScreen = observer((props: LoginProps) => {
         validationSchema={loginValidationSchema}
       >
         {({ dirty, handleChange, values, isValid, errors, handleSubmit, touched }) => (
-          <View style={[commonStyles.FULL, commonStyles.CONTAINER]}>
+          <View>
             <Text preset="header">Login</Text>
 
             <TextField
@@ -84,7 +82,6 @@ const LoginScreen = observer((props: LoginProps) => {
               keyboardType="email-address"
               autoCapitalize="none"
             />
-
             <TextField
               error={{
                 shown: touched.password && errors.password,
@@ -94,8 +91,8 @@ const LoginScreen = observer((props: LoginProps) => {
               onChangeText={handleChange('password')}
               value={values.password}
               secureTextEntry
+              autoCapitalize="none"
             />
-
             <Button
               preset="outlined"
               block
@@ -116,7 +113,7 @@ const LoginScreen = observer((props: LoginProps) => {
           </View>
         )}
       </Formik>
-    </SafeAreaView>
+    </Screen>
   );
 });
 

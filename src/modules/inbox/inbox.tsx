@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, TextStyle, View, ViewStyle } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Screen } from '../../components';
 
 type InboxParamList = {
   inbox: undefined;
@@ -26,11 +26,11 @@ const DEFAULT_FONTS: TextStyle = {
 const Stack = createStackNavigator<InboxParamList>();
 
 const Inbox = () => (
-  <SafeAreaView style={FULL}>
+  <Screen preset="fixed">
     <View style={[FULL, CENTER]}>
       <Text style={[DEFAULT_FONTS]}>Hello Inbox</Text>
     </View>
-  </SafeAreaView>
+  </Screen>
 );
 
 const InboxStack = () => (
