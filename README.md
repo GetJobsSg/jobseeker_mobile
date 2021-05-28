@@ -25,7 +25,8 @@ npm run android
 ## IOS
 1. Run command `xcrun instruments -s devices` to list down simulator/device id connected to ur macbook
 2. Go to `package.json` and replace the device name `react-native run-ios --device \"benson’s iPhone\"` to your own ios device name/id
-3. `npm run ios:device`
+3. Configure [code signing](https://reactnative.dev/docs/running-on-device)
+4. `npm run ios:device`
 
 
 ## Android
