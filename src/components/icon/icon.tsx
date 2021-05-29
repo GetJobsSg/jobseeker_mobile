@@ -5,10 +5,11 @@ import icons from './icons';
 
 const Icon = (props: IconProps) => {
   const { containerStyle, icon, style: imageStyle } = props;
+  const iconName = typeof icon === 'string' ? icons[icon] : icons[icon()];
 
   return (
     <View style={containerStyle}>
-      <Image resizeMode="contain" style={imageStyle} source={icons[icon]} />
+      <Image resizeMode="contain" style={imageStyle} source={iconName} />
     </View>
   );
 };

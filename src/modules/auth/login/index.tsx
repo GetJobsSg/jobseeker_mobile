@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { Formik, FormikHelpers } from 'formik';
 import Toast from 'react-native-toast-message';
 import { colors, spacing } from '../../../themes';
-import { Button, Screen, Text, TextField } from '../../../components';
+import { Button, Header, IconButton, Screen, Text, TextField } from '../../../components';
 import { LoginProps, LoginFormData } from './types';
 import { useMst } from '../../../store';
 import { loginValidationSchema } from './validation';
@@ -61,6 +61,7 @@ const LoginScreen = observer((props: LoginProps) => {
 
   return (
     <Screen preset="fixed">
+      <Header leftIcon={<IconButton icon="circle_cross_btn" onPress={() => navigation.goBack()} />} />
       <Formik
         validateOnChange={validationRequred}
         initialValues={initialValues}

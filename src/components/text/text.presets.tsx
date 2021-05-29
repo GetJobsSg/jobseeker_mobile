@@ -12,6 +12,7 @@ export const presets = {
     ...BASE,
     fontWeight: '700',
     fontSize: fontSize.xl,
+    marginTop: spacing.md,
     marginBottom: spacing.lg,
   } as TextStyle,
 

@@ -4,11 +4,12 @@ import { observer } from 'mobx-react-lite';
 import { Formik, FormikHelpers } from 'formik';
 import Toast from 'react-native-toast-message';
 import { useMst } from '../../../store';
-import { Button, Screen, Text, TextField } from '../../../components';
+import { Button, IconButton, Header, Screen, Text, TextField } from '../../../components';
 import { commonStyles } from '../../../common';
 import { RegisterFormData, RegisterProps } from './types';
 import { usePrevious } from '../../../custom_hooks';
 import { registerValidationSchema } from './validation';
+import { IconTypes } from '../../../components/icon/icons';
 
 const initialValues: RegisterFormData = {
   email: '',
@@ -67,8 +68,21 @@ const RegisterScreen = observer((props: RegisterProps) => {
     return navigation.replace('authModal.login', { prevScreen: route.name });
   };
 
+  const isPrevScreenLogin = () => {
+    const { route } = props;
+    const prevScreen = route?.params?.prevScreen;
+    return prevScreen === 'authModal.login';
+  };
+
+  const renderHeaderBtnIcon = (): IconTypes => {
+    if (isPrevScreenLogin()) return 'circle_back_btn';
+    return 'circle_cross_btn';
+  };
+
   return (
     <Screen preset="scroll">
+      <Header leftIcon={<IconButton icon={renderHeaderBtnIcon} onPress={() => props.navigation.goBack()} />} />
+
       {!success && (
         <Formik
           validateOnChange={validationRequred}
