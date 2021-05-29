@@ -16,6 +16,18 @@ export const presets = {
     marginBottom: spacing.lg,
   } as TextStyle,
 
+  title1: {
+    ...BASE,
+    fontSize: fontSize.lg,
+    fontWeight: '600',
+  } as TextStyle,
+
+  title2: {
+    ...BASE,
+    fontSize: fontSize.md,
+    fontWeight: '600',
+  } as TextStyle,
+
   /** A hints display */
   hint: {
     ...BASE,

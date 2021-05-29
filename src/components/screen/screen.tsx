@@ -14,10 +14,10 @@ const Screen = (props: ScreenProps) => {
 
   if (preset === 'scroll') {
     return (
-      <SafeAreaView style={[outer]}>
+      <SafeAreaView style={[outer]} edges={['top']}>
         <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
         <KeyboardAvoidingView behavior={avoidViewBehaviour} style={[outer]}>
-          <View style={[outer, { backgroundColor: colors.black }]}>
+          <View style={[outer]}>
             <ScrollView style={[inner]}>{children}</ScrollView>
           </View>
         </KeyboardAvoidingView>
@@ -26,7 +26,7 @@ const Screen = (props: ScreenProps) => {
   }
 
   return (
-    <SafeAreaView style={[outer]}>
+    <SafeAreaView style={[outer]} edges={['top']}>
       <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
       <KeyboardAvoidingView behavior={avoidViewBehaviour} style={[outer]}>
         <View style={[inner]}>{children}</View>

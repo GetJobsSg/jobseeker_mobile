@@ -12,11 +12,12 @@ const icons = {
   account_active: require('../../assets/icons/bottom_navigator/account-active.png'),
   account_inactive: require('../../assets/icons/bottom_navigator/account-inactive.png'),
 
-  // arrow
-  circle_back_btn: require('../../assets/icons/arrow/circle-back-btn.png'),
-
   // actions
+  circle_back_btn: require('../../assets/icons/actions/circle-back-btn.png'),
   circle_cross_btn: require('../../assets/icons/actions/circle-cross-btn.png'),
+
+  // accounts
+  ic_edit_profile: require('../../assets/icons/account/ic-edit-profile.png'),
 };
 
 export type IconTypes = keyof typeof icons;

@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { spacing, colors } from '../../themes';
-import { Button, Text, Screen } from '../../components';
+import { Button, Text, Screen, ProfileHeader } from '../../components';
 import { useMst } from '../../store';
 
 type AccountParamList = {
@@ -36,32 +36,33 @@ const LoginHeader = () => {
   );
 };
 
-const ProfileHeader = () => {
-  const {
-    authStore: { logout },
-  } = useMst();
+// const ProfileHeader = () => {
+//   const {
+//     authStore: { logout },
+//   } = useMst();
 
-  const handleLogout = () => {
-    // TODO: prompt error messag for user double confirm
-    logout();
-  };
+//   const handleLogout = () => {
+//     // TODO: prompt error messag for user double confirm
+//     logout();
+//   };
 
-  return (
-    <>
-      <Text preset="header">Hi,Benson</Text>
-      <Button preset="outlined" block label="Logout" onPress={handleLogout} />
-    </>
-  );
-};
+//   return (
+//     <>
+//       <Text preset="header">Hi,Benson</Text>
+//       <Button preset="outlined" block label="Logout" onPress={handleLogout} />
+//     </>
+//   );
+// };
 
 const Account = observer(() => {
   const {
-    authStore: { isAuthenticated },
+    authStore: { isAuthenticated, logout },
   } = useMst();
 
   return (
     <Screen preset={isAuthenticated ? 'scroll' : 'fixed'}>
       {isAuthenticated ? <ProfileHeader /> : <LoginHeader />}
+      <Button preset="outlined" block label="Logout" onPress={() => logout()} />
     </Screen>
   );
 });

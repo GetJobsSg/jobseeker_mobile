@@ -7,6 +7,7 @@ export const colors = {
 
   // main
   primary: '#003647',
+  primaryLight: '#007297',
   accent: '#EB3B5E',
 
   // gray series
