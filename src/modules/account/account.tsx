@@ -1,9 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { RefreshControl, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { spacing, colors } from '../../themes';
-import { Button, Text, Screen, ProfileHeader } from '../../components';
+import { Button, Text, Screen, ProfileHeader, ListTile } from '../../components';
 import { useMst } from '../../store';
 
 type AccountParamList = {
@@ -60,8 +61,30 @@ const Account = observer(() => {
   } = useMst();
 
   return (
-    <Screen preset={isAuthenticated ? 'scroll' : 'fixed'}>
+    <Screen
+      refreshControl={<RefreshControl refreshing={false} onRefresh={() => {}} />}
+      preset={isAuthenticated ? 'scroll' : 'fixed'}
+    >
       {isAuthenticated ? <ProfileHeader /> : <LoginHeader />}
+
+      <View>
+        <ListTile
+          leadingIcon="ic_shield_unverified"
+          description="You are not eligible to work. Please complete your worker profile and our recruitment team will approach you to validate your identity."
+          traillingIcons={['ic_arrow_right']}
+          title={<Text style={{ color: colors.textDanger }}>Identity Unverified</Text>}
+          onPress={() => {}}
+        />
+        <ListTile leadingIcon="ic_wallet" traillingIcons={['ic_arrow_right']} title="Wallet" onPress={() => {}} />
+        <ListTile
+          leadingIcon="ic_job_preferences"
+          traillingIcons={['ic_arrow_right']}
+          title="Job Preferences"
+          onPress={() => {}}
+        />
+        <ListTile leadingIcon="ic_settings" traillingIcons={['ic_arrow_right']} title="Settings" onPress={() => {}} />
+      </View>
+
       <Button preset="outlined" block label="Logout" onPress={() => logout()} />
     </Screen>
   );

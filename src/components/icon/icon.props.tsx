@@ -8,6 +8,9 @@ export interface IconProps {
   /** name of the icon */
   icon: IconTypes | IconRenderer;
 
+  /** size of the icon */
+  size?: number;
+
   /** style override for the icon image */
   style?: ImageStyle;
 }

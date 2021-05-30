@@ -14,8 +14,13 @@ const CENTER: ViewStyle = {
   alignItems: 'center',
 };
 
+const ROW: ViewStyle = {
+  flexDirection: 'row',
+};
+
 export const commonStyles = {
   CONTAINER,
   FULL,
   CENTER,
+  ROW,
 };

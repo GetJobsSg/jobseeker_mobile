@@ -19,5 +19,6 @@ module.exports = {
     'react-native/no-inline-styles': 'off',
     'react/jsx-props-no-spreading': 'off',
     'no-param-reassign': 'off',
+    'react/no-array-index-key': 'warn',
   },
 };

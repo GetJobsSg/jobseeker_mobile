@@ -9,7 +9,7 @@ const isIOS = Platform.OS === 'ios';
 const avoidViewBehaviour = isIOS ? 'padding' : undefined;
 
 const Screen = (props: ScreenProps) => {
-  const { children, preset = 'scroll' } = props;
+  const { children, preset = 'scroll', refreshControl } = props;
   const { outer, inner } = presets[preset];
 
   if (preset === 'scroll') {
@@ -18,7 +18,9 @@ const Screen = (props: ScreenProps) => {
         <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
         <KeyboardAvoidingView behavior={avoidViewBehaviour} style={[outer]}>
           <View style={[outer]}>
-            <ScrollView style={[inner]}>{children}</ScrollView>
+            <ScrollView refreshControl={refreshControl} style={[inner]}>
+              {children}
+            </ScrollView>
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>

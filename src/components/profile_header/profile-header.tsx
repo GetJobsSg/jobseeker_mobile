@@ -33,7 +33,7 @@ const ProfileHeader = () => (
             Benson Toh
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: spacing.md }}>
-            <Icon style={{ width: 20, height: 20, marginRight: 10 }} icon="ic_edit_profile" />
+            <Icon size={18} style={{ marginRight: 10 }} icon="ic_edit_profile" />
             <Text
               style={{
                 color: colors.primaryLight,
@@ -58,7 +58,7 @@ const ProfileHeader = () => (
       <View style={{ width: 1, backgroundColor: colors.lightGrey1 }} />
       <StatisticInfo label="Completed" value={10} />
       <View style={{ width: 1, backgroundColor: colors.lightGrey1 }} />
-      <StatisticInfo label="Work Hours" value={74.5} />
+      <StatisticInfo label="Work Hours" value={999.5} />
     </View>
 
     <View style={{ height: 1, backgroundColor: colors.lightGrey1 }} />
