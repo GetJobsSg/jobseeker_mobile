@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AccountStack, HomeStack, InboxStack, MyJobStack } from '../modules';
+import { HomeStack, InboxStack, MyJobStack } from '../modules';
+import { AccountStack } from '../modules/account';
 import { Icon } from '../components';
 import { colors } from '../themes';
 

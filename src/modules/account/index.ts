@@ -1,1 +1,1 @@
-export { default } from './account';
+export { AccountStack } from './navigator';
