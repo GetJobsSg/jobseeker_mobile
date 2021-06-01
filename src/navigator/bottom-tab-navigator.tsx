@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeStack, InboxStack, MyJobStack } from '../modules';
-import { AccountStack } from '../modules/account';
+import { HomeScreen, InboxScreen, MyJobScreen, AccountScreen } from '../modules/bottom_tabs';
 import { Icon } from '../components';
 import { colors } from '../themes';
+import { BottomTabParams } from './types';
+import { Routes } from './routes';
 
 const styles = StyleSheet.create({
   labelActive: {
@@ -22,23 +23,16 @@ const styles = StyleSheet.create({
   },
 });
 
-type BottomTabParams = {
-  homeStack: undefined;
-  myjobStack: undefined;
-  inboxStack: undefined;
-  accountStack: undefined;
-};
-
 const Tab = createBottomTabNavigator<BottomTabParams>();
 
 const BottomTabNavigator = () => (
   <Tab.Navigator
-    initialRouteName="homeStack"
+    initialRouteName={Routes.bottom_tabs_home}
     tabBarOptions={{ inactiveTintColor: colors.darkGrey0, activeTintColor: colors.primary, showLabel: true }}
   >
     <Tab.Screen
-      name="homeStack"
-      component={HomeStack}
+      name={Routes.bottom_tabs_home}
+      component={HomeScreen}
       options={{
         tabBarLabel: 'Home',
         tabBarIcon: ({ focused }: any) =>
@@ -50,8 +44,8 @@ const BottomTabNavigator = () => (
       }}
     />
     <Tab.Screen
-      name="myjobStack"
-      component={MyJobStack}
+      name={Routes.bottom_tabs_myjobs}
+      component={MyJobScreen}
       options={{
         tabBarLabel: 'MyJobs',
         tabBarIcon: ({ focused }: any) =>
@@ -63,8 +57,8 @@ const BottomTabNavigator = () => (
       }}
     />
     <Tab.Screen
-      name="inboxStack"
-      component={InboxStack}
+      name={Routes.bottom_tabs_inbox}
+      component={InboxScreen}
       options={{
         tabBarLabel: 'Inbox',
         tabBarIcon: ({ focused }: any) =>
@@ -76,8 +70,8 @@ const BottomTabNavigator = () => (
       }}
     />
     <Tab.Screen
-      name="accountStack"
-      component={AccountStack}
+      name={Routes.bottom_tabs_account}
+      component={AccountScreen}
       options={{
         tabBarLabel: 'Account',
         tabBarIcon: ({ focused }: any) =>

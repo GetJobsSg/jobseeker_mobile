@@ -10,9 +10,9 @@ export const presets = {
   /** Header title of the screen */
   header: {
     ...BASE,
-    fontWeight: '700',
-    fontSize: fontSize.xl,
-    marginTop: spacing.md,
+    fontWeight: 'bold',
+    fontSize: fontSize.lg,
+    marginTop: spacing.sm,
     marginBottom: spacing.lg,
   } as TextStyle,
 
@@ -33,6 +33,22 @@ export const presets = {
     ...BASE,
     fontSize: fontSize.xs,
     color: colors.textSecondary,
+  } as TextStyle,
+
+  /** material top tab bar active label */
+  topTabActive: {
+    ...BASE,
+    fontSize: fontSize.xxs,
+    color: colors.black,
+    fontWeight: '600',
+  } as TextStyle,
+
+  /** material top tab bar inactive label */
+  topTabInActive: {
+    ...BASE,
+    fontSize: fontSize.xxs,
+    color: colors.lightGrey2,
+    fontWeight: '600',
   } as TextStyle,
 
   /** Default with fontSize:16; fontWeight: 'normal' */

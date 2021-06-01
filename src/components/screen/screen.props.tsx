@@ -9,4 +9,5 @@ export interface ScreenProps {
   refreshControl?: React.ReactElement<RefreshControlProps, string | React.JSXElementConstructor<any>> | undefined;
   withContainer?: boolean;
   unsafeArea?: UnsafeArea[] | null;
+  statusBar?: 'dark-content' | 'light-content';
 }

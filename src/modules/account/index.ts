@@ -1,1 +1,0 @@
-export { AccountStack } from './navigator';

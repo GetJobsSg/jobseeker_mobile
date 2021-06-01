@@ -14,6 +14,5 @@ export const LEFT_WRAPPER = {
 } as ViewStyle;
 
 export const CONTENT = {
-  marginLeft: spacing.md,
   justifyContent: 'center',
 } as ViewStyle;
