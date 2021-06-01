@@ -1,11 +1,7 @@
 import React from 'react';
+import { observer } from 'mobx-react-lite';
 import { Text, TextStyle, View, ViewStyle } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Screen } from '../../components';
-
-type InboxParamList = {
-  inbox: undefined;
-};
+import { Screen } from '../../../components';
 
 const FULL: ViewStyle = {
   flex: 1,
@@ -23,9 +19,7 @@ const DEFAULT_FONTS: TextStyle = {
   fontWeight: 'bold',
 };
 
-const Stack = createStackNavigator<InboxParamList>();
-
-const Inbox = () => (
+const InboxScreen = () => (
   <Screen preset="fixed">
     <View style={[FULL, CENTER]}>
       <Text style={[DEFAULT_FONTS]}>Hello Inbox</Text>
@@ -33,10 +27,4 @@ const Inbox = () => (
   </Screen>
 );
 
-const InboxStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="inbox" component={Inbox} />
-  </Stack.Navigator>
-);
-
-export default InboxStack;
+export default observer(InboxScreen);

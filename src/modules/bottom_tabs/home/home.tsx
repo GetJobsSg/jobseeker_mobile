@@ -1,11 +1,7 @@
 import React from 'react';
+import { observer } from 'mobx-react-lite';
 import { Text, TextStyle, View, ViewStyle } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Screen } from '../../components';
-
-type HomeParamList = {
-  home: undefined;
-};
+import { Screen } from '../../../components';
 
 const FULL: ViewStyle = {
   flex: 1,
@@ -23,9 +19,7 @@ const DEFAULT_FONTS: TextStyle = {
   fontWeight: 'bold',
 };
 
-const Stack = createStackNavigator<HomeParamList>();
-
-const Home = () => (
+const HomeScreen = () => (
   <Screen preset="fixed">
     <View style={[FULL, CENTER]}>
       <Text style={[DEFAULT_FONTS]}>Hello Home</Text>
@@ -33,10 +27,4 @@ const Home = () => (
   </Screen>
 );
 
-const HomeStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="home" component={Home} />
-  </Stack.Navigator>
-);
-
-export default HomeStack;
+export default observer(HomeScreen);

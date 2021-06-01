@@ -11,11 +11,17 @@ const BASE = {
 export const presets = {
   scroll: {
     outer: { ...BASE } as ViewStyle,
-    inner: { ...BASE, paddingHorizontal: spacing.lg } as ViewStyle,
+    inner: {
+      ...BASE,
+      paddingHorizontal: spacing.lg,
+    } as ViewStyle,
   },
   fixed: {
     outer: { ...BASE } as ViewStyle,
-    inner: { ...BASE, paddingHorizontal: spacing.lg } as ViewStyle,
+    inner: {
+      ...BASE,
+      paddingHorizontal: spacing.lg,
+    } as ViewStyle,
   },
 };
 

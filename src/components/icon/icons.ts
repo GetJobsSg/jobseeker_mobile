@@ -12,6 +12,10 @@ const icons = {
   account_active: require('../../assets/icons/bottom_navigator/account-active.png'),
   account_inactive: require('../../assets/icons/bottom_navigator/account-inactive.png'),
 
+  // general
+  circle_warning: require('../../assets/icons/general/circle-warning.png'),
+  circle_done: require('../../assets/icons/general/circle-done.png'),
+
   // actions
   circle_back_btn: require('../../assets/icons/actions/circle-back-btn.png'),
   circle_cross_btn: require('../../assets/icons/actions/circle-cross-btn.png'),

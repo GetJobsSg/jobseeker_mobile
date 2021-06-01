@@ -1,16 +1,19 @@
 import React from 'react';
 import { View, TouchableWithoutFeedback } from 'react-native';
-import { colors, fontSize, spacing } from '../../themes';
+import { useNavigation } from '@react-navigation/native';
+import { colors, spacing } from '../../themes';
 import { Icon, Text } from '..';
 import {
   AVATAR,
   PROFILE_CONTAINER,
   USERINFO_WRAPPER,
   USERNAME,
+  TEXT_EDIT_PROFILE,
   STATISTIC_WRAPPER,
   STATISTIC_INFO_LABEL,
   STATISTIC_INFO_VALUE,
 } from './profile-header.styles';
+import { Routes } from '../../navigator/routes';
 
 interface StatisticInfoProps {
   label: string;
@@ -24,45 +27,38 @@ const StatisticInfo = ({ label, value }: StatisticInfoProps) => (
   </View>
 );
 
-const ProfileHeader = () => (
-  <View style={PROFILE_CONTAINER}>
-    <View style={USERINFO_WRAPPER}>
-      <TouchableWithoutFeedback onPress={() => console.log('edit profile...')}>
-        <View style={{ flex: 0.95 }}>
-          <Text style={USERNAME} numberOfLines={3} preset="title1">
-            Benson Toh
-          </Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: spacing.md }}>
-            <Icon size={18} style={{ marginRight: 10 }} icon="ic_edit_profile" />
-            <Text
-              style={{
-                color: colors.primaryLight,
-                fontWeight: '600',
-                fontSize: fontSize.xs,
-                textDecorationLine: 'underline',
-              }}
-            >
-              Edit Worker Profile
+const ProfileHeader = () => {
+  const navigation = useNavigation();
+  return (
+    <View style={PROFILE_CONTAINER}>
+      <View style={USERINFO_WRAPPER}>
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate(Routes.profile_stack, { screen: Routes.personal_info })}
+        >
+          <View style={{ flex: 1 }}>
+            <Text style={USERNAME} numberOfLines={3} preset="header">
+              Benson Toh Ban Soon
             </Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: spacing.sm }}>
+              <Icon size={18} style={{ marginRight: 10 }} icon="ic_edit_profile" />
+              <Text style={TEXT_EDIT_PROFILE}>Edit Profile</Text>
+            </View>
           </View>
-        </View>
-      </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+        <View style={AVATAR} />
+      </View>
 
-      <View style={AVATAR} />
+      <View style={STATISTIC_WRAPPER}>
+        <StatisticInfo label="Ratings" value={4.5} />
+        <View style={{ width: 1, backgroundColor: colors.lightGrey1 }} />
+        <StatisticInfo label="Completed" value={10} />
+        <View style={{ width: 1, backgroundColor: colors.lightGrey1 }} />
+        <StatisticInfo label="Work Hours" value={999.5} />
+      </View>
+
+      <View style={{ height: 1, backgroundColor: colors.lightGrey1 }} />
     </View>
-
-    <View style={STATISTIC_WRAPPER}>
-      <StatisticInfo label="Ratings" value={4.5} />
-      <View style={{ width: 1, backgroundColor: colors.lightGrey1 }} />
-      <StatisticInfo label="No Show" value={1} />
-      <View style={{ width: 1, backgroundColor: colors.lightGrey1 }} />
-      <StatisticInfo label="Completed" value={10} />
-      <View style={{ width: 1, backgroundColor: colors.lightGrey1 }} />
-      <StatisticInfo label="Work Hours" value={999.5} />
-    </View>
-
-    <View style={{ height: 1, backgroundColor: colors.lightGrey1 }} />
-  </View>
-);
+  );
+};
 
 export default ProfileHeader;

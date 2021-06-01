@@ -3,7 +3,8 @@ import { colors, fontSize, spacing } from '../../themes';
 
 export const PROFILE_CONTAINER = {
   backgroundColor: colors.white,
-  paddingVertical: spacing.lg,
+  paddingTop: spacing.lg,
+  marginBottom: spacing.xl,
 } as ViewStyle;
 
 export const USERINFO_WRAPPER = {
@@ -16,6 +17,14 @@ export const USERINFO_WRAPPER = {
 export const USERNAME = {
   color: colors.black,
   marginRight: spacing.xs,
+  marginTop: spacing.none,
+  marginBottom: spacing.none,
+} as TextStyle;
+
+export const TEXT_EDIT_PROFILE = {
+  color: colors.primaryLight,
+  fontSize: fontSize.xs,
+  textDecorationLine: 'underline',
 } as TextStyle;
 
 export const AVATAR = {
@@ -27,7 +36,7 @@ export const AVATAR = {
 } as ViewStyle;
 
 export const STATISTIC_WRAPPER = {
-  justifyContent: 'space-between',
+  justifyContent: 'space-around',
   flexDirection: 'row',
   marginTop: 25,
   marginBottom: 25,

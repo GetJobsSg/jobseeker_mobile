@@ -9,31 +9,42 @@ const isIOS = Platform.OS === 'ios';
 const avoidViewBehaviour = isIOS ? 'padding' : undefined;
 
 const Screen = (props: ScreenProps) => {
-  const { children, preset = 'scroll', refreshControl } = props;
+  const {
+    children,
+    preset = 'scroll',
+    refreshControl,
+    withContainer = true,
+    unsafeArea = ['top'],
+    statusBar = 'dark-content',
+  } = props;
   const { outer, inner } = presets[preset];
+
+  const contentWrapperStyle = withContainer ? inner : outer;
+
+  const ScreenWrapper = unsafeArea === null || unsafeArea.length === 0 ? View : SafeAreaView;
 
   if (preset === 'scroll') {
     return (
-      <SafeAreaView style={[outer]} edges={['top']}>
-        <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+      <ScreenWrapper style={[outer]} edges={unsafeArea || []}>
+        <StatusBar backgroundColor={colors.white} barStyle={statusBar} />
         <KeyboardAvoidingView behavior={avoidViewBehaviour} style={[outer]}>
           <View style={[outer]}>
-            <ScrollView refreshControl={refreshControl} style={[inner]}>
+            <ScrollView refreshControl={refreshControl} style={[contentWrapperStyle]}>
               {children}
             </ScrollView>
           </View>
         </KeyboardAvoidingView>
-      </SafeAreaView>
+      </ScreenWrapper>
     );
   }
 
   return (
-    <SafeAreaView style={[outer]} edges={['top']}>
-      <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+    <ScreenWrapper style={[outer]} edges={unsafeArea || []}>
+      <StatusBar backgroundColor={colors.white} barStyle={statusBar} />
       <KeyboardAvoidingView behavior={avoidViewBehaviour} style={[outer]}>
-        <View style={[inner]}>{children}</View>
+        <View style={[contentWrapperStyle]}>{children}</View>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 };
 
