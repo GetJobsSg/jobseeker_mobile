@@ -1,11 +1,10 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AuthModalStackParamList } from '../types';
+import { Routes } from '../../../navigator/routes';
 
-type LoginRouteName = 'authModal.login';
-
-type LoginScreenRouteProps = RouteProp<AuthModalStackParamList, LoginRouteName>;
-type LoginScreenNavigateProps = StackNavigationProp<AuthModalStackParamList, LoginRouteName>;
+type LoginScreenRouteProps = RouteProp<AuthModalStackParamList, Routes.authModal_login>;
+type LoginScreenNavigateProps = StackNavigationProp<AuthModalStackParamList, Routes.authModal_login>;
 
 export type LoginProps = {
   route: LoginScreenRouteProps;

@@ -2,16 +2,20 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text, Button } from '../../../components';
 import { spacing, colors } from '../../../themes';
+import { Routes } from '../../../navigator/routes';
 
 const LoginHeader = () => {
   const navigation = useNavigation();
   const { name: routeName } = useRoute();
 
   const toLoginScreen = () =>
-    navigation.navigate('authModal', { screen: 'authModal.login', params: { prevScreen: routeName } });
+    navigation.navigate(Routes.auth_modal_stack, { screen: Routes.authModal_login, params: { prevScreen: routeName } });
 
   const toRegisterScreen = () =>
-    navigation.navigate('authModal', { screen: 'authModal.register', params: { prevScreen: routeName } });
+    navigation.navigate(Routes.auth_modal_stack, {
+      screen: Routes.authModal_register,
+      params: { prevScreen: routeName },
+    });
 
   return (
     <>

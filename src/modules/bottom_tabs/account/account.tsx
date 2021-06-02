@@ -10,7 +10,7 @@ import { Routes } from '../../../navigator/routes';
 
 const Account = () => {
   const {
-    authStore: { isAuthenticated },
+    authStore: { isAuthenticated, getProfile },
   } = useMst();
   const navigation = useNavigation();
 
@@ -35,12 +35,12 @@ const Account = () => {
             title="Wallet"
             onPress={() => navigation.navigate(Routes.wallet_stack, { screen: Routes.wallet_overview })}
           />
-          {/* <ListTile
+          <ListTile
             leadingIcon="ic_job_preferences"
             traillingIcons={['ic_arrow_right']}
             title="Job Preferences"
-            onPress={() => navigation.navigate('profileStack')}
-          /> */}
+            onPress={() => getProfile()}
+          />
           <ListTile
             leadingIcon="ic_settings"
             traillingIcons={['ic_arrow_right']}

@@ -9,6 +9,7 @@ import { LoginProps, LoginFormData } from './types';
 import { useMst } from '../../../store';
 import { loginValidationSchema } from './validation';
 import { usePrevious } from '../../../custom_hooks';
+import { Routes } from '../../../navigator/routes';
 
 const initialValues: LoginFormData = {
   email: '',
@@ -56,7 +57,7 @@ const LoginScreen = observer((props: LoginProps) => {
 
   const navigateToRegister = () => {
     const currRouteName = props.route.name;
-    navigation.navigate('authModal.register', { prevScreen: currRouteName });
+    navigation.navigate(Routes.authModal_register, { prevScreen: currRouteName });
   };
 
   return (

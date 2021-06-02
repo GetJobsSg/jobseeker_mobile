@@ -8,8 +8,12 @@ const AuthProvider: React.FC = (props) => {
   const [authUser, setUser] = useState(null);
   const { children } = props;
 
-  const authChanged = (user: any) => {
+  // create observer to observer user authentication
+  const idTokenChanged = (user: any) => {
     if (user) {
+      // eslint-disable-next-line no-console
+      console.log('token changed...');
+
       // user is logged in
       setUser(user);
     } else {
@@ -21,7 +25,7 @@ const AuthProvider: React.FC = (props) => {
   };
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(authChanged);
+    const subscriber = auth().onIdTokenChanged(idTokenChanged);
     return subscriber;
   }, []);
 

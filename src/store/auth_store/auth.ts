@@ -1,9 +1,10 @@
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { Instance, SnapshotOut, types, flow, toGenerator } from 'mobx-state-tree';
 import { firebaseLogin, firebaseLogout } from '../../utils/firebase';
-import { registerUser } from '../../apis';
+import * as apis from '../../apis';
 import { FormDataTypeOmit } from '../../modules/auth/register/types';
 import { withErrorHandler } from '../extensions/errorsHandler';
+import { setItem, removeItem, StorageKey } from '../../utils/storage';
 
 const initialState = {
   uid: '',
@@ -31,12 +32,27 @@ export const AuthStore = types
   }))
   .extend(withErrorHandler)
   .actions((self) => ({
+    getProfile: flow(function* getProfile() {
+      try {
+        const profile = yield apis.getProfile();
+        console.log('profile.data>>>', profile.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }),
+
     setAuth: flow(function* setAuth(user: FirebaseAuthTypes.User | null) {
+      // user is logged in
       if (user) {
+        const accessToken = yield user.getIdToken();
         self.uid = user.uid;
-        self.access_token = yield user.getIdToken();
+        self.access_token = accessToken;
+        setItem(StorageKey.ACCESS_TOKEN, accessToken);
         return;
       }
+
+      // user not logged in, clear store and storages
+      removeItem(StorageKey.ACCESS_TOKEN);
       self.uid = '';
       self.access_token = '';
     }),
@@ -46,7 +62,7 @@ export const AuthStore = types
       try {
         self.error = '';
         self.isLoadingRegister = true;
-        yield* toGenerator(registerUser(transformed));
+        yield* toGenerator(apis.registerUser(transformed));
       } catch (e) {
         self.error = self.getErrMsg(e);
       } finally {

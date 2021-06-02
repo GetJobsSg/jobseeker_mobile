@@ -1,11 +1,10 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AuthModalStackParamList } from '../types';
+import { Routes } from '../../../navigator/routes';
 
-type RouteName = 'authModal.register';
-
-type RegisterScreenRouteProps = RouteProp<AuthModalStackParamList, RouteName>;
-type RegisterScreenNavigateProps = StackNavigationProp<AuthModalStackParamList, RouteName>;
+type RegisterScreenRouteProps = RouteProp<AuthModalStackParamList, Routes.authModal_register>;
+type RegisterScreenNavigateProps = StackNavigationProp<AuthModalStackParamList, Routes.authModal_register>;
 
 export interface RegisterFormData {
   email: string;

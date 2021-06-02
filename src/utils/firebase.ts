@@ -8,5 +8,3 @@ export const firebaseLogin = (email: string, password: string) =>
     .then((res) => res.user);
 
 export const firebaseLogout = () => auth().signOut();
-
-export const onAuthStateChanged = (listener: any) => auth().onAuthStateChanged(listener);

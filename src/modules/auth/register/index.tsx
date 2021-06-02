@@ -10,6 +10,7 @@ import { RegisterFormData, RegisterProps } from './types';
 import { usePrevious } from '../../../custom_hooks';
 import { registerValidationSchema } from './validation';
 import { IconTypes } from '../../../components/icon/icons';
+import { Routes } from '../../../navigator/routes';
 
 const initialValues: RegisterFormData = {
   email: '',
@@ -60,18 +61,18 @@ const RegisterScreen = observer((props: RegisterProps) => {
     const prevScreen = route?.params?.prevScreen;
 
     // if user is navigate from login to register screen, goback to login screen
-    if (prevScreen === 'authModal.login') {
+    if (prevScreen === Routes.authModal_login) {
       return navigation.goBack();
     }
 
     // replace with login screen
-    return navigation.replace('authModal.login', { prevScreen: route.name });
+    return navigation.replace(Routes.authModal_login, { prevScreen: route.name });
   };
 
   const isPrevScreenLogin = () => {
     const { route } = props;
     const prevScreen = route?.params?.prevScreen;
-    return prevScreen === 'authModal.login';
+    return prevScreen === Routes.authModal_login;
   };
 
   const renderHeaderBtnIcon = (): IconTypes => {
