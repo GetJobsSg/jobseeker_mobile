@@ -3,9 +3,8 @@ import { View, TouchableWithoutFeedback } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { colors, spacing } from '../../themes';
-import { Icon, Text } from '..';
+import { Avatar, Icon, Text } from '..';
 import {
-  AVATAR,
   PROFILE_CONTAINER,
   USERINFO_WRAPPER,
   USERNAME,
@@ -32,7 +31,7 @@ const StatisticInfo = ({ label, value }: StatisticInfoProps) => (
 const ProfileHeader = () => {
   const navigation = useNavigation();
   const {
-    userStore: { name, rating, completedJobs, totalWorkHours },
+    userStore: { name, profileImg, rating, completedJobs, totalWorkHours },
   } = useMst();
 
   return (
@@ -51,7 +50,7 @@ const ProfileHeader = () => {
             </View>
           </View>
         </TouchableWithoutFeedback>
-        <View style={AVATAR} />
+        <Avatar uri={profileImg} />
       </View>
 
       <View style={STATISTIC_WRAPPER}>

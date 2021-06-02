@@ -27,14 +27,6 @@ export const TEXT_EDIT_PROFILE = {
   textDecorationLine: 'underline',
 } as TextStyle;
 
-export const AVATAR = {
-  flexShrink: 0,
-  borderRadius: 65,
-  width: 65,
-  height: 65,
-  backgroundColor: colors.lightGrey1,
-} as ViewStyle;
-
 export const STATISTIC_WRAPPER = {
   justifyContent: 'space-around',
   flexDirection: 'row',
