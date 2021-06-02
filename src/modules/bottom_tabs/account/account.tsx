@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, RefreshControl } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Screen, ProfileHeader, ListTile } from '../../../components';
@@ -10,9 +10,14 @@ import { Routes } from '../../../navigator/routes';
 
 const Account = () => {
   const {
-    authStore: { isAuthenticated, getProfile },
+    authStore: { isAuthenticated },
+    userStore: { getUser },
   } = useMst();
   const navigation = useNavigation();
+
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
 
   return (
     <Screen
@@ -35,12 +40,13 @@ const Account = () => {
             title="Wallet"
             onPress={() => navigation.navigate(Routes.wallet_stack, { screen: Routes.wallet_overview })}
           />
-          <ListTile
+          {/* <ListTile
             leadingIcon="ic_job_preferences"
             traillingIcons={['ic_arrow_right']}
             title="Job Preferences"
-            onPress={() => getProfile()}
-          />
+            // onPress={() => getProfile()}
+            onPress={() => getUser()}
+          /> */}
           <ListTile
             leadingIcon="ic_settings"
             traillingIcons={['ic_arrow_right']}

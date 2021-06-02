@@ -1,29 +1,30 @@
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { Instance, SnapshotOut, types, flow, toGenerator } from 'mobx-state-tree';
-import { firebaseLogin, firebaseLogout } from '../../utils/firebase';
-import * as apis from '../../apis';
-import { FormDataTypeOmit } from '../../modules/auth/register/types';
-import { withErrorHandler } from '../extensions/errorsHandler';
-import { setItem, removeItem, StorageKey } from '../../utils/storage';
+import { firebaseLogin, firebaseLogout } from '../utils/firebase';
+import * as apis from '../apis';
+import { FormDataTypeOmit } from '../modules/auth/register/types';
+import { withErrorHandler } from './extensions/errorsHandler';
+import { setItem, removeItem, StorageKey } from '../utils/storage';
 
-const initialState = {
+export const authInitialState = {
   uid: '',
   access_token: '',
   isLoadingLogin: false,
   isLoadingLogout: false,
   isLoadingRegister: false,
   error: '',
+  test: '',
 };
 
 export const AuthStore = types
   .model('AuthStore')
   .props({
-    uid: types.optional(types.string, ''),
-    access_token: types.optional(types.string, ''),
-    isLoadingLogin: types.optional(types.boolean, false),
-    isLoadingLogout: types.optional(types.boolean, false),
-    isLoadingRegister: types.optional(types.boolean, false),
-    error: types.optional(types.string, ''),
+    uid: types.string,
+    access_token: types.string,
+    isLoadingLogin: types.boolean,
+    isLoadingLogout: types.boolean,
+    isLoadingRegister: types.boolean,
+    error: types.string,
   })
   .views((self) => ({
     get isAuthenticated() {
@@ -32,15 +33,6 @@ export const AuthStore = types
   }))
   .extend(withErrorHandler)
   .actions((self) => ({
-    getProfile: flow(function* getProfile() {
-      try {
-        const profile = yield apis.getProfile();
-        console.log('profile.data>>>', profile.data);
-      } catch (e) {
-        console.log(e);
-      }
-    }),
-
     setAuth: flow(function* setAuth(user: FirebaseAuthTypes.User | null) {
       // user is logged in
       if (user) {
@@ -94,9 +86,6 @@ export const AuthStore = types
       }
     }),
   }));
-
-// authStore initial state
-export const authInitialState = AuthStore.create(initialState);
 
 type AuthStoreInstance = Instance<typeof AuthStore>;
 export interface Auth extends AuthStoreInstance {}

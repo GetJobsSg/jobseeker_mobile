@@ -39,6 +39,9 @@ const appendHeader = async (axiosConfig: AxiosRequestConfig) => {
 
   // handle edge case where token is expired and we need to regenerate a new one
   try {
+    // eslint-disable-next-line no-console
+    console.log('refreshing new token...');
+
     // this should trigger idTokenChanged @see AuthProvider component
     const token = await auth().currentUser?.getIdToken();
     axiosConfig.headers.Authorization = token;

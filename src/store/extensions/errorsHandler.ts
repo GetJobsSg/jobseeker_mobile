@@ -26,7 +26,7 @@ export const withErrorHandler = () => ({
       }
 
       // eslint-disable-next-line no-console
-      console.error(err.response);
+      console.error(err);
       return 'Unhandled Error Structure';
     },
   },

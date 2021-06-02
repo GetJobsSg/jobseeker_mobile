@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, TouchableWithoutFeedback } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { observer } from 'mobx-react-lite';
 import { colors, spacing } from '../../themes';
 import { Icon, Text } from '..';
 import {
@@ -14,6 +15,7 @@ import {
   STATISTIC_INFO_VALUE,
 } from './profile-header.styles';
 import { Routes } from '../../navigator/routes';
+import { useMst } from '../../store';
 
 interface StatisticInfoProps {
   label: string;
@@ -29,6 +31,10 @@ const StatisticInfo = ({ label, value }: StatisticInfoProps) => (
 
 const ProfileHeader = () => {
   const navigation = useNavigation();
+  const {
+    userStore: { name, rating, completedJobs, totalWorkHours },
+  } = useMst();
+
   return (
     <View style={PROFILE_CONTAINER}>
       <View style={USERINFO_WRAPPER}>
@@ -37,7 +43,7 @@ const ProfileHeader = () => {
         >
           <View style={{ flex: 1 }}>
             <Text style={USERNAME} numberOfLines={3} preset="header">
-              Benson Toh Ban Soon
+              {name}
             </Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: spacing.sm }}>
               <Icon size={18} style={{ marginRight: 10 }} icon="ic_edit_profile" />
@@ -49,11 +55,11 @@ const ProfileHeader = () => {
       </View>
 
       <View style={STATISTIC_WRAPPER}>
-        <StatisticInfo label="Ratings" value={4.5} />
+        <StatisticInfo label="Ratings" value={rating} />
         <View style={{ width: 1, backgroundColor: colors.lightGrey1 }} />
-        <StatisticInfo label="Completed" value={10} />
+        <StatisticInfo label="Completed" value={completedJobs} />
         <View style={{ width: 1, backgroundColor: colors.lightGrey1 }} />
-        <StatisticInfo label="Work Hours" value={999.5} />
+        <StatisticInfo label="Work Hours" value={totalWorkHours} />
       </View>
 
       <View style={{ height: 1, backgroundColor: colors.lightGrey1 }} />
@@ -61,4 +67,4 @@ const ProfileHeader = () => {
   );
 };
 
-export default ProfileHeader;
+export default observer(ProfileHeader);
