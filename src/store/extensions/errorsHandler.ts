@@ -1,4 +1,4 @@
-import { firebaseErr } from '../../constants';
+import { firebaseErr } from '../../constants/errors';
 /** sample firebase error response structure */
 // { code: 'auth/user-not-found', message: 'xxx' }
 

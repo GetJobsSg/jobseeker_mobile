@@ -11,7 +11,7 @@ export const presets = {
   header: {
     ...BASE,
     fontWeight: 'bold',
-    fontSize: fontSize.lg,
+    fontSize: fontSize.xl,
     marginTop: spacing.sm,
     marginBottom: spacing.lg,
   } as TextStyle,

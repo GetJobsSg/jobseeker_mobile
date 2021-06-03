@@ -16,8 +16,10 @@ const Account = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    getUser();
-  }, [getUser]);
+    if (isAuthenticated) {
+      getUser();
+    }
+  }, [getUser, isAuthenticated]);
 
   return (
     <Screen

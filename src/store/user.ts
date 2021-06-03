@@ -3,7 +3,7 @@ import * as apis from '../apis';
 import { withErrorHandler } from './extensions/errorsHandler';
 
 export const userInitialState = {
-  profileImg: '',
+  profileImg: null,
   firstName: '',
   lastName: '',
   email: '',
@@ -22,18 +22,18 @@ export const UserStore = types
   .model('UserStore')
   .props({
     profileImg: types.maybeNull(types.string),
-    firstName: types.string,
-    lastName: types.string,
-    email: types.string,
-    mobile: types.string,
-    nric: types.string,
-    verified: types.boolean,
+    firstName: types.optional(types.string, ''),
+    lastName: types.optional(types.string, ''),
+    email: types.optional(types.string, ''),
+    mobile: types.optional(types.string, ''),
+    nric: types.optional(types.string, ''),
+    verified: types.optional(types.boolean, false),
     gender: types.maybeNull(types.number),
-    rating: types.number,
-    completedJobs: types.number,
-    totalWorkHours: types.number,
-    isLoading: types.boolean,
-    error: types.string,
+    rating: types.optional(types.number, 0),
+    completedJobs: types.optional(types.number, 0),
+    totalWorkHours: types.optional(types.number, 0),
+    isLoading: types.optional(types.boolean, false),
+    error: types.optional(types.string, ''),
   })
   .views((self) => ({
     get name() {
@@ -59,10 +59,9 @@ export const UserStore = types
     },
   }))
   .actions((self) => ({
-    setUser: () => {},
     getUser: flow(function* getUser() {
-      self.isLoading = true;
       try {
+        self.isLoading = true;
         const { data: resp } = yield apis.getProfile();
         self.transformToState(resp);
       } catch (e) {

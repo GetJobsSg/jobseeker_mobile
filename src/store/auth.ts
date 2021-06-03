@@ -19,12 +19,12 @@ export const authInitialState = {
 export const AuthStore = types
   .model('AuthStore')
   .props({
-    uid: types.string,
-    access_token: types.string,
-    isLoadingLogin: types.boolean,
-    isLoadingLogout: types.boolean,
-    isLoadingRegister: types.boolean,
-    error: types.string,
+    uid: types.optional(types.string, ''),
+    access_token: types.optional(types.string, ''),
+    isLoadingLogin: types.optional(types.boolean, false),
+    isLoadingLogout: types.optional(types.boolean, false),
+    isLoadingRegister: types.optional(types.boolean, false),
+    error: types.optional(types.string, ''),
   })
   .views((self) => ({
     get isAuthenticated() {
