@@ -28,6 +28,11 @@ export const presets = {
     fontWeight: '600',
   } as TextStyle,
 
+  label: {
+    color: colors.darkGrey0,
+    fontSize: fontSize.sm,
+  } as TextStyle,
+
   /** A hints display */
   hint: {
     ...BASE,

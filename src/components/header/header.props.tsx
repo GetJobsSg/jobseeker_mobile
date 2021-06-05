@@ -6,4 +6,6 @@ export interface HeaderProps {
 
   /** Icon name, you need to add your icon file into components/icon/icons.ts */
   rightIcons?: React.ReactElement[];
+
+  rightLabel?: React.ReactElement;
 }

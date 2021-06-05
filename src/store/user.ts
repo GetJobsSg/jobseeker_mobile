@@ -4,6 +4,7 @@ import { withErrorHandler } from './extensions/errorsHandler';
 
 export const userInitialState = {
   profileImg: null,
+  birthDate: '',
   firstName: '',
   lastName: '',
   email: '',
@@ -24,6 +25,7 @@ export const UserStore = types
     profileImg: types.maybeNull(types.string),
     firstName: types.optional(types.string, ''),
     lastName: types.optional(types.string, ''),
+    birthDate: types.optional(types.string, ''),
     email: types.optional(types.string, ''),
     mobile: types.optional(types.string, ''),
     nric: types.optional(types.string, ''),
@@ -51,6 +53,7 @@ export const UserStore = types
       self.email = profile.email || '';
       self.mobile = profile.mobile || '';
       self.nric = profile.nric_no || '';
+      self.birthDate = profile.dob || '';
       self.verified = profile.verified || false;
       self.gender = profile.gender?.id || null;
       self.rating = job_statistics.rating;

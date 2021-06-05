@@ -9,7 +9,8 @@ export const RADIO_GROUP_CONTAINER = {
 export const RADIO_CONTAINER = {
   flexDirection: 'row',
   paddingVertical: spacing.sm,
-  marginRight: spacing.xl,
+  flex: 1,
+  // marginRight: spacing.xl,
   marginBottom: spacing.sm,
 } as ViewStyle;
 

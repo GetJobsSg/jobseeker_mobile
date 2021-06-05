@@ -21,9 +21,10 @@ export const USERNAME = {
   marginBottom: spacing.none,
 } as TextStyle;
 
-export const TEXT_EDIT_PROFILE = {
+export const SHOW_PROFILE = {
   color: colors.primaryLight,
   fontSize: fontSize.xs,
+  marginTop: spacing.sm,
   textDecorationLine: 'underline',
 } as TextStyle;
 

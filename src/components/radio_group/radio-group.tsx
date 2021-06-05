@@ -11,27 +11,28 @@ import {
 import { RadioOption, RadioProps } from './radio-group.props';
 
 const RadioGroup = (props: RadioProps) => {
-  const { alignment = 'horizontal', options, onChange, style, value } = props;
+  const { alignment = 'horizontal', label, options, onChange, style, value } = props;
 
-  const handleRadioPress = (option: RadioOption) => () => {
-    onChange(option);
-  };
+  const handleRadioPress = (option: RadioOption) => () => onChange(option);
 
   const alignStyle =
     alignment === 'horizontal' ? ({ flexDirection: 'row' } as ViewStyle) : ({ flexDirection: 'column' } as ViewStyle);
 
   return (
-    <View style={[RADIO_GROUP_CONTAINER, alignStyle, style]}>
-      {options.map((option) => {
-        const thumbStyle = option.value === value ? SELECTED_RADIO_THUMB : RADIO_THUMB;
-        return (
-          <TouchableOpacity style={RADIO_CONTAINER} key={option.value} onPress={handleRadioPress(option)}>
-            <View style={thumbStyle} />
-            <Text style={RADIO_LABEL}>{option.label}</Text>
-          </TouchableOpacity>
-        );
-      })}
-    </View>
+    <>
+      <Text preset="label">{label}</Text>
+      <View style={[RADIO_GROUP_CONTAINER, alignStyle, style]}>
+        {options.map((option) => {
+          const thumbStyle = option.value === value ? SELECTED_RADIO_THUMB : RADIO_THUMB;
+          return (
+            <TouchableOpacity style={RADIO_CONTAINER} key={option.value} onPress={handleRadioPress(option)}>
+              <View style={thumbStyle} />
+              <Text style={RADIO_LABEL}>{option.label}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    </>
   );
 };
 

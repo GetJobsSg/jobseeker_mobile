@@ -6,9 +6,10 @@ export type RadioOption = {
 };
 
 export interface RadioProps {
+  label?: string;
   options: RadioOption[];
   onChange: (selected: RadioOption) => void;
-  value: string | number | undefined;
+  value: string | number | undefined | null;
   style?: ViewStyle;
   alignment?: 'vertical' | 'horizontal';
 }

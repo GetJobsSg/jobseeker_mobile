@@ -1,7 +1,7 @@
 import * as yup from 'yup';
+import { emailValidator, passwordValidator } from '../../../common';
 
 export const loginValidationSchema = yup.object({
-  email: yup.string().required('Email is mandatory.').email('Email format is invalid.'),
-
-  password: yup.string().required('Password is mandatory.'),
+  email: emailValidator,
+  password: passwordValidator,
 });

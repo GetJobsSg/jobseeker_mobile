@@ -2,19 +2,20 @@ import React from 'react';
 import { View, TouchableWithoutFeedback } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
-import { colors, spacing } from '../../themes';
-import { Avatar, Icon, Text } from '..';
+import { colors } from '../../themes';
+import { Avatar, Text } from '..';
 import {
   PROFILE_CONTAINER,
   USERINFO_WRAPPER,
   USERNAME,
-  TEXT_EDIT_PROFILE,
   STATISTIC_WRAPPER,
   STATISTIC_INFO_LABEL,
   STATISTIC_INFO_VALUE,
+  SHOW_PROFILE,
 } from './profile-header.styles';
 import { Routes } from '../../navigator/routes';
 import { useMst } from '../../store';
+import { TextPresets } from '../text/text.presets';
 
 interface StatisticInfoProps {
   label: string;
@@ -34,6 +35,12 @@ const ProfileHeader = () => {
     userStore: { name, profileImg, rating, completedJobs, totalWorkHours },
   } = useMst();
 
+  const getPreset = (): TextPresets => {
+    if (name.length < 15) return 'header';
+    if (name.length < 25) return 'title1';
+    return 'title2';
+  };
+
   return (
     <View style={PROFILE_CONTAINER}>
       <View style={USERINFO_WRAPPER}>
@@ -41,13 +48,10 @@ const ProfileHeader = () => {
           onPress={() => navigation.navigate(Routes.profile_stack, { screen: Routes.personal_info })}
         >
           <View style={{ flex: 1 }}>
-            <Text style={USERNAME} numberOfLines={3} preset="header">
+            <Text style={USERNAME} numberOfLines={3} preset={getPreset()}>
               {name}
             </Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: spacing.sm }}>
-              <Icon size={18} style={{ marginRight: 10 }} icon="ic_edit_profile" />
-              <Text style={TEXT_EDIT_PROFILE}>Edit Profile</Text>
-            </View>
+            <Text style={SHOW_PROFILE}>Show Profile</Text>
           </View>
         </TouchableWithoutFeedback>
         <Avatar uri={profileImg} />

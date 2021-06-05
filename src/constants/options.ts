@@ -1,6 +1,6 @@
 import { Gender } from './types';
 
 export const genderOptions = [
-  { label: 'male', value: Gender.MALE },
-  { label: 'female', value: Gender.FEMALE },
+  { label: 'Male', value: Gender.MALE },
+  { label: 'Female', value: Gender.FEMALE },
 ];
