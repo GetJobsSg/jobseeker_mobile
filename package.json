@@ -8,7 +8,7 @@
     "ios": "react-native run-ios",
     "ios:small": "react-native run-ios --simulator=\"iPhone SE (2nd generation)\"",
     "ios:large": "react-native run-ios --simulator=\"iPhone 11 Pro Max (14.4)\"",
-    "ios:device": "react-native run-ios --device \"benson’s iPhone\"",
+    "ios:device": "react-native run-ios --device \"benson iPhone\"",
     "start": "react-native start",
     "test": "jest",
     "type:check": "tsc --noEmit",
