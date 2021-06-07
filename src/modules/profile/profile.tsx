@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Routes } from '../../navigator/routes';
 
-import NricScreen from './nric.screen';
+import NricScreen from './nric';
 import PersonalInfoScreen from './personal-info.screen';
 import ProfileCompletionScreen from './profile-completion.screen';
 

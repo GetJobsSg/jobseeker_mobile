@@ -30,7 +30,7 @@ export const presets = {
 
   label: {
     color: colors.darkGrey0,
-    fontSize: fontSize.sm,
+    fontSize: fontSize.xs,
   } as TextStyle,
 
   /** A hints display */

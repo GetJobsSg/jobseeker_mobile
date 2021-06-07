@@ -35,7 +35,7 @@ const Sheet = (props: SheetProps, ref: any) => {
 
   return (
     <RBSheet height={HEIGHT} ref={ref}>
-      <View>{children}</View>
+      <View style={{ padding: 10 }}>{children}</View>
     </RBSheet>
   );
 };

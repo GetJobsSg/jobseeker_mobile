@@ -20,5 +20,6 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'no-param-reassign': 'off',
     'react/no-array-index-key': 'warn',
+    'react/require-default-props': 'off',
   },
 };

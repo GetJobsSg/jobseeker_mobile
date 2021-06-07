@@ -1,7 +1,8 @@
 import { Instance, SnapshotOut, types, flow } from 'mobx-state-tree';
 import * as apis from '../apis';
 import { withErrorHandler } from './extensions/errorsHandler';
-import { PersonalInfoState, PersonalInfoPayload, ProfileInfoResponse } from '../modules/profile/types';
+import { PersonalInfoFormData, NricFormData, ProfileInfoResponse, ProfilePayload } from '../modules/profile/types';
+import { getExtension } from '../utils/image';
 
 export const UserStore = types
   .model('UserStore')
@@ -13,6 +14,8 @@ export const UserStore = types
     email: types.optional(types.string, ''),
     mobile: types.optional(types.string, ''),
     nric: types.optional(types.string, ''),
+    nricFront: types.optional(types.string, ''),
+    nricBack: types.optional(types.string, ''),
     verified: types.optional(types.boolean, false),
     gender: types.maybeNull(types.number),
     rating: types.optional(types.number, 0),
@@ -32,7 +35,7 @@ export const UserStore = types
       return incompleteField.length === 0;
     },
     get isNRICInfoCompleted() {
-      return false;
+      return !!(self.nricFront && self.nricBack);
     },
   }))
   .extend(withErrorHandler)
@@ -46,21 +49,14 @@ export const UserStore = types
       self.email = profile.email || '';
       self.mobile = profile.mobile || '';
       self.nric = profile.nric_no || '';
+      self.nricFront = profile.nric_front_img || '';
+      self.nricBack = profile.nric_back_img || '';
       self.birthDate = profile.dob || '';
       self.verified = profile.verified || false;
       self.gender = profile.gender?.id || null;
       self.rating = job_statistics.rating;
       self.completedJobs = job_statistics.completed_jobs;
       self.totalWorkHours = job_statistics.total_work_hours;
-    },
-    transformToApi(data: PersonalInfoState): Partial<PersonalInfoPayload> {
-      return {
-        first_name: data.firstName,
-        last_name: data.lastName,
-        dob: data.birthDate,
-        mobile: data.mobile,
-        gender_id: data.gender,
-      };
     },
   }))
   .actions((self) => ({
@@ -77,16 +73,50 @@ export const UserStore = types
     }),
   }))
   .actions((self) => ({
-    updateUser: flow(function* updateUser(values: any) {
+    updateUser: flow(function* updateUser(values: PersonalInfoFormData) {
       try {
         self.isUpdating = true;
-        const transformed = self.transformToApi(values);
-        yield apis.updateProfile(transformed);
+        yield apis.updateProfile({
+          first_name: values.firstName,
+          last_name: values.lastName,
+          dob: values.birthDate,
+          mobile: values.mobile,
+          gender_id: values.gender,
+        });
         yield self.getUser();
       } catch (e) {
         self.error = self.getErrMsg(e);
       } finally {
         self.isUpdating = false;
+      }
+    }),
+    uploadNric: flow(function* uploadNric(values: NricFormData) {
+      try {
+        self.isLoading = true;
+
+        const data: Partial<ProfilePayload> = {};
+
+        // there is a possibility where user only upload just one image - front or back
+        if (values.nricFront) {
+          data.nric_front_img = {
+            ext: getExtension(values.nricFront?.type as string),
+            base64: values.nricFront?.base64 as string,
+          };
+        }
+
+        if (values.nricBack) {
+          data.nric_back_img = {
+            ext: getExtension(values.nricFront?.type as string),
+            base64: values.nricFront?.base64 as string,
+          };
+        }
+
+        yield apis.updateProfile(data);
+        yield self.getUser();
+      } catch (e) {
+        self.error = self.getErrMsg(e);
+      } finally {
+        self.isLoading = false;
       }
     }),
   }));
