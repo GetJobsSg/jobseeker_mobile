@@ -1,18 +1,45 @@
-import { ViewStyle } from 'react-native';
-import { BASE, ROW } from './header.styles';
+import { TextStyle, ViewStyle } from 'react-native';
+import { spacing } from '../../themes';
+
+const ROW_CENTER = {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+} as ViewStyle;
 
 export const presets = {
   default: {
     container: {
-      ...BASE,
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      height: 45,
+      marginBottom: spacing.lg,
     } as ViewStyle,
 
+    title: {
+      fontWeight: 'bold',
+    } as TextStyle,
+
     leftContainer: {
-      ...ROW,
+      ...ROW_CENTER,
+      minWidth: 40,
+      height: '100%',
+    } as ViewStyle,
+
+    textContainer: {
+      ...ROW_CENTER,
+      justifyContent: 'center',
+      height: '100%',
+      flex: 1,
     } as ViewStyle,
 
     rightContainer: {
-      ...ROW,
+      ...ROW_CENTER,
+      minWidth: 40,
+      height: '100%',
     } as ViewStyle,
   },
 };

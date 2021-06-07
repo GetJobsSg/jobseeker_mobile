@@ -58,6 +58,6 @@ agent.interceptors.request.use(appendHeader, errorHandler);
 
 export const get = (_uri: string, _config?: AxiosRequestConfig) => agent.get(_uri, _config);
 export const post = (_uri: string, _data?: any, _config?: AxiosRequestConfig) => agent.post(_uri, _data, _config);
-export const put = (_uri: string, _data?: any, _config?: AxiosRequestConfig) => agent.post(_uri, _data, _config);
+export const put = (_uri: string, _data?: any, _config?: AxiosRequestConfig) => agent.put(_uri, _data, _config);
 export const patch = (_uri: string, _data?: any, _config?: AxiosRequestConfig) => agent.patch(_uri, _data, _config);
 export const del = (_uri: string, _config?: AxiosRequestConfig) => agent.delete(_uri, _config);

@@ -30,3 +30,10 @@ export const lastNameValidator = yup
   .min(3, 'Minimum 3 characters.')
   .max(50, 'Maximum 50 characters.')
   .test('alphabets', 'Only alphabets letter is allowed.', (val) => isAlphaCharacters(val));
+
+export const mobileValidator = yup
+  .string()
+  .required('Please enter your mobile number')
+  .length(8, 'Invalid mobile number');
+
+export const genderValidator = yup.string().nullable().required('Please select your gender');
