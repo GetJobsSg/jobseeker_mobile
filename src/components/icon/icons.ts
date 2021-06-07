@@ -15,6 +15,10 @@ const icons = {
   // general
   circle_warning: require('../../assets/icons/general/circle-warning.png'),
   circle_done: require('../../assets/icons/general/circle-done.png'),
+  camera: require('../../assets/icons/general/camera.png'),
+  gallery: require('../../assets/icons/general/gallery.png'),
+  select_image: require('../../assets/icons/general/select-image.png'),
+  cross: require('../../assets/icons/general/cross.png'),
 
   // actions
   circle_back_btn: require('../../assets/icons/actions/circle-back-btn.png'),

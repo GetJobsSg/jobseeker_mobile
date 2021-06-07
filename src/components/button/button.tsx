@@ -23,7 +23,7 @@ const Button = (props: ButtonProps) => {
 
   const asBlock = block ? ({ alignSelf: 'auto' } as ViewStyle) : ({ alignSelf: 'flex-start' } as ViewStyle);
   const withBtnState = disabled ? btnPresets[preset].disabled : btnPresets[preset].normal;
-  const buttonStyle = flatten([withBtnState, asBlock, btnOverrideStyle]);
+  const buttonStyle = [withBtnState, asBlock, btnOverrideStyle];
 
   return (
     <TouchableOpacity disabled={disabled} activeOpacity={0.7} onPress={onPress}>

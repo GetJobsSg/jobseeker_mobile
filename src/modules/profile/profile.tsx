@@ -1,7 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NricScreen, PersonalInfoScreen, ProfileCompletionScreen } from './screens';
 import { Routes } from '../../navigator/routes';
+
+import NricScreen from './nric';
+import PersonalInfoScreen from './personal-info.screen';
+import ProfileCompletionScreen from './profile-completion.screen';
 
 const Stack = createStackNavigator();
 

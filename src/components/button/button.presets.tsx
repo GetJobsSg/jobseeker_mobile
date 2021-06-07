@@ -42,6 +42,18 @@ export const btnPresets = {
       opacity: 0.2,
     } as ViewStyle,
   },
+
+  link: {
+    normal: {
+      ...BASE,
+      backgroundColor: colors.transparent,
+    } as ViewStyle,
+    disabled: {
+      ...BASE,
+      backgroundColor: colors.transparent,
+      opacity: 0.2,
+    } as ViewStyle,
+  },
 };
 
 export const btnTextPresets = {
@@ -54,6 +66,11 @@ export const btnTextPresets = {
   outlined: {
     color: colors.primary,
     fontWeight: '500',
+    letterSpacing: 1.2,
+  } as TextStyle,
+
+  link: {
+    color: colors.primary,
     letterSpacing: 1.2,
   } as TextStyle,
 };

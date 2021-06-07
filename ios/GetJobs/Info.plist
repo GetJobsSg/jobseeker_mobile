@@ -51,5 +51,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>To capture photo, ${PRODUCT_NAME} needs permission to access your camera.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To continue, ${PRODUCT_NAME} needs permission to access your photo library.</string>
 </dict>
 </plist>
