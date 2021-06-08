@@ -8,6 +8,7 @@ export const colors = {
 
   // main
   primary: '#003647',
+  primaryRGBA: 'rgba(0, 54, 71,1)',
   primaryLight: '#007297',
   accent: '#EB3B5E',
 

@@ -24,6 +24,7 @@ const icons = {
   circle_back_btn: require('../../assets/icons/actions/circle-back-btn.png'),
   circle_cross_btn: require('../../assets/icons/actions/circle-cross-btn.png'),
   ic_arrow_right: require('../../assets/icons/actions/ic-arrow-right.png'),
+  ic_arrow_right_primary: require('../../assets/icons/actions/ic-arrow-right-primary.png'),
 
   // accounts
   ic_edit_profile: require('../../assets/icons/account/ic-edit-profile.png'),

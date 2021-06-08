@@ -44,9 +44,7 @@ const ProfileHeader = () => {
   return (
     <View style={PROFILE_CONTAINER}>
       <View style={USERINFO_WRAPPER}>
-        <TouchableWithoutFeedback
-          onPress={() => navigation.navigate(Routes.profile_stack, { screen: Routes.personal_info })}
-        >
+        <TouchableWithoutFeedback onPress={() => navigation.navigate(Routes.profile_stack)}>
           <View style={{ flex: 1 }}>
             <Text style={USERNAME} numberOfLines={3} preset={getPreset()}>
               {name}
