@@ -4,6 +4,7 @@ export const colors = {
   white: '#fff',
   transparent: 'rgba(0, 0, 0, 0)',
   semiTransparent: 'rgba(255, 255, 255, 0.5)',
+  semiTransparent1: 'rgba(255, 255, 255, 0.8)',
 
   // main
   primary: '#003647',

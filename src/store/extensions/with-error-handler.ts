@@ -10,7 +10,7 @@ const transformFirebaseErrMsg = (str: keyof typeof firebaseErr) => {
   return msg;
 };
 
-export const withErrorHandler = () => ({
+const withErrorHandler = () => ({
   actions: {
     getErrMsg(err: any): string {
       if (!err) return '';
@@ -31,3 +31,5 @@ export const withErrorHandler = () => ({
     },
   },
 });
+
+export default withErrorHandler;

@@ -1,8 +1,8 @@
 import { Instance, SnapshotOut, types, flow } from 'mobx-state-tree';
 import * as apis from '../apis';
-import { withErrorHandler } from './extensions/errorsHandler';
-import { PersonalInfoFormData, NricFormData, ProfileInfoResponse, ProfilePayload } from '../modules/profile/types';
-import { getExtension } from '../utils/image';
+import { withErrorHandler, withRootStore } from './extensions';
+import { PersonalInfoFormData, NricFormData, NRICPayload, ProfileInfoResponse } from '../modules/profile/types';
+import { constructUploadImagePayload } from '../utils/image';
 
 export const UserStore = types
   .model('UserStore')
@@ -39,6 +39,7 @@ export const UserStore = types
     },
   }))
   .extend(withErrorHandler)
+  .extend(withRootStore)
   .actions((self) => ({
     transformToState: (data: ProfileInfoResponse) => {
       // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -63,12 +64,14 @@ export const UserStore = types
     getUser: flow(function* getUser() {
       try {
         self.isLoading = true;
+        self.rootStore.uiStore.showLoadingSpinner();
         const { data: resp } = yield apis.getProfile();
         self.transformToState(resp);
       } catch (e) {
         self.error = self.getErrMsg(e);
       } finally {
         self.isLoading = false;
+        self.rootStore.uiStore.hideLoadingSpinner();
       }
     }),
   }))
@@ -76,6 +79,7 @@ export const UserStore = types
     updateUser: flow(function* updateUser(values: PersonalInfoFormData) {
       try {
         self.isUpdating = true;
+        self.rootStore.uiStore.showLoadingSpinner();
         yield apis.updateProfile({
           first_name: values.firstName,
           last_name: values.lastName,
@@ -88,35 +92,26 @@ export const UserStore = types
         self.error = self.getErrMsg(e);
       } finally {
         self.isUpdating = false;
+        self.rootStore.uiStore.hideLoadingSpinner();
       }
     }),
     uploadNric: flow(function* uploadNric(values: NricFormData) {
       try {
-        self.isLoading = true;
+        self.isUpdating = true;
+        self.rootStore.uiStore.showLoadingSpinner();
 
-        const data: Partial<ProfilePayload> = {};
+        const data: NRICPayload = {};
 
-        // there is a possibility where user only upload just one image - front or back
-        if (values.nricFront) {
-          data.nric_front_img = {
-            ext: getExtension(values.nricFront?.type as string),
-            base64: values.nricFront?.base64 as string,
-          };
-        }
-
-        if (values.nricBack) {
-          data.nric_back_img = {
-            ext: getExtension(values.nricFront?.type as string),
-            base64: values.nricFront?.base64 as string,
-          };
-        }
+        if (values.nricFront) data.nric_front_img = constructUploadImagePayload(values.nricFront);
+        if (values.nricBack) data.nric_back_img = constructUploadImagePayload(values.nricBack);
 
         yield apis.updateProfile(data);
         yield self.getUser();
       } catch (e) {
         self.error = self.getErrMsg(e);
       } finally {
-        self.isLoading = false;
+        self.isUpdating = false;
+        self.rootStore.uiStore.hideLoadingSpinner();
       }
     }),
   }));

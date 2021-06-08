@@ -11,5 +11,6 @@ export { default as Row } from './row';
 export { default as Screen } from './screen';
 export { default as Sheet } from './sheet';
 export { default as Selector } from './selector';
+export { default as Spinner } from './spinner';
 export { default as Text } from './text';
 export { default as TextField } from './textfield';

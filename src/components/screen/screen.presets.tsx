@@ -4,8 +4,6 @@ import { colors, spacing } from '../../themes';
 const BASE = {
   backgroundColor: colors.white,
   flex: 1,
-  height: '100%',
-  width: '100%',
 } as ViewStyle;
 
 export const presets = {

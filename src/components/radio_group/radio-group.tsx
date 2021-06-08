@@ -7,6 +7,7 @@ import {
   RADIO_THUMB,
   RADIO_LABEL,
   SELECTED_RADIO_THUMB,
+  SELECTED_RADIO_LABEL,
 } from './radio-group.styles';
 import { RadioOption, RadioProps } from './radio-group.props';
 
@@ -27,7 +28,7 @@ const RadioGroup = (props: RadioProps) => {
           return (
             <TouchableOpacity style={RADIO_CONTAINER} key={option.value} onPress={handleRadioPress(option)}>
               <View style={thumbStyle} />
-              <Text style={RADIO_LABEL}>{option.label}</Text>
+              <Text style={option.value === value ? SELECTED_RADIO_LABEL : RADIO_LABEL}>{option.label}</Text>
             </TouchableOpacity>
           );
         })}

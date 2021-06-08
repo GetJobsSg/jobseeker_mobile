@@ -4,11 +4,14 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import { observer } from 'mobx-react-lite';
 import { TouchableOpacity } from 'react-native';
 import { launchCamera, launchImageLibrary, Asset } from 'react-native-image-picker';
-import { IconTypes } from 'src/components/icon/icons';
+
 import { Screen, Header, IconButton, Text, Icon } from '../../../components';
+import { IconTypes } from '../../../components/icon/icons';
+import Frame from './frame';
+
+import { useSuccess } from '../../../custom_hooks';
 import { useMst } from '../../../store';
 import { NricFormData } from '../types';
-import Frame from './frame';
 
 interface SheetItemProps {
   icon: IconTypes;
@@ -30,12 +33,16 @@ const NricScreen = () => {
   const navigation = useNavigation();
   const selectRef = useRef() as any;
   const {
-    userStore: { nricFront, nricBack, uploadNric },
+    userStore: { nricFront, nricBack, uploadNric, isUpdating, error },
   } = useMst();
 
   const [target, setTarget] = useState<'nricFront' | 'nricBack'>('nricFront');
   const [selectedNricFrontImage, setSelectedNricFrontImage] = useState<Asset>();
   const [selectedNricBackImage, setSelectedNricBackImage] = useState<Asset>();
+
+  // upload successful
+  const isUploadSuccess = useSuccess({ loadingState: isUpdating, errorState: error });
+  if (isUploadSuccess) setTimeout(() => navigation.goBack(), 0);
 
   const handleImageTarget = (imageAsset: Asset) => {
     if (target === 'nricFront') return setSelectedNricFrontImage(imageAsset);
@@ -82,7 +89,7 @@ const NricScreen = () => {
 
   const handleUpload = () => {
     // no image is selected
-    if (!selectedNricFrontImage?.uri && !selectedNricFrontImage?.uri) return;
+    if (!selectedNricFrontImage?.uri && !selectedNricBackImage?.uri) return;
 
     const nricData: NricFormData = {};
     if (selectedNricFrontImage) nricData.nricFront = selectedNricFrontImage;
@@ -121,7 +128,7 @@ const NricScreen = () => {
 
       <RBSheet
         closeDuration={sheetCloseDuration}
-        height={200}
+        height={180}
         customStyles={{ container: { padding: 5 } }}
         ref={selectRef}
       >

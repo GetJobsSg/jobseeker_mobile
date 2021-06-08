@@ -3,18 +3,8 @@ import { Instance, SnapshotOut, types, flow, toGenerator } from 'mobx-state-tree
 import { firebaseLogin, firebaseLogout } from '../utils/firebase';
 import * as apis from '../apis';
 import { FormDataTypeOmit } from '../modules/auth/register/types';
-import { withErrorHandler } from './extensions/errorsHandler';
+import { withErrorHandler } from './extensions';
 import { setItem, removeItem, StorageKey } from '../utils/storage';
-
-export const authInitialState = {
-  uid: '',
-  access_token: '',
-  isLoadingLogin: false,
-  isLoadingLogout: false,
-  isLoadingRegister: false,
-  error: '',
-  test: '',
-};
 
 export const AuthStore = types
   .model('AuthStore')

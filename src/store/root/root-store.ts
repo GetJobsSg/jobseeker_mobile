@@ -1,22 +1,19 @@
 import { Instance, onSnapshot, SnapshotOut, types } from 'mobx-state-tree';
 import { AuthStore } from '../auth';
+import { UiStore } from '../ui';
 import { UserStore } from '../user';
 
 export const RootStore = types.model('RootStore').props({
-  authStore: AuthStore,
-  userStore: UserStore,
+  authStore: types.optional(AuthStore, {} as any),
+  userStore: types.optional(UserStore, {} as any),
+  uiStore: types.optional(UiStore, {} as any),
 });
 
 // // initialize values
 export const rootStore = RootStore.create({
   authStore: {},
   userStore: {},
-  // homeStore: homeInitialState,
-  // completedJobStore: completedJobsInitialState
-  // upcomingJobStore: upcomingJobsInitialState
-  // onGoingJobStore: onGoingJobStoreState
-  // appliedJobStore: appliedJobStoreState
-  // jobInfoStore: jobInfoInitialState
+  uiStore: {},
 });
 
 // store snapShot

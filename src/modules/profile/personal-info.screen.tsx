@@ -1,10 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import moment from 'moment';
 import { View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { Formik } from 'formik';
-import { usePrevious } from '../../custom_hooks';
+import { useSuccess } from '../../custom_hooks';
 import { Screen, Text, Header, IconButton, RadioGroup, TextField, Selector, Sheet } from '../../components';
 import { genderOptions } from '../../constants/options';
 import { useMst } from '../../store';
@@ -16,18 +16,12 @@ const PersonalInfo = () => {
   const navigation = useNavigation();
   const birthRef = useRef<any>();
   const {
-    userStore: { updateUser, isUpdating, lastName, gender, firstName, mobile, birthDate },
+    userStore: { error, updateUser, isUpdating, lastName, gender, firstName, mobile, birthDate },
   } = useMst();
 
-  const previous = usePrevious({ isUpdating });
-  useEffect(() => {
-    if (!previous) return;
-
-    // successfully update info
-    if (previous.isUpdating !== isUpdating && !isUpdating) {
-      navigation.goBack();
-    }
-  }, [previous, navigation, isUpdating]);
+  // successfully update info
+  const isSuccessUpdateInfo = useSuccess({ loadingState: isUpdating, errorState: error });
+  if (isSuccessUpdateInfo) setTimeout(() => navigation.goBack(), 0);
 
   const initialValues: PersonalInfoFormData = {
     firstName,

@@ -15,7 +15,7 @@ export const presets = {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      height: 45,
+      height: 60,
       marginBottom: spacing.lg,
     } as ViewStyle,
 

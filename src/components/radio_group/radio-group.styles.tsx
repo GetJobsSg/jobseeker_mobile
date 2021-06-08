@@ -31,3 +31,8 @@ export const SELECTED_RADIO_THUMB = {
 export const RADIO_LABEL = {
   fontWeight: '300',
 } as TextStyle;
+
+export const SELECTED_RADIO_LABEL = {
+  ...RADIO_LABEL,
+  fontWeight: '500',
+} as TextStyle;

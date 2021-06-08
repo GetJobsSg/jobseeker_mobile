@@ -8,6 +8,7 @@ import { AuthStack } from '../modules/auth';
 import { WalletStack } from '../modules/wallet';
 import { ProfileStack } from '../modules/profile';
 import { SettingStack } from '../modules/settings';
+import { Spinner } from '../components';
 
 import { RootParams } from './types';
 import { Routes } from './routes';
@@ -24,23 +25,8 @@ const RootNavigator = () => (
       <RootStack.Screen name={Routes.settings_stack} component={SettingStack} />
     </RootStack.Navigator>
 
-    {/* Warning: toast must place at the bottom */}
+    <Spinner />
     <Toast ref={(ref) => Toast.setRef(ref)} />
-    {/* <View
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(255,255,255,0.9)',
-      }}
-    >
-      <ActivityIndicator color="#000" />
-    </View> */}
   </NavigationContainer>
 );
 
