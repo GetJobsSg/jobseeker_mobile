@@ -6,21 +6,18 @@ const BORDER_RADIUS = {
 } as ViewStyle;
 
 export const BALANCE_CONTAINER = {
-  position: 'absolute',
-  left: 15,
-  bottom: -20,
-  right: 15,
   ...BORDER_RADIUS,
 } as ViewStyle;
 
 export const BALANCE_CARD_WRAPPER = {
   backgroundColor: colors.white,
+  borderWidth: 1,
   borderColor: colors.lightGrey1,
-  shadowColor: colors.lightGrey2,
+  shadowColor: colors.lightGrey1,
   shadowOpacity: 1,
   elevation: 5,
   shadowOffset: { width: 0, height: 2 },
-  shadowRadius: 5,
+  shadowRadius: 2,
   paddingVertical: spacing.sm + spacing.xs,
   paddingHorizontal: spacing.md,
   ...BORDER_RADIUS,

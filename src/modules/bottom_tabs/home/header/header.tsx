@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Text } from '../../../../components';
+import Balance from '../balance';
 import { HEADER_CONTAINER, WELCOME_WRAPPER, WELCOME, NAME } from './header.styles';
 
 const Header = () => (
@@ -11,6 +12,7 @@ const Header = () => (
         Benson Toh
       </Text>
     </View>
+    <Balance />
   </View>
 );
 

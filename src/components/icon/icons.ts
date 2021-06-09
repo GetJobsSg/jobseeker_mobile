@@ -19,6 +19,7 @@ const icons = {
   gallery: require('../../assets/icons/general/gallery.png'),
   select_image: require('../../assets/icons/general/select-image.png'),
   cross: require('../../assets/icons/general/cross.png'),
+  location: require('../../assets/icons/general/location.png'),
 
   // actions
   circle_back_btn: require('../../assets/icons/actions/circle-back-btn.png'),

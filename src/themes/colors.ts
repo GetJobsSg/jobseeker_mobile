@@ -13,7 +13,7 @@ export const colors = {
   accent: '#EB3B5E',
 
   // gray series
-  lightGrey0: '#fafafa',
+  lightGrey0: '#f8f8f8',
   lightGrey1: '#ececec',
   lightGrey2: '#bbb',
   darkGrey0: '#707070',
