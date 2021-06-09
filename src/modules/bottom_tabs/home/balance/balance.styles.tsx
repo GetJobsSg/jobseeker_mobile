@@ -15,7 +15,7 @@ export const BALANCE_CARD_WRAPPER = {
   borderColor: colors.lightGrey1,
   shadowColor: colors.lightGrey1,
   shadowOpacity: 1,
-  elevation: 5,
+  elevation: 1,
   shadowOffset: { width: 0, height: 2 },
   shadowRadius: 2,
   paddingVertical: spacing.sm + spacing.xs,
