@@ -1,5 +1,4 @@
 import { TextStyle, ViewStyle } from 'react-native';
-import { spacing } from '../../themes';
 
 const ROW_CENTER = {
   display: 'flex',
@@ -16,7 +15,6 @@ export const presets = {
       justifyContent: 'space-between',
       alignItems: 'center',
       height: 60,
-      marginBottom: spacing.lg,
     } as ViewStyle,
 
     title: {

@@ -1,8 +1,8 @@
 import { ViewStyle } from 'react-native';
-import { spacing } from '../themes';
+import { colors, spacing } from '../themes';
 
 const CONTAINER: ViewStyle = {
-  paddingHorizontal: spacing.lg,
+  padding: spacing.md,
 };
 
 const FULL: ViewStyle = {
@@ -18,8 +18,17 @@ const ROW: ViewStyle = {
   flexDirection: 'row',
 };
 
+const STICKY_BOTTOM: ViewStyle = {
+  backgroundColor: colors.white,
+  borderTopWidth: 1,
+  borderTopColor: colors.lightGrey1,
+  paddingHorizontal: spacing.md,
+  paddingVertical: spacing.md,
+};
+
 export const commonStyles = {
   CONTAINER,
+  STICKY_BOTTOM,
   FULL,
   CENTER,
   ROW,

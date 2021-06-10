@@ -6,3 +6,5 @@ export const registerUser = (data: any) => post('/mobile/register', data).then((
 export const getProfile = () => get('/mobile/profile').then((res) => res.data);
 
 export const updateProfile = (data: Partial<ProfilePayload>) => put('/mobile/profile', data).then((res) => res.data);
+
+export const getWallet = () => get('/mobile/wallet').then((res) => res.data);

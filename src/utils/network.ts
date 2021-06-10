@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import auth from '@react-native-firebase/auth';
 import jwtDecode from 'jwt-decode';
 import config from '../config';
@@ -56,8 +56,27 @@ const errorHandler = (err: any) => Promise.reject(err);
 
 agent.interceptors.request.use(appendHeader, errorHandler);
 
-export const get = (_uri: string, _config?: AxiosRequestConfig) => agent.get(_uri, _config);
-export const post = (_uri: string, _data?: any, _config?: AxiosRequestConfig) => agent.post(_uri, _data, _config);
-export const put = (_uri: string, _data?: any, _config?: AxiosRequestConfig) => agent.put(_uri, _data, _config);
-export const patch = (_uri: string, _data?: any, _config?: AxiosRequestConfig) => agent.patch(_uri, _data, _config);
-export const del = (_uri: string, _config?: AxiosRequestConfig) => agent.delete(_uri, _config);
+const process = (fn: Promise<AxiosResponse<any>>, timing = 500): Promise<AxiosResponse<any>> =>
+  new Promise((resolve) => {
+    if (__DEV__) {
+      // slow down the apis response in local development, so that we can see the placeholder clearly
+      setTimeout(() => {
+        resolve(fn);
+      }, timing);
+    } else {
+      resolve(fn);
+    }
+  });
+
+export const get = (_uri: string, _config?: AxiosRequestConfig) => process(agent.get(_uri, _config));
+
+export const post = (_uri: string, _data?: any, _config?: AxiosRequestConfig) =>
+  process(agent.post(_uri, _data, _config));
+
+export const put = (_uri: string, _data?: any, _config?: AxiosRequestConfig) =>
+  process(agent.put(_uri, _data, _config));
+
+export const patch = (_uri: string, _data?: any, _config?: AxiosRequestConfig) =>
+  process(agent.patch(_uri, _data, _config));
+
+export const del = (_uri: string, _config?: AxiosRequestConfig) => process(agent.delete(_uri, _config));

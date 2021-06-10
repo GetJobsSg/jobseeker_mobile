@@ -6,6 +6,7 @@ export type RootParams = {
   [Routes.wallet_stack]: undefined;
   [Routes.profile_stack]: undefined;
   [Routes.settings_stack]: undefined;
+  [Routes.job_stack]: undefined;
 };
 
 export type BottomTabParams = {

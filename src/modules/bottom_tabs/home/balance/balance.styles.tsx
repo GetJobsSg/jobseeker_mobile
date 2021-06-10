@@ -27,3 +27,12 @@ export const BALANCE_LABEL = {
   color: colors.textSecondary,
   fontSize: fontSize.xxs,
 } as TextStyle;
+
+export const BALANCE_PLACEHOLDER = {
+  backgroundColor: colors.lightGrey1,
+  borderRadius: 10,
+  // marginVertical: 10,
+  marginTop: spacing.sm,
+  height: 20,
+  width: 100,
+} as ViewStyle;

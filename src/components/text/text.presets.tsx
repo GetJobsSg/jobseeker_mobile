@@ -28,6 +28,12 @@ export const presets = {
     fontWeight: '600',
   } as TextStyle,
 
+  title3: {
+    ...BASE,
+    fontSize: fontSize.sm,
+    fontWeight: '600',
+  } as TextStyle,
+
   label: {
     color: colors.darkGrey0,
     fontSize: fontSize.xs,

@@ -5,6 +5,7 @@ export enum Routes {
   'wallet_stack' = 'wallet_stack',
   'profile_stack' = 'profile_stack',
   'settings_stack' = 'settings_stack',
+  'job_stack' = 'job_stack',
 
   // auth
   'authModal_login' = 'authModal_login',
@@ -20,6 +21,9 @@ export enum Routes {
   'profile_completion' = 'profile_completion',
   'personal_info' = 'personal_info',
   'nric_info' = 'nric_info',
+
+  // job details
+  'job_details' = 'job_details',
 
   // wallet
   'wallet_overview' = 'wallet_overview',

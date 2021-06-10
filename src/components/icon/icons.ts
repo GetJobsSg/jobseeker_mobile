@@ -20,6 +20,8 @@ const icons = {
   select_image: require('../../assets/icons/general/select-image.png'),
   cross: require('../../assets/icons/general/cross.png'),
   location: require('../../assets/icons/general/location.png'),
+  calendar: require('../../assets/icons/general/calendar.png'),
+  clock: require('../../assets/icons/general/clock.png'),
 
   // actions
   circle_back_btn: require('../../assets/icons/actions/circle-back-btn.png'),

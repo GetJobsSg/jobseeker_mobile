@@ -1,3 +1,5 @@
+import { ViewStyle } from 'react-native';
+
 /** in house justify type */
 export type Justify = 'start' | 'end' | 'center' | 'space-around' | 'space-between';
 
@@ -17,4 +19,5 @@ export interface RowProps {
   justify?: Justify;
   align?: Align;
   wrap?: boolean;
+  style?: ViewStyle;
 }

@@ -1,6 +1,6 @@
-import { ViewStyle } from 'react-native';
+import { TouchableHighlightProps, TouchableNativeFeedbackProps, ViewStyle } from 'react-native';
 
-export interface TouchableProps {
+export interface TouchableProps extends TouchableHighlightProps, TouchableNativeFeedbackProps {
   children: React.ReactNode;
   onPress: () => void;
   style?: ViewStyle;

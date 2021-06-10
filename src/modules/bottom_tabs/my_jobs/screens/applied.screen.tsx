@@ -19,7 +19,10 @@ const renderItem = () => (
 
 const AppliedScreen = () => (
   <FlatList
-    contentContainerStyle={{ paddingHorizontal: 10, backgroundColor: colors.white }}
+    onRefresh={() => {}}
+    refreshing
+    style={{ backgroundColor: colors.white }}
+    contentContainerStyle={{ flex: 1, paddingHorizontal: 10, backgroundColor: colors.white }}
     data={dummy}
     renderItem={renderItem}
     keyExtractor={(item) => item.toString()}

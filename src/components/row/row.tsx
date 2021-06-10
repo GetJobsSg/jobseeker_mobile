@@ -14,13 +14,13 @@ const mapped = (alignment: Align | Justify): FlexAlignType | JustifyContentType 
 };
 
 const Row = (props: RowProps) => {
-  const { children, justify = 'start', align = 'center', wrap = true } = props;
+  const { children, justify = 'start', align = 'center', wrap = true, style: overrideStyle } = props;
 
   const wrapStyle = wrap ? ({ flexWrap: 'wrap' } as ViewStyle) : {};
   const alignStyle = { alignItems: mapped(align) } as ViewStyle;
   const justifyStyle = { justifyContent: mapped(justify) } as ViewStyle;
 
-  return <View style={[ROW_STYLE, alignStyle, justifyStyle, wrapStyle]}>{children}</View>;
+  return <View style={[ROW_STYLE, alignStyle, justifyStyle, wrapStyle, overrideStyle]}>{children}</View>;
 };
 
 export default Row;

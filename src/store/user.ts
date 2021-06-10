@@ -64,14 +64,12 @@ export const UserStore = types
     getUser: flow(function* getUser() {
       try {
         self.isLoading = true;
-        self.rootStore.uiStore.showLoadingSpinner();
-        const { data: resp } = yield apis.getProfile();
-        self.transformToState(resp);
+        const { data } = yield apis.getProfile();
+        self.transformToState(data);
       } catch (e) {
         self.error = self.getErrMsg(e);
       } finally {
         self.isLoading = false;
-        self.rootStore.uiStore.hideLoadingSpinner();
       }
     }),
   }))

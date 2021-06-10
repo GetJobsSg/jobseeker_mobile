@@ -29,6 +29,7 @@
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.5",
     "axios": "^0.21.1",
+    "eslint-plugin-react-hooks": "^4.2.1-alpha-e6be2d531",
     "formik": "^2.2.8",
     "jwt-decode": "^3.1.2",
     "mobx": "^6.3.1",

@@ -15,3 +15,10 @@ export type WalletScreenProps = {
   navigation: WalletNavigationProp;
   route: WalletRouteProps;
 };
+
+export type WalletResponse = {
+  id: number;
+  balance: number;
+  date_updated: string;
+  date_created: string;
+};

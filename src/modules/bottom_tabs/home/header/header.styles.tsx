@@ -17,3 +17,12 @@ export const NAME = {
   color: colors.primary,
   marginTop: 0,
 } as TextStyle;
+
+export const NAME_PLACEHOLDER = {
+  backgroundColor: colors.lightGrey1,
+  borderRadius: 10,
+  marginVertical: 10,
+  height: 25,
+  width: 200,
+  marginBottom: spacing.lg,
+} as ViewStyle;
