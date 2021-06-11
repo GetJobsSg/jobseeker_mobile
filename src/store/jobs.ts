@@ -1,33 +1,52 @@
-import { flow, Instance, SnapshotOut, types } from 'mobx-state-tree';
-import { withErrorHandler } from './extensions';
-import { WalletResponse } from '../modules/wallet/types';
+import { flow, Instance, SnapshotOut, toGenerator, types } from 'mobx-state-tree';
+import { withErrorHandler, withRootStore } from './extensions';
+import { JobInfoStore } from './job-info';
 import * as apis from '../apis';
+// import { CompanyStore } from './company';
 
 export const JobStore = types
   .model('JobStore')
   .props({
-    amountDollar: types.optional(types.number, 0),
-    isLoading: types.optional(types.boolean, false),
-    error: types.optional(types.string, ''),
+    recentJobs: types.optional(types.array(JobInfoStore), []),
+    isLoadingRecentJobs: types.optional(types.boolean, false),
+    errorRecentJobs: types.optional(types.string, ''),
+
+    appliedJobs: types.optional(types.array(JobInfoStore), []),
+    isLoadingAppliedJobs: types.optional(types.boolean, false),
+    errorAppliedJobs: types.optional(types.string, ''),
+
+    completedJobs: types.optional(types.array(JobInfoStore), []),
+    isLoadingCompletedJobs: types.optional(types.boolean, false),
+    errorCompletedJobs: types.optional(types.string, ''),
+
+    onGoingJobs: types.optional(types.array(JobInfoStore), []),
+    isLoadingOnGoingJobs: types.optional(types.boolean, false),
+    errorOnGoingJobs: types.optional(types.string, ''),
+
+    upcomingJobs: types.optional(types.array(JobInfoStore), []),
+    isLoadingUpcomingJobs: types.optional(types.boolean, false),
+    errorUpcomingJobs: types.optional(types.string, ''),
   })
-  .views((self) => ({
-    get formattedAmountDollar() {
-      const formattedDollar = self.amountDollar.toFixed(2);
-      return `S$ ${formattedDollar}`;
-    },
-  }))
   .extend(withErrorHandler)
+  .extend(withRootStore)
   .actions((self) => ({
-    getWallet: flow(function* getWallet() {
+    getRecentJobs: flow(function* getRecentJobs() {
       try {
-        self.isLoading = true;
-        const resp = yield apis.getWallet();
-        const data = resp.data as WalletResponse;
-        self.amountDollar = data.balance;
+        self.isLoadingRecentJobs = true;
+        const res = yield* toGenerator(apis.getAllJobs());
+        res.data.forEach((item) => {
+          self.recentJobs.push({
+            id: String(item.job.id),
+            title: item.job.title,
+            startDate: item.job.start_date,
+            hourlyRate: item.job.hourly_rate,
+            // company: CompanyStore.create({}),
+          });
+        });
       } catch (e) {
-        self.error = self.getErrMsg(e);
+        self.errorRecentJobs = self.getErrMsg(e);
       } finally {
-        self.isLoading = false;
+        self.isLoadingRecentJobs = false;
       }
     }),
   }));

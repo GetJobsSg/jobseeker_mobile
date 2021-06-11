@@ -1,13 +1,16 @@
 import React from 'react';
 import RootNavigator from './navigator/root-navigator';
 import { AuthProvider } from './modules/auth';
+import { DataProvider } from './provider';
 import { RootStoreProvider } from './store/root/root-store-context';
 import { rootStore } from './store';
 
 const App = () => (
   <RootStoreProvider value={rootStore}>
     <AuthProvider>
-      <RootNavigator />
+      <DataProvider>
+        <RootNavigator />
+      </DataProvider>
     </AuthProvider>
   </RootStoreProvider>
 );
