@@ -15,7 +15,7 @@ const DataProvider = (props: DataProviderProps) => {
   } = useMst();
 
   useEffect(() => {
-    initData();
+    // initData();
   }, [initData]);
 
   if (isLoading) {

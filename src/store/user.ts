@@ -1,7 +1,7 @@
-import { Instance, SnapshotOut, types, flow } from 'mobx-state-tree';
+import { Instance, SnapshotOut, types, flow, toGenerator } from 'mobx-state-tree';
 import * as apis from '../apis';
 import { withErrorHandler, withRootStore } from './extensions';
-import { PersonalInfoFormData, NricFormData, NRICPayload, ProfileInfoResponse } from '../modules/profile/types';
+import { PersonalInfoFormData, NricFormData, NRICPayload } from '../modules/profile/types';
 import { constructUploadImagePayload } from '../utils/image';
 
 export const UserStore = types
@@ -41,31 +41,27 @@ export const UserStore = types
   .extend(withErrorHandler)
   .extend(withRootStore)
   .actions((self) => ({
-    transformToState: (data: ProfileInfoResponse) => {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      const { profile, job_statistics } = data;
-      self.profileImg = profile.profile_img || null;
-      self.firstName = profile.first_name || '';
-      self.lastName = profile.last_name || '';
-      self.email = profile.email || '';
-      self.mobile = profile.mobile || '';
-      self.nric = profile.nric_no || '';
-      self.nricFront = profile.nric_front_img || '';
-      self.nricBack = profile.nric_back_img || '';
-      self.birthDate = profile.dob || '';
-      self.verified = profile.verified || false;
-      self.gender = profile.gender?.id || null;
-      self.rating = job_statistics.rating;
-      self.completedJobs = job_statistics.completed_jobs;
-      self.totalWorkHours = job_statistics.total_work_hours;
-    },
-  }))
-  .actions((self) => ({
     getUser: flow(function* getUser() {
       try {
         self.isLoading = true;
-        const { data } = yield apis.getProfile();
-        self.transformToState(data);
+        const res = yield* toGenerator(apis.getProfile());
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        const { profile, job_statistics } = res.data;
+
+        self.profileImg = profile.profile_img || null;
+        self.firstName = profile.first_name || '';
+        self.lastName = profile.last_name || '';
+        self.email = profile.email || '';
+        self.mobile = profile.mobile || '';
+        self.nric = profile.nric_no || '';
+        self.nricFront = profile.nric_front_img || '';
+        self.nricBack = profile.nric_back_img || '';
+        self.birthDate = profile.dob || '';
+        self.verified = profile.verified || false;
+        self.gender = profile.gender?.id || null;
+        self.rating = job_statistics.rating;
+        self.completedJobs = job_statistics.completed_jobs;
+        self.totalWorkHours = job_statistics.total_work_hours;
       } catch (e) {
         self.error = self.getErrMsg(e);
       } finally {

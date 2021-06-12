@@ -1,8 +1,7 @@
 import { flow, Instance, SnapshotOut, toGenerator, types } from 'mobx-state-tree';
-import { withErrorHandler, withRootStore } from './extensions';
+import { withErrorHandler } from './extensions';
 import { JobInfoStore } from './job-info';
 import * as apis from '../apis';
-// import { CompanyStore } from './company';
 
 export const JobStore = types
   .model('JobStore')
@@ -28,19 +27,37 @@ export const JobStore = types
     errorUpcomingJobs: types.optional(types.string, ''),
   })
   .extend(withErrorHandler)
-  .extend(withRootStore)
   .actions((self) => ({
     getRecentJobs: flow(function* getRecentJobs() {
       try {
         self.isLoadingRecentJobs = true;
         const res = yield* toGenerator(apis.getAllJobs());
+        self.recentJobs.clear();
         res.data.forEach((item) => {
           self.recentJobs.push({
-            id: String(item.job.id),
+            id: item.job.id,
             title: item.job.title,
-            startDate: item.job.start_date,
             hourlyRate: item.job.hourly_rate,
-            // company: CompanyStore.create({}),
+            startDate: item.job.start_date,
+            endDate: item.job.end_date,
+            startTime: item.job.start_time,
+            endTime: item.job.end_time,
+            jobStatus: {
+              id: item.job.job_status.id,
+              name: item.job.job_status.name,
+            },
+            category: {
+              id: item.job.job_category.id,
+              name: item.job.job_category.name,
+            },
+            location: {
+              id: item?.job_locations[0]?.id,
+              address: item?.job_locations[0]?.address,
+            },
+            company: {
+              id: item.job.company.id,
+              name: item.job.company.name,
+            },
           });
         });
       } catch (e) {

@@ -27,8 +27,10 @@ export interface ProfilePayload {
 export type NRICPayload = Partial<Pick<ProfilePayload, 'nric_front_img' | 'nric_back_img'>>;
 
 export interface ProfileInfoResponse {
-  profile: ProfileInfo;
-  job_statistics: JobStatisticInfo;
+  data: {
+    profile: ProfileInfo;
+    job_statistics: JobStatisticInfo;
+  };
 }
 
 export interface ProfileInfo {

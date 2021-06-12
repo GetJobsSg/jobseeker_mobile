@@ -1,5 +1,11 @@
+import { Routes } from '../../navigator/routes';
+
+export type JobParamsList = {
+  [Routes.job_details]: { id: number };
+};
+
 export interface CompanyInfo {
-  id: string;
+  id: number;
   name: string;
   desc: string; // description
   primary_contact: string;
@@ -54,12 +60,16 @@ export interface JobLocation {
   date_created: string;
 }
 
-export interface JobResponse {
+export interface JobDetails {
   job: JobInfo;
-  job_location: JobLocation;
+  job_locations: JobLocation[];
   job_application_status_id: number;
 }
 
+export type JobInfoResponse = {
+  data: JobDetails;
+};
+
 export type AllJobResponse = {
-  data: JobResponse[];
+  data: JobDetails[];
 };

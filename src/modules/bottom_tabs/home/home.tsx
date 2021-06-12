@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { RefreshControl } from 'react-native';
 import { observer } from 'mobx-react-lite';
+import { useNavigation } from '@react-navigation/native';
+import { Routes } from '../../../navigator/routes';
 import Header from './header';
 import { Text, InfoCard, Screen } from '../../../components';
 import { useMst } from '../../../store';
@@ -13,15 +15,19 @@ const HomeScreen = () => {
     walletStore: { getWallet },
   } = useMst();
 
+  const navigation = useNavigation();
+
   useEffect(() => {
     if (isAuthenticated) {
       getRecentJobs();
       getUser();
       getWallet();
     }
-  }, [isAuthenticated, getWallet, getUser]);
+  }, [isAuthenticated, getRecentJobs, getUser, getWallet]);
 
-  console.log('>>>>>>>>>..recentJobs', recentJobs);
+  const goToDetails = (id: number) => () => {
+    navigation.navigate(Routes.job_stack, { screen: Routes.job_details, params: { id } });
+  };
 
   return (
     <Screen refreshControl={<RefreshControl refreshing={false} onRefresh={() => {}} />}>
@@ -33,12 +39,12 @@ const HomeScreen = () => {
         <InfoCard
           key={item.id}
           companyName={item.company?.name}
-          date="14 Apr"
-          location="Orchard"
-          onPress={() => {}}
+          date={item.formattedDate}
+          location={item.location?.address}
+          onPress={goToDetails(item.id)}
           rate={item.formattedHourlyRate}
-          time="09:00am - 17:00pm"
-          title="Kitchen Helper"
+          time={item.formattedTime}
+          title={item.title}
         />
       ))}
     </Screen>
