@@ -14,6 +14,14 @@ const Spinner = (props: SpinnerProps) => {
     uiStore: { isGlobalLoading },
   } = useMst();
 
+  if (preset === 'center') {
+    return (
+      <View style={containerStyle}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
   if (!isGlobalLoading) return null;
 
   return (

@@ -4,6 +4,11 @@ export type JobParamsList = {
   [Routes.job_details]: { id: number };
 };
 
+export type MyJobsStatus = 'applied' | 'ongoing' | 'upcoming' | 'completed';
+export interface MyJobsRequestParams {
+  status: MyJobsStatus;
+}
+
 export interface CompanyInfo {
   id: number;
   name: string;

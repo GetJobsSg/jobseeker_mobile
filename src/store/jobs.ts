@@ -1,6 +1,7 @@
 import { flow, Instance, SnapshotOut, toGenerator, types } from 'mobx-state-tree';
+import { JobDetails } from 'src/modules/job/types';
 import { withErrorHandler } from './extensions';
-import { JobInfoStore } from './job-info';
+import { JobInfoStore, JobInfo } from './job-info';
 import * as apis from '../apis';
 
 export const JobStore = types
@@ -27,6 +28,40 @@ export const JobStore = types
     errorUpcomingJobs: types.optional(types.string, ''),
   })
   .extend(withErrorHandler)
+  .actions(() => ({
+    transformToState(data: JobDetails): Partial<JobInfo> {
+      return {
+        id: data.job.id,
+        title: data.job.title,
+        hourlyRate: data.job.hourly_rate,
+        startDate: data.job.start_date,
+        endDate: data.job.end_date,
+        startTime: data.job.start_time,
+        endTime: data.job.end_time,
+        jobStatus: {
+          id: data.job.job_status.id,
+          name: data.job.job_status.name,
+        },
+        category: {
+          id: data.job.job_category.id,
+          name: data.job.job_category.name,
+        },
+        location: {
+          id: data?.job_locations[0]?.id,
+          address: data?.job_locations[0]?.address,
+          postalCode: data.job_locations[0]?.postal_code,
+          blockNo: data.job_locations[0]?.block_no,
+          unitNo: data.job_locations[0]?.unit_no,
+        },
+        company: {
+          id: data.job.company.id,
+          name: data.job.company.name,
+          description: data.job.company.desc,
+          logo: data.job.company.logo_img,
+        },
+      };
+    },
+  }))
   .actions((self) => ({
     getRecentJobs: flow(function* getRecentJobs() {
       try {
@@ -34,36 +69,59 @@ export const JobStore = types
         const res = yield* toGenerator(apis.getAllJobs());
         self.recentJobs.clear();
         res.data.forEach((item) => {
-          self.recentJobs.push({
-            id: item.job.id,
-            title: item.job.title,
-            hourlyRate: item.job.hourly_rate,
-            startDate: item.job.start_date,
-            endDate: item.job.end_date,
-            startTime: item.job.start_time,
-            endTime: item.job.end_time,
-            jobStatus: {
-              id: item.job.job_status.id,
-              name: item.job.job_status.name,
-            },
-            category: {
-              id: item.job.job_category.id,
-              name: item.job.job_category.name,
-            },
-            location: {
-              id: item?.job_locations[0]?.id,
-              address: item?.job_locations[0]?.address,
-            },
-            company: {
-              id: item.job.company.id,
-              name: item.job.company.name,
-            },
-          });
+          self.recentJobs.push(self.transformToState(item));
         });
       } catch (e) {
         self.errorRecentJobs = self.getErrMsg(e);
       } finally {
         self.isLoadingRecentJobs = false;
+      }
+    }),
+
+    getAppliedJobs: flow(function* getAppliedJobs() {
+      try {
+        self.isLoadingAppliedJobs = true;
+        const res = yield* toGenerator(apis.getMyJobs({ status: 'applied' }));
+        self.appliedJobs.clear();
+        res.data.forEach((item) => {
+          self.appliedJobs.push(self.transformToState(item));
+        });
+      } catch (e) {
+        self.errorAppliedJobs = self.getErrMsg(e);
+      } finally {
+        self.isLoadingAppliedJobs = false;
+      }
+    }),
+
+    getOnGoingJobs: function getOnGoingJobs() {},
+
+    getUpcomingJobs: flow(function* getUpcomingJobs() {
+      try {
+        self.isLoadingUpcomingJobs = true;
+        const res = yield* toGenerator(apis.getMyJobs({ status: 'upcoming' }));
+        self.upcomingJobs.clear();
+        res.data.forEach((item) => {
+          self.upcomingJobs.push(self.transformToState(item));
+        });
+      } catch (e) {
+        self.errorUpcomingJobs = self.getErrMsg(e);
+      } finally {
+        self.isLoadingUpcomingJobs = false;
+      }
+    }),
+
+    getCompletedJobs: flow(function* getUpcomingJobs() {
+      try {
+        self.isLoadingCompletedJobs = true;
+        const res = yield* toGenerator(apis.getMyJobs({ status: 'completed' }));
+        self.appliedJobs.clear();
+        res.data.forEach((item) => {
+          self.completedJobs.push(self.transformToState(item));
+        });
+      } catch (e) {
+        self.errorCompletedJobs = self.getErrMsg(e);
+      } finally {
+        self.isLoadingCompletedJobs = false;
       }
     }),
   }));

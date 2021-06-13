@@ -1,32 +1,46 @@
-import React from 'react';
-import { FlatList } from 'react-native';
-import { InfoCard } from '../../../../components';
+import React, { useEffect } from 'react';
+import { FlatList, ListRenderItem } from 'react-native';
+import { observer } from 'mobx-react-lite';
+import { useMst } from '../../../../store';
+import { InfoCard, Spinner } from '../../../../components';
 import { colors } from '../../../../themes';
+import { JobInfo } from '../../../../store/job-info';
 
-const dummy = [1, 2, 3];
+const AppliedScreen = () => {
+  const {
+    authStore: { isAuthenticated },
+    jobsStore: { getAppliedJobs, appliedJobs, isLoadingAppliedJobs },
+  } = useMst();
 
-const renderItem = () => (
-  <InfoCard
-    companyName="Grand Hyatt Singapore"
-    date="14 Apr"
-    location="Orchard"
-    onPress={() => {}}
-    rate="$12/hr"
-    time="09:00am - 17:00pm"
-    title="Kitchen Helper"
-  />
-);
+  useEffect(() => {
+    if (isAuthenticated) {
+      getAppliedJobs();
+    }
+  }, [isAuthenticated, getAppliedJobs]);
 
-const AppliedScreen = () => (
-  <FlatList
-    onRefresh={() => {}}
-    refreshing
-    style={{ backgroundColor: colors.white }}
-    contentContainerStyle={{ flex: 1, paddingHorizontal: 10, backgroundColor: colors.white }}
-    data={dummy}
-    renderItem={renderItem}
-    keyExtractor={(item) => item.toString()}
-  />
-);
+  const renderItem: ListRenderItem<JobInfo> = ({ item }) => (
+    <InfoCard
+      companyName={item.company.name}
+      date={item.formattedDate}
+      location={item.location.address}
+      onPress={() => {}}
+      rate={item.formattedHourlyRate}
+      time={item.formattedTime}
+      title={item.title}
+    />
+  );
 
-export default AppliedScreen;
+  if (isLoadingAppliedJobs) return <Spinner preset="center" />;
+
+  return (
+    <FlatList
+      style={{ backgroundColor: colors.white }}
+      contentContainerStyle={{ flex: 1, paddingHorizontal: 10, backgroundColor: colors.white }}
+      data={appliedJobs}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.toString()}
+    />
+  );
+};
+
+export default observer(AppliedScreen);

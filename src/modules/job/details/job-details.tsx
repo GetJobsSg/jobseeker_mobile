@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
-import { Routes } from 'src/navigator/routes';
+import { Routes } from '../../../navigator/routes';
 import { colors } from '../../../themes';
 import { Header, IconButton, Button } from '../../../components';
 import { SectionTitle, SectionEmployer, SectionDateTime, SectionTextContent } from '../components';
@@ -20,8 +20,12 @@ const JobDetails = () => {
     params: { id },
   } = useRoute<JobDetailsRouteProp>();
   const {
+    authStore: { isAuthenticated },
     jobInfoStore: {
       getJobDetails,
+      applyJob,
+      isApplying,
+      isAllowApply,
       isLoading,
       title,
       formattedHourlyRate,
@@ -37,6 +41,26 @@ const JobDetails = () => {
   useEffect(() => {
     getJobDetails(id);
   }, [id, getJobDetails]);
+
+  const renderStickyBottom = () => {
+    if (!isAuthenticated) {
+      return (
+        <Button
+          block
+          label="Login"
+          onPress={() => {
+            navigation.navigate(Routes.auth_modal_stack, { screen: Routes.authModal_login });
+          }}
+        />
+      );
+    }
+
+    if (isAllowApply) {
+      return <Button block disabled={isApplying} label="APPLY NOW" onPress={() => applyJob(id)} />;
+    }
+
+    return <Button block disabled label="APPLIED" onPress={() => {}} />;
+  };
 
   if (isLoading) {
     return (
@@ -66,9 +90,7 @@ const JobDetails = () => {
         <View style={{ height: 100 }} />
       </ScrollView>
 
-      <View style={commonStyles.STICKY_BOTTOM}>
-        <Button block label="APPLY NOW" onPress={() => {}} />
-      </View>
+      <View style={commonStyles.STICKY_BOTTOM}>{renderStickyBottom()}</View>
     </SafeAreaView>
   );
 };

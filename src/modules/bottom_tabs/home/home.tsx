@@ -18,8 +18,8 @@ const HomeScreen = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
+    getRecentJobs();
     if (isAuthenticated) {
-      getRecentJobs();
       getUser();
       getWallet();
     }

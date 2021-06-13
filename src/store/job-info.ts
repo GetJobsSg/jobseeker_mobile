@@ -1,4 +1,5 @@
 import { flow, Instance, SnapshotOut, toGenerator, types } from 'mobx-state-tree';
+import { ApplicationStatus } from '../constants/types';
 import { withErrorHandler } from './extensions';
 import { CompanyStore } from './company';
 import { CategoryStore } from './category';
@@ -28,6 +29,7 @@ export const JobInfoStore = types
     company: types.optional(CompanyStore, {}),
     applicationStatusId: types.optional(types.number, 0),
     isLoading: types.optional(types.boolean, false),
+    isApplying: types.optional(types.boolean, false),
     error: types.optional(types.string, ''),
   })
   .extend(withErrorHandler)
@@ -43,6 +45,9 @@ export const JobInfoStore = types
       const endTime = convertTimeStringToAmPm(self.endTime);
       return `${startTime} - ${endTime}`;
     },
+    get isAllowApply() {
+      return self.applicationStatusId === ApplicationStatus.NONE;
+    },
   }))
   .actions((self) => ({
     getJobDetails: flow(function* getJobDetails(id: number) {
@@ -53,6 +58,7 @@ export const JobInfoStore = types
         const { job, job_application_status_id, job_locations } = data;
 
         // jobInfo
+        self.id = job.id;
         self.title = job.title;
         self.hourlyRate = job.hourly_rate;
         self.startDate = job.start_date;
@@ -75,6 +81,19 @@ export const JobInfoStore = types
         self.error = self.getErrMsg(e);
       } finally {
         self.isLoading = false;
+      }
+    }),
+  }))
+  .actions((self) => ({
+    applyJob: flow(function* applyJob(id: number) {
+      try {
+        self.isApplying = true;
+        yield* toGenerator(apis.applyJob(id));
+        self.applicationStatusId = ApplicationStatus.PENDING;
+      } catch (e) {
+        self.error = self.getErrMsg(e);
+      } finally {
+        self.isApplying = false;
       }
     }),
   }));
