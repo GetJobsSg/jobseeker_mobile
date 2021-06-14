@@ -2,6 +2,7 @@ import { Routes } from '../../navigator/routes';
 
 export type JobParamsList = {
   [Routes.job_details]: { id: number };
+  [Routes.punch_clock]: { type: 'clock-in' | 'clock-out' };
 };
 
 export type MyJobsStatus = 'applied' | 'ongoing' | 'upcoming' | 'completed';
@@ -76,5 +77,5 @@ export type JobInfoResponse = {
 };
 
 export type AllJobResponse = {
-  data: JobDetails[];
+  data: JobDetails[] | null;
 };

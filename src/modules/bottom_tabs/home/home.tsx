@@ -10,7 +10,7 @@ import { useMst } from '../../../store';
 const HomeScreen = () => {
   const {
     authStore: { isAuthenticated },
-    jobsStore: { getRecentJobs, recentJobs },
+    jobsStore: { getRecentJobs, isLoadingRecentJobs, recentJobs },
     userStore: { getUser },
     walletStore: { getWallet },
   } = useMst();
@@ -30,11 +30,19 @@ const HomeScreen = () => {
   };
 
   return (
-    <Screen refreshControl={<RefreshControl refreshing={false} onRefresh={() => {}} />}>
+    <Screen
+      refreshControl={
+        <RefreshControl
+          refreshing={isLoadingRecentJobs}
+          onRefresh={() => {
+            getRecentJobs();
+          }}
+        />
+      }
+    >
       <Header />
 
       <Text preset="title2">Recent Job</Text>
-
       {recentJobs.map((item) => (
         <InfoCard
           key={item.id}

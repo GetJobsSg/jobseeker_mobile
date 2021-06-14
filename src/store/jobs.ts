@@ -68,6 +68,9 @@ export const JobStore = types
         self.isLoadingRecentJobs = true;
         const res = yield* toGenerator(apis.getAllJobs());
         self.recentJobs.clear();
+
+        if (!res?.data) return;
+
         res.data.forEach((item) => {
           self.recentJobs.push(self.transformToState(item));
         });
@@ -83,6 +86,9 @@ export const JobStore = types
         self.isLoadingAppliedJobs = true;
         const res = yield* toGenerator(apis.getMyJobs({ status: 'applied' }));
         self.appliedJobs.clear();
+
+        if (!res?.data) return;
+
         res.data.forEach((item) => {
           self.appliedJobs.push(self.transformToState(item));
         });
@@ -100,6 +106,9 @@ export const JobStore = types
         self.isLoadingUpcomingJobs = true;
         const res = yield* toGenerator(apis.getMyJobs({ status: 'upcoming' }));
         self.upcomingJobs.clear();
+
+        if (!res?.data) return;
+
         res.data.forEach((item) => {
           self.upcomingJobs.push(self.transformToState(item));
         });
@@ -115,6 +124,9 @@ export const JobStore = types
         self.isLoadingCompletedJobs = true;
         const res = yield* toGenerator(apis.getMyJobs({ status: 'completed' }));
         self.appliedJobs.clear();
+
+        if (!res?.data) return;
+
         res.data.forEach((item) => {
           self.completedJobs.push(self.transformToState(item));
         });

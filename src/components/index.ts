@@ -4,7 +4,10 @@ export { default as Container } from './container';
 export { default as Header } from './header';
 export { default as Icon } from './icon';
 export { default as IconButton } from './icon_button';
+
 export { default as InfoCard } from './job_card/info_card';
+export { default as PunchedCard } from './job_card/punched_card';
+
 export { default as ListTile } from './list_tile';
 export { default as ProfileHeader } from './profile_header';
 export { default as RadioGroup } from './radio_group';

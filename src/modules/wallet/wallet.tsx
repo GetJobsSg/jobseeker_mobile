@@ -6,7 +6,7 @@ import { Routes } from '../../navigator/routes';
 const Stack = createStackNavigator();
 
 const WalletStack = () => (
-  <Stack.Navigator initialRouteName={Routes.wallet_overview}>
+  <Stack.Navigator headerMode="none" initialRouteName={Routes.wallet_overview}>
     <Stack.Screen name={Routes.wallet_overview} component={WalletOverviewScreen} />
     <Stack.Screen name={Routes.wallet_allTransaction} component={AllTransactionScreen} />
     <Stack.Screen name={Routes.wallet_transactionDetails} component={TransactionDetailScreen} />
