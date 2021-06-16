@@ -19,6 +19,7 @@ export enum Routes {
 
   // profile
   'profile_completion' = 'profile_completion',
+  'personal_photo' = 'personal_photo',
   'personal_info' = 'personal_info',
   'nric_info' = 'nric_info',
 

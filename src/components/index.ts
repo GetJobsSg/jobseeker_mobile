@@ -1,6 +1,7 @@
 export { default as Avatar } from './avatar';
 export { default as Button } from './button';
 export { default as Container } from './container';
+export { default as Frame } from './frame';
 export { default as Header } from './header';
 export { default as Icon } from './icon';
 export { default as IconButton } from './icon_button';

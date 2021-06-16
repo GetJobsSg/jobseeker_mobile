@@ -1,13 +1,19 @@
 import { Instance, SnapshotOut, types, flow, toGenerator } from 'mobx-state-tree';
 import * as apis from '../apis';
 import { withErrorHandler, withRootStore } from './extensions';
-import { PersonalInfoFormData, NricFormData, NRICPayload } from '../modules/profile/types';
+import {
+  PersonalInfoFormData,
+  NricFormData,
+  NRICPayload,
+  PersonalPhotoData,
+  PersonalPhotoPayload,
+} from '../modules/profile/types';
 import { constructUploadImagePayload } from '../utils/image';
 
 export const UserStore = types
   .model('UserStore')
   .props({
-    profileImg: types.maybeNull(types.string),
+    profileImg: types.optional(types.string, ''),
     firstName: types.optional(types.string, ''),
     lastName: types.optional(types.string, ''),
     birthDate: types.optional(types.string, ''),
@@ -29,6 +35,9 @@ export const UserStore = types
     get name() {
       return `${self.firstName} ${self.lastName}`;
     },
+    get isPersonalPhotoUploaded() {
+      return !!self.profileImg;
+    },
     get isPersonalInfoCompleted() {
       const requiredItem = [self.firstName, self.lastName, self.mobile, self.gender];
       const incompleteField = requiredItem.filter((value) => !value);
@@ -48,7 +57,7 @@ export const UserStore = types
         // eslint-disable-next-line @typescript-eslint/naming-convention
         const { profile, job_statistics } = res.data;
 
-        self.profileImg = profile.profile_img || null;
+        self.profileImg = profile.profile_img || '';
         self.firstName = profile.first_name || '';
         self.lastName = profile.last_name || '';
         self.email = profile.email || '';
@@ -89,6 +98,22 @@ export const UserStore = types
         self.rootStore.uiStore.hideLoadingSpinner();
       }
     }),
+
+    uploadPersonalPhoto: flow(function* uploadPersonalPhoto(value: PersonalPhotoData) {
+      try {
+        self.isUpdating = true;
+        self.rootStore.uiStore.showLoadingSpinner();
+        const data: PersonalPhotoPayload = { profile_img: constructUploadImagePayload(value.profileImage) };
+        yield apis.updateProfile(data);
+        yield self.getUser();
+      } catch (e) {
+        self.error = self.getErrMsg(e);
+      } finally {
+        self.isUpdating = false;
+        self.rootStore.uiStore.hideLoadingSpinner();
+      }
+    }),
+
     uploadNric: flow(function* uploadNric(values: NricFormData) {
       try {
         self.isUpdating = true;

@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { View, Text, RefreshControl } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { IconTypes } from 'src/components/icon/icons';
+import { IconTypes } from '../../../components/icon/icons';
 import { Screen, ProfileHeader, ListTile } from '../../../components';
 import LoginHeader from './login-header';
 import { useMst } from '../../../store';
@@ -12,7 +12,7 @@ import { Routes } from '../../../navigator/routes';
 const Account = () => {
   const {
     authStore: { isAuthenticated },
-    userStore: { getUser, verified },
+    userStore: { getUser, isLoading, verified },
   } = useMst();
   const navigation = useNavigation();
 
@@ -22,22 +22,28 @@ const Account = () => {
     }
   }, [getUser, isAuthenticated]);
 
+  const handleRefresh = () => {
+    if (isAuthenticated) {
+      getUser();
+    }
+  };
+
   const verification: { icon: IconTypes; description: string; title: React.ReactElement } = verified
     ? {
         icon: 'ic_shield_verified',
-        description:
-          'You are not eligible to work. Please complete your worker profile and our recruitment team will approach you to validate your identity.',
+        description: 'You are eligible to work.',
         title: <Text style={{ color: colors.primary }}>Profile Verified</Text>,
       }
     : {
         icon: 'ic_shield_unverified',
-        description: 'You are eligible to work.',
+        description:
+          'You are not eligible to work. Please complete your worker profile and our recruitment team will approach you to validate your identity.',
         title: <Text style={{ color: colors.textDanger }}>Incomplete Profile</Text>,
       };
 
   return (
     <Screen
-      refreshControl={<RefreshControl refreshing={false} onRefresh={() => {}} />}
+      refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />}
       preset={isAuthenticated ? 'scroll' : 'fixed'}
     >
       {isAuthenticated ? (
@@ -56,13 +62,12 @@ const Account = () => {
             title="Wallet"
             onPress={() => navigation.navigate(Routes.wallet_stack, { screen: Routes.wallet_overview })}
           />
-          {/* <ListTile
+          <ListTile
             leadingIcon="ic_job_preferences"
             traillingIcons={['ic_arrow_right']}
             title="Job Preferences"
-            // onPress={() => getProfile()}
-            onPress={() => getUser()}
-          /> */}
+            onPress={() => {}}
+          />
           <ListTile
             leadingIcon="ic_settings"
             traillingIcons={['ic_arrow_right']}

@@ -50,6 +50,7 @@ const PersonalInfo = () => {
               rightLabel={dirty ? <Text onPress={handleSubmit}>Save</Text> : null}
               title="Personal Information"
             />
+
             <TextField
               value={values.firstName}
               error={{
@@ -84,7 +85,7 @@ const PersonalInfo = () => {
 
             <Selector
               label="Birth Date"
-              value={moment(values.birthDate).format(DD_MMM_YYYY)}
+              value={values.birthDate ? moment(values.birthDate).format(DD_MMM_YYYY) : ''}
               onPress={() => birthRef.current.open()}
             />
             <Sheet type="datePicker" onOK={(data) => setFieldValue('birthDate', data.toISOString())} ref={birthRef} />

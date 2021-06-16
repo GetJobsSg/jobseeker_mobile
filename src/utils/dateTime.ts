@@ -15,9 +15,9 @@ export const convertTimeStringToAmPm = (time: string) => {
   return `${hh}:${mm}pm`;
 };
 
-export const constructDateRange = (startDate: string, endDate: string) => {
-  const formattedStartDate = moment(startDate).format(DD_MMM);
-  const formattedEndDate = moment(endDate).format(DD_MMM);
+export const constructDateRange = (startDate: string, endDate: string, format = DD_MMM) => {
+  const formattedStartDate = moment(startDate).format(format);
+  const formattedEndDate = moment(endDate).format(format);
   if (isSameDay(startDate, endDate)) return formattedStartDate;
   return `${formattedStartDate} - ${formattedEndDate}`;
 };

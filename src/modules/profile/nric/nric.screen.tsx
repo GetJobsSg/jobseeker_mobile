@@ -1,42 +1,19 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useRef, useState } from 'react';
-import RBSheet from 'react-native-raw-bottom-sheet';
+import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { TouchableOpacity } from 'react-native';
-import { launchCamera, launchImageLibrary, Asset } from 'react-native-image-picker';
+import { Asset } from 'react-native-image-picker';
 
-import { Screen, Header, IconButton, Text, Icon } from '../../../components';
-import { IconTypes } from '../../../components/icon/icons';
-import Frame from './frame';
-
+import { Screen, Frame, Header, IconButton, Text } from '../../../components';
 import { useSuccess } from '../../../custom_hooks';
 import { useMst } from '../../../store';
 import { NricFormData } from '../types';
 
-interface SheetItemProps {
-  icon: IconTypes;
-  label: string;
-  onPress: () => void;
-}
-
-const SheetItem = ({ icon, label, onPress }: SheetItemProps) => (
-  <TouchableOpacity onPress={onPress} style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
-    <Icon size={30} icon={icon} />
-    <Text style={{ marginLeft: 10, letterSpacing: 1.2 }}>{label}</Text>
-  </TouchableOpacity>
-);
-
-const sheetCloseDuration = 200;
-const cameraLibraryOpenDelay = sheetCloseDuration + 200;
-
 const NricScreen = () => {
   const navigation = useNavigation();
-  const selectRef = useRef() as any;
   const {
     userStore: { nricFront, nricBack, uploadNric, isUpdating, error },
   } = useMst();
 
-  const [target, setTarget] = useState<'nricFront' | 'nricBack'>('nricFront');
   const [selectedNricFrontImage, setSelectedNricFrontImage] = useState<Asset>();
   const [selectedNricBackImage, setSelectedNricBackImage] = useState<Asset>();
 
@@ -44,47 +21,12 @@ const NricScreen = () => {
   const isUploadSuccess = useSuccess({ loadingState: isUpdating, errorState: error });
   if (isUploadSuccess) setTimeout(() => navigation.goBack(), 0);
 
-  const handleImageTarget = (imageAsset: Asset) => {
-    if (target === 'nricFront') return setSelectedNricFrontImage(imageAsset);
-    return setSelectedNricBackImage(imageAsset);
-  };
-
-  const handleLaunchCamera = () => {
-    selectRef.current.close();
-    // wait until bottom sheet is completely close, open camera
-    setTimeout(() => {
-      launchCamera(
-        {
-          mediaType: 'photo',
-          includeBase64: true,
-        },
-        (res) => {
-          if (res.didCancel) return;
-          if (res.errorCode) return;
-          const imageAsset = res.assets[0];
-          handleImageTarget(imageAsset);
-        },
-      );
-    }, cameraLibraryOpenDelay);
-  };
-
-  const handleLaunchLibrary = () => {
-    selectRef.current.close();
-    // wait until bottom sheet is completely close, open library
-    setTimeout(() => {
-      launchImageLibrary(
-        {
-          mediaType: 'photo',
-          includeBase64: true,
-        },
-        (res) => {
-          if (res.didCancel) return;
-          if (res.errorCode) return;
-          const imageAsset = res.assets[0];
-          handleImageTarget(imageAsset);
-        },
-      );
-    }, cameraLibraryOpenDelay);
+  const handleImageTarget = (target: 'nricFront' | 'nricBack', imageAsset: Asset) => {
+    if (target === 'nricFront') {
+      setSelectedNricFrontImage(imageAsset);
+    } else {
+      setSelectedNricBackImage(imageAsset);
+    }
   };
 
   const handleUpload = () => {
@@ -111,31 +53,14 @@ const NricScreen = () => {
       <Frame
         placeholder="Upload your NRIC / FIN Front Page"
         displayImage={selectedNricFrontImage?.uri || nricFront}
-        onPress={() => {
-          setTarget('nricFront');
-          selectRef.current.open();
-        }}
+        onImagePick={(imageAsset) => handleImageTarget('nricFront', imageAsset)}
       />
 
       <Frame
         placeholder="Upload your NRIC / FIN Back Page"
         displayImage={selectedNricBackImage?.uri || nricBack}
-        onPress={() => {
-          setTarget('nricBack');
-          selectRef.current.open();
-        }}
+        onImagePick={(imageAsset) => handleImageTarget('nricBack', imageAsset)}
       />
-
-      <RBSheet
-        closeDuration={sheetCloseDuration}
-        height={180}
-        customStyles={{ container: { padding: 5 } }}
-        ref={selectRef}
-      >
-        <SheetItem label="Camera" icon="camera" onPress={handleLaunchCamera} />
-        <SheetItem label="Library" icon="gallery" onPress={handleLaunchLibrary} />
-        <SheetItem label="Cancel" icon="cross" onPress={() => selectRef.current.close()} />
-      </RBSheet>
     </Screen>
   );
 };

@@ -9,7 +9,7 @@ import { Routes } from '../../navigator/routes';
 const ProfileCompletion = () => {
   const navigation = useNavigation();
   const {
-    userStore: { isPersonalInfoCompleted, isNRICInfoCompleted },
+    userStore: { isPersonalInfoCompleted, isPersonalPhotoUploaded, isNRICInfoCompleted },
   } = useMst();
 
   const renderTraillingIcons = (infoCompleted: boolean): IconTypes[] => {
@@ -20,6 +20,11 @@ const ProfileCompletion = () => {
   return (
     <Screen preset="scroll" unsafeArea={['top', 'bottom']}>
       <Header title="Profile" leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />} />
+      <ListTile
+        title="Personal Photo"
+        onPress={() => navigation.navigate(Routes.personal_photo)}
+        traillingIcons={renderTraillingIcons(isPersonalPhotoUploaded)}
+      />
       <ListTile
         title="Personal Information"
         onPress={() => navigation.navigate(Routes.personal_info)}

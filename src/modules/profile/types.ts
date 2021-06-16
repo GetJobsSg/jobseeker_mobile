@@ -8,6 +8,9 @@ export interface PersonalInfoFormData {
   gender: number | null;
 }
 
+export type PersonalPhotoData = { profileImage: Asset };
+export type PersonalPhotoPayload = Pick<ProfilePayload, 'profile_img'>;
+
 export interface NricFormData {
   nricFront?: Asset;
   nricBack?: Asset;
@@ -21,7 +24,7 @@ export interface ProfilePayload {
   gender_id: number | null;
   nric_front_img: { ext: string; base64: string };
   nric_back_img: { ext: string; base64: string };
-  profileImg: string;
+  profile_img: { ext: string; base64: string };
 }
 
 export type NRICPayload = Partial<Pick<ProfilePayload, 'nric_front_img' | 'nric_back_img'>>;

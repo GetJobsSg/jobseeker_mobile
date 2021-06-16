@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { colors } from '../../themes';
 import { Avatar, Text } from '..';
+import ProfileHeaderPlaceholder from './profile-header-placeholder';
 import {
   PROFILE_CONTAINER,
   USERINFO_WRAPPER,
@@ -32,7 +33,7 @@ const StatisticInfo = ({ label, value }: StatisticInfoProps) => (
 const ProfileHeader = () => {
   const navigation = useNavigation();
   const {
-    userStore: { name, profileImg, rating, completedJobs, totalWorkHours },
+    userStore: { isLoading, name, profileImg, rating, completedJobs, totalWorkHours },
   } = useMst();
 
   const getPreset = (): TextPresets => {
@@ -40,6 +41,26 @@ const ProfileHeader = () => {
     if (name.length < 25) return 'title1';
     return 'title2';
   };
+
+  if (isLoading) {
+    return <ProfileHeaderPlaceholder />;
+    // return (
+    //   <View style={PROFILE_CONTAINER}>
+    //     <View style={USERINFO_WRAPPER}>
+    //       <View>
+    //         <View style={{ height: 25, width: 100, backgroundColor: '#ececec', borderRadius: 10 }} />
+    //         <View style={{ height: 20, width: 120, backgroundColor: '#ececec', borderRadius: 10, marginTop: 10 }} />
+    //       </View>
+    //       <View style={{ width: 60, height: 60, borderRadius: 60, backgroundColor: '#ececec' }} />
+    //     </View>
+    //     <View style={[STATISTIC_WRAPPER, { justifyContent: 'space-between' }]}>
+    //       <View style={{ height: 30, width: 70, backgroundColor: '#ececec', borderRadius: 10 }} />
+    //       <View style={{ height: 30, width: 70, backgroundColor: '#ececec', borderRadius: 10 }} />
+    //       <View style={{ height: 30, width: 70, backgroundColor: '#ececec', borderRadius: 10 }} />
+    //     </View>
+    //   </View>
+    // );
+  }
 
   return (
     <View style={PROFILE_CONTAINER}>

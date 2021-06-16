@@ -22,6 +22,7 @@ const icons = {
   location: require('../../assets/icons/general/location.png'),
   calendar: require('../../assets/icons/general/calendar.png'),
   clock: require('../../assets/icons/general/clock.png'),
+  edit: require('../../assets/icons/general/edit.png'),
 
   // actions
   circle_back_btn: require('../../assets/icons/actions/circle-back-btn.png'),
@@ -30,7 +31,6 @@ const icons = {
   ic_arrow_right_primary: require('../../assets/icons/actions/ic-arrow-right-primary.png'),
 
   // accounts
-  ic_edit_profile: require('../../assets/icons/account/ic-edit-profile.png'),
   ic_settings: require('../../assets/icons/account/ic-settings.png'),
   ic_job_preferences: require('../../assets/icons/account/ic-job-preferences.png'),
   ic_shield_verified: require('../../assets/icons/account/ic-shield-verified.png'),

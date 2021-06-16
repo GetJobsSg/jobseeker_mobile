@@ -45,3 +45,30 @@ export const STATISTIC_INFO_LABEL = {
   fontSize: fontSize.xxs,
   marginTop: spacing.xs,
 } as TextStyle;
+
+export const PLACEHOLDER_LINE1 = {
+  height: 25,
+  width: 100,
+  backgroundColor: colors.lightGrey1,
+  borderRadius: 10,
+} as ViewStyle;
+
+export const PLACEHOLDER_LINE2 = {
+  ...PLACEHOLDER_LINE1,
+  width: 120,
+  height: 20,
+  marginTop: spacing.md,
+} as ViewStyle;
+
+export const PLACEHOLDER_LINE3 = {
+  ...PLACEHOLDER_LINE1,
+  height: 20,
+  width: 80,
+} as ViewStyle;
+
+export const PLACEHOLDER_AVATAR = {
+  width: 60,
+  height: 60,
+  borderRadius: 60,
+  backgroundColor: colors.lightGrey1,
+} as ViewStyle;

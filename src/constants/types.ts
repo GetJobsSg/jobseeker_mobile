@@ -4,10 +4,10 @@ export enum Gender {
 }
 
 export enum JobStatus {
-  OPEN = 'Open',
-  ONGOING = 'Ongoing',
-  COMPLETED = 'Completed',
-  CANCELLED = 'Cancelled',
+  OPEN = 1,
+  ONGOING = 2,
+  COMPLETED = 3,
+  CANCELLED = 4,
 }
 
 export enum ApplicationStatus {
