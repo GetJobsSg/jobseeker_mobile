@@ -4,8 +4,8 @@ import { Routes } from '../../navigator/routes';
 
 import NricScreen from './nric';
 import PersonalPhotoScreen from './personal-photo';
-import PersonalInfoScreen from './personal-info.screen';
-import ProfileCompletionScreen from './profile-completion.screen';
+import PersonalInfoScreen from './personal-info';
+import ProfileCompletionScreen from './completion';
 
 const Stack = createStackNavigator();
 

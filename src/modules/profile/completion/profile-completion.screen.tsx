@@ -2,9 +2,9 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { IconTypes } from 'src/components/icon/icons';
-import { Screen, Header, ListTile, IconButton } from '../../components';
-import { useMst } from '../../store';
-import { Routes } from '../../navigator/routes';
+import { Screen, Header, ListTile, IconButton } from '../../../components';
+import { useMst } from '../../../store';
+import { Routes } from '../../../navigator/routes';
 
 const ProfileCompletion = () => {
   const navigation = useNavigation();

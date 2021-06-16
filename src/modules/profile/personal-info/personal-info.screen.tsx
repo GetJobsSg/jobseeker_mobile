@@ -4,12 +4,12 @@ import moment from 'moment';
 import { View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { Formik } from 'formik';
-import { useSuccess } from '../../custom_hooks';
-import { Screen, Text, Header, IconButton, RadioGroup, TextField, Selector, Sheet } from '../../components';
-import { genderOptions } from '../../constants/options';
-import { useMst } from '../../store';
-import { PersonalInfoFormData } from './types';
-import { DD_MMM_YYYY } from '../../constants/dateTime';
+import { useSuccess } from '../../../custom_hooks';
+import { Screen, Text, Header, IconButton, RadioGroup, TextField, Selector, Sheet } from '../../../components';
+import { genderOptions } from '../../../constants/options';
+import { useMst } from '../../../store';
+import { PersonalInfoFormData } from '../types';
+import { DD_MMM_YYYY } from '../../../constants/dateTime';
 import { personalInfoValidation } from './validation';
 
 const PersonalInfo = () => {

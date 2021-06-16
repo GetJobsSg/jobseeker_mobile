@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { FlatList, ListRenderItem } from 'react-native';
+import { FlatList, ListRenderItem, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../../../navigator/routes';
 import { useMst } from '../../../../store';
-import { InfoCard, Spinner } from '../../../../components';
+import { InfoCard, Spinner, Text } from '../../../../components';
 import { colors } from '../../../../themes';
 import { JobInfo } from '../../../../store/job-info';
 
@@ -34,6 +34,16 @@ const AppliedScreen = () => {
   );
 
   if (isLoadingAppliedJobs) return <Spinner preset="center" />;
+
+  if (appliedJobs.length === 0) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 15 }}>
+        <Text style={{ color: colors.lightGrey2 }} preset="title2">
+          You do not apply to any job
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <FlatList

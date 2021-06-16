@@ -35,7 +35,7 @@ const CompletedScreen = () => {
 
   if (isLoadingCompletedJobs) return <Spinner preset="center" />;
 
-  if (completedJobs.length === 0)
+  if (completedJobs.length === 0) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 15 }}>
         <Text style={{ color: colors.lightGrey2 }} preset="title2">
@@ -43,6 +43,7 @@ const CompletedScreen = () => {
         </Text>
       </View>
     );
+  }
 
   return (
     <FlatList

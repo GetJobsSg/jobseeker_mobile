@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { RefreshControl } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
@@ -17,29 +17,29 @@ const HomeScreen = () => {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    getRecentJobs();
+  const fetchData = useCallback(() => {
     if (isAuthenticated) {
       getUser();
       getWallet();
+    } else {
+      getRecentJobs();
     }
-  }, [isAuthenticated, getRecentJobs, getUser, getWallet]);
+  }, [isAuthenticated, getUser, getWallet, getRecentJobs]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const handleRefresh = () => {
+    fetchData();
+  };
 
   const goToDetails = (id: number) => () => {
     navigation.navigate(Routes.job_stack, { screen: Routes.job_details, params: { id } });
   };
 
   return (
-    <Screen
-      refreshControl={
-        <RefreshControl
-          refreshing={isLoadingRecentJobs}
-          onRefresh={() => {
-            getRecentJobs();
-          }}
-        />
-      }
-    >
+    <Screen refreshControl={<RefreshControl refreshing={isLoadingRecentJobs} onRefresh={handleRefresh} />}>
       <Header />
 
       <Text preset="title2">Recent Job</Text>
