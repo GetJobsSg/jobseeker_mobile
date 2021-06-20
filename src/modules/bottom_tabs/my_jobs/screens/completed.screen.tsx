@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { FlatList, ListRenderItem, View } from 'react-native';
+import { FlatList, ListRenderItem, ScrollView, RefreshControl } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../../../navigator/routes';
@@ -37,16 +37,20 @@ const CompletedScreen = () => {
 
   if (completedJobs.length === 0) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 15 }}>
+      <ScrollView
+        refreshControl={<RefreshControl onRefresh={() => getCompletedJobs()} refreshing={isLoadingCompletedJobs} />}
+        contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 15 }}
+      >
         <Text style={{ color: colors.lightGrey2 }} preset="title2">
-          You do not have any completed jobs
+          You do not complete any jobs
         </Text>
-      </View>
+      </ScrollView>
     );
   }
 
   return (
     <FlatList
+      refreshControl={<RefreshControl onRefresh={() => getCompletedJobs()} refreshing={isLoadingCompletedJobs} />}
       style={{ backgroundColor: colors.white }}
       contentContainerStyle={{ paddingHorizontal: 10, backgroundColor: colors.white }}
       data={completedJobs}

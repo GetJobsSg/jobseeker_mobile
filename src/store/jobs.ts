@@ -123,7 +123,7 @@ export const JobStore = types
       try {
         self.isLoadingCompletedJobs = true;
         const res = yield* toGenerator(apis.getMyJobs({ status: 'completed' }));
-        self.appliedJobs.clear();
+        self.completedJobs.clear();
 
         if (!res?.data) return;
 
