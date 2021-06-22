@@ -18,11 +18,10 @@ const HomeScreen = () => {
   const navigation = useNavigation();
 
   const fetchData = useCallback(() => {
+    getRecentJobs();
     if (isAuthenticated) {
       getUser();
       getWallet();
-    } else {
-      getRecentJobs();
     }
   }, [isAuthenticated, getUser, getWallet, getRecentJobs]);
 

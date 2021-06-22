@@ -23,8 +23,9 @@ export enum Routes {
   'personal_info' = 'personal_info',
   'nric_info' = 'nric_info',
 
-  // job details
+  // job
   'job_details' = 'job_details',
+  'job_offer_details' = 'job_offer_details',
   'punch_clock' = 'punch_clock',
 
   // wallet

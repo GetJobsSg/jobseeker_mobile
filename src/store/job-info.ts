@@ -31,6 +31,16 @@ export const JobInfoStore = types
     isLoading: types.optional(types.boolean, false),
     isApplying: types.optional(types.boolean, false),
     error: types.optional(types.string, ''),
+
+    // clock in
+    isLoadingClockIn: types.optional(types.boolean, false),
+    clockInTime: types.optional(types.string, ''),
+    clockInError: types.optional(types.string, ''),
+
+    // clock out
+    isLoadingClockOut: types.optional(types.boolean, false),
+    clockOutTime: types.optional(types.string, ''),
+    clockOutError: types.optional(types.string, ''),
   })
   .extend(withErrorHandler)
   .views((self) => ({
@@ -94,6 +104,28 @@ export const JobInfoStore = types
         self.error = self.getErrMsg(e);
       } finally {
         self.isApplying = false;
+      }
+    }),
+
+    clockInJob: flow(function* clockInJob(id: number, code: string) {
+      try {
+        self.isLoadingClockIn = true;
+        yield* toGenerator(apis.clockIn(id, code));
+      } catch (e) {
+        self.clockInError = self.getErrMsg(e);
+      } finally {
+        self.isLoadingClockIn = false;
+      }
+    }),
+
+    clockOutJob: flow(function* clockOutJob(id: number, code: string) {
+      try {
+        self.isLoadingClockOut = true;
+        yield* toGenerator(apis.clockOut(id, code));
+      } catch (e) {
+        self.clockOutError = self.getErrMsg(e);
+      } finally {
+        self.isLoadingClockOut = false;
       }
     }),
   }));

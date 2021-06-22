@@ -99,7 +99,23 @@ export const JobStore = types
       }
     }),
 
-    getOnGoingJobs: function getOnGoingJobs() {},
+    getOnGoingJobs: flow(function* getOnGoingJobs() {
+      try {
+        self.isLoadingOnGoingJobs = true;
+        const res = yield* toGenerator(apis.getMyJobs({ status: 'ongoing' }));
+        self.onGoingJobs.clear();
+
+        if (!res?.data) return;
+
+        res.data.forEach((item) => {
+          self.onGoingJobs.push(self.transformToState(item));
+        });
+      } catch (e) {
+        self.errorOnGoingJobs = self.getErrMsg(e);
+      } finally {
+        self.isLoadingOnGoingJobs = false;
+      }
+    }),
 
     getUpcomingJobs: flow(function* getUpcomingJobs() {
       try {

@@ -1,8 +1,18 @@
 import { Routes } from '../../navigator/routes';
 
+interface ClockInParams {
+  type: 'clock-in';
+  jobId: number;
+}
+interface ClockOutParams {
+  type: 'clock-out';
+  jobId: number;
+}
+
 export type JobParamsList = {
   [Routes.job_details]: { id: number };
-  [Routes.punch_clock]: { type: 'clock-in' | 'clock-out' };
+  [Routes.job_offer_details]: { id: number };
+  [Routes.punch_clock]: ClockInParams | ClockOutParams;
 };
 
 export type MyJobsStatus = 'applied' | 'ongoing' | 'upcoming' | 'completed';

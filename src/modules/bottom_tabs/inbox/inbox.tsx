@@ -1,30 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { Text, TextStyle, View, ViewStyle } from 'react-native';
-import { Screen } from '../../../components';
+import { FlatList, ListRenderItem, RefreshControl } from 'react-native';
+import { Screen, Spinner, Text } from '../../../components';
+import InboxItem from './inbox-item';
+import { useMst } from '../../../store';
+import { Message } from '../../../store/inbox';
 
-const FULL: ViewStyle = {
-  flex: 1,
+const InboxScreen = () => {
+  const {
+    authStore: { isAuthenticated },
+    inboxStore: { getInboxMessages, inboxMessages, isLoadingInbox },
+  } = useMst();
+
+  const [isRefreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      getInboxMessages();
+    }
+  }, [isAuthenticated, getInboxMessages]);
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    getInboxMessages().finally(() => setRefreshing(false));
+  };
+
+  const renderItem: ListRenderItem<Message> = ({ item }) => (
+    <InboxItem title={item.title} body={item.body} jobId={item.jobId} />
+  );
+
+  if (isLoadingInbox && !isRefreshing) return <Spinner preset="center" />;
+
+  return (
+    <Screen preset="fixed">
+      <FlatList
+        refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
+        ListHeaderComponent={<Text preset="header">Inbox</Text>}
+        data={inboxMessages}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+      />
+    </Screen>
+  );
 };
-
-const CENTER: ViewStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flex: 1,
-};
-
-const DEFAULT_FONTS: TextStyle = {
-  fontSize: 26,
-  fontWeight: 'bold',
-};
-
-const InboxScreen = () => (
-  <Screen preset="fixed">
-    <View style={[FULL, CENTER]}>
-      <Text style={[DEFAULT_FONTS]}>Hello Inbox</Text>
-    </View>
-  </Screen>
-);
 
 export default observer(InboxScreen);

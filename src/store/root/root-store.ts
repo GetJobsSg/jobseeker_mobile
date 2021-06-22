@@ -5,6 +5,7 @@ import { UserStore } from '../user';
 import { WalletStore } from '../wallet';
 import { JobInfoStore } from '../job-info';
 import { JobStore } from '../jobs';
+import { InboxStore } from '../inbox';
 import { DataStore } from '../data';
 
 export const RootStore = types.model('RootStore').props({
@@ -12,6 +13,7 @@ export const RootStore = types.model('RootStore').props({
   userStore: types.optional(UserStore, {} as any),
   jobsStore: types.optional(JobStore, {} as any),
   jobInfoStore: types.optional(JobInfoStore, {} as any),
+  inboxStore: types.optional(InboxStore, {} as any),
   dataStore: types.optional(DataStore, {} as any),
   walletStore: types.optional(WalletStore, {} as any),
   uiStore: types.optional(UiStore, {} as any),
@@ -23,9 +25,10 @@ export const rootStore = RootStore.create({
   userStore: {},
   jobsStore: {},
   jobInfoStore: {},
-  dataStore: {},
   walletStore: {},
+  inboxStore: {},
   uiStore: {},
+  dataStore: {},
 });
 
 // print snapShot in local development
