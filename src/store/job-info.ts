@@ -1,5 +1,5 @@
 import { flow, Instance, SnapshotOut, toGenerator, types } from 'mobx-state-tree';
-import { ApplicationStatus } from '../constants/types';
+import { ApplicationStatus, JobStatus } from '../constants/types';
 import { withErrorHandler } from './extensions';
 import { CompanyStore } from './company';
 import { CategoryStore } from './category';
@@ -11,6 +11,7 @@ import { constructDateRange, convertTimeStringToAmPm } from '../utils/dateTime';
 export const JobInfoStore = types
   .model('JobInfoStore')
   .props({
+    // job info
     id: types.optional(types.number, 0),
     referenceCode: types.optional(types.string, ''),
     title: types.optional(types.string, ''),
@@ -31,6 +32,10 @@ export const JobInfoStore = types
     isLoading: types.optional(types.boolean, false),
     isApplying: types.optional(types.boolean, false),
     error: types.optional(types.string, ''),
+
+    // job offer
+    isLoadingAcceptOffer: types.optional(types.boolean, false),
+    isLoadingDeclineOffer: types.optional(types.boolean, false),
 
     // clock in
     isLoadingClockIn: types.optional(types.boolean, false),
@@ -57,6 +62,15 @@ export const JobInfoStore = types
     },
     get isAllowApply() {
       return self.applicationStatusId === ApplicationStatus.NONE;
+    },
+    get isAllowToAcceptOffer() {
+      return self.jobStatus.id === JobStatus.OPEN;
+    },
+    get isOfferAccepted() {
+      return self.applicationStatusId === ApplicationStatus.ACCEPTED;
+    },
+    get isOfferDeclined() {
+      return self.applicationStatusId === ApplicationStatus.REJECTED;
     },
   }))
   .actions((self) => ({
@@ -85,6 +99,10 @@ export const JobInfoStore = types
         self.company.id = job.company.id;
         self.company.name = job.company.name;
 
+        // job status
+        self.jobStatus.id = job.job_status.id;
+        self.jobStatus.name = job.job_status.name;
+
         // application status
         self.applicationStatusId = job_application_status_id;
       } catch (e) {
@@ -104,6 +122,30 @@ export const JobInfoStore = types
         self.error = self.getErrMsg(e);
       } finally {
         self.isApplying = false;
+      }
+    }),
+
+    acceptJobOffer: flow(function* acceptJobOffer(id: number) {
+      try {
+        self.isLoadingAcceptOffer = true;
+        yield* toGenerator(apis.acceptOffer(id));
+        self.applicationStatusId = ApplicationStatus.ACCEPTED;
+      } catch (e) {
+        self.error = self.getErrMsg(e);
+      } finally {
+        self.isLoadingAcceptOffer = false;
+      }
+    }),
+
+    declineJobOffer: flow(function* declineJobOffer(id: number) {
+      try {
+        self.isLoadingDeclineOffer = true;
+        yield* toGenerator(apis.declineOffer(id));
+        self.applicationStatusId = ApplicationStatus.REJECTED;
+      } catch (e) {
+        self.error = self.getErrMsg(e);
+      } finally {
+        self.isLoadingDeclineOffer = false;
       }
     }),
 

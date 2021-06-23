@@ -28,6 +28,8 @@ export const applyJob = (id: number): Promise<{}> => put(`/mobile/job/${id}/appl
 
 export const acceptOffer = (id: number): Promise<{}> => put(`/mobile/job/${id}/accept`).then((res) => res.data);
 
+export const declineOffer = (id: number): Promise<{}> => put(`/mobile/job/${id}/decline`).then((res) => res.data);
+
 export const clockIn = (id: number, code: string): Promise<{}> =>
   put(`/mobile/job/${id}/attendance/in`, { code }).then((res) => res.data);
 
