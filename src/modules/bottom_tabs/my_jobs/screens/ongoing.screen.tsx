@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
 import { ScrollView, RefreshControl } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { Routes } from '../../../../navigator/routes';
@@ -19,6 +20,26 @@ const OnGoingScreen = () => {
   const handleRefresh = () => {
     setRefreshing(true);
     getOnGoingJobs().finally(() => setRefreshing(false));
+  };
+
+  const handleOperation = (jobId: number, clockInTime: string, clockOutTime: string) => () => {
+    // user have clock in and clock out
+    if (clockInTime && clockOutTime) return;
+
+    // user havent clock in
+    if (!clockInTime) {
+      navigation.navigate(Routes.job_stack, {
+        screen: Routes.punch_clock,
+        params: { type: 'clock-in', jobId },
+      });
+      return;
+    }
+
+    // user have clock in
+    navigation.navigate(Routes.job_stack, {
+      screen: Routes.punch_clock,
+      params: { type: 'clock-out', jobId },
+    });
   };
 
   useEffect(() => {
@@ -55,14 +76,9 @@ const OnGoingScreen = () => {
             companyName={job.company.name}
             date={job.formattedDate}
             time={job.formattedTime}
-            clockInTime=""
-            clockOutTime=""
-            onPress={() =>
-              navigation.navigate(Routes.job_stack, {
-                screen: Routes.punch_clock,
-                params: { type: 'clock-in', jobId: job.id },
-              })
-            }
+            clockInTime={job.clockInTime ? moment(job.clockInTime).format('hh:mm a') : ''}
+            clockOutTime={job.clockOutTime ? moment(job.clockOutTime).format('hh:mm a') : ''}
+            onPress={handleOperation(job.id, job.clockInTime, job.clockOutTime)}
           />
         ))}
       </Container>

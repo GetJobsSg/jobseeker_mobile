@@ -151,6 +151,7 @@ export const JobInfoStore = types
 
     clockInJob: flow(function* clockInJob(id: number, code: string) {
       try {
+        self.clockInError = '';
         self.isLoadingClockIn = true;
         yield* toGenerator(apis.clockIn(id, code));
       } catch (e) {
@@ -162,6 +163,7 @@ export const JobInfoStore = types
 
     clockOutJob: flow(function* clockOutJob(id: number, code: string) {
       try {
+        self.clockOutError = '';
         self.isLoadingClockOut = true;
         yield* toGenerator(apis.clockOut(id, code));
       } catch (e) {

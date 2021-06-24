@@ -36,4 +36,6 @@ export const clockIn = (id: number, code: string): Promise<{}> =>
 export const clockOut = (id: number, code: string): Promise<{}> =>
   put(`/mobile/job/${id}/attendance/out`, { code }).then((res) => res.data);
 
+export const getAttendanceDetails = (id: number) => get(`/mobile/job/${id}/attendance`).then((res) => res.data);
+
 export const getInbox = () => get(`/mobile/inbox`).then((res) => res.data);

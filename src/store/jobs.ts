@@ -107,9 +107,16 @@ export const JobStore = types
 
         if (!res?.data) return;
 
-        res.data.forEach((item) => {
-          self.onGoingJobs.push(self.transformToState(item));
-        });
+        res.data.forEach(
+          flow(function* (item) {
+            const attendanceRes = yield* toGenerator(apis.getAttendanceDetails(item.job.id));
+            self.onGoingJobs.push({
+              ...self.transformToState(item),
+              clockInTime: attendanceRes.data[0].clock_in_time || '',
+              clockOutTime: attendanceRes.data[0].clock_out_time || '',
+            });
+          }),
+        );
       } catch (e) {
         self.errorOnGoingJobs = self.getErrMsg(e);
       } finally {

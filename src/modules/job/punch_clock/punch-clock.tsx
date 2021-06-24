@@ -1,5 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import React, { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import { View } from 'react-native';
 import { CodeField, useBlurOnFulfill } from 'react-native-confirmation-code-field';
 import { Button, Header, IconButton, Screen, Text } from '../../../components';
@@ -19,6 +20,7 @@ const PunchClock = () => {
   } = useRoute<PunchClockRouteProp>();
   const navigation = useNavigation();
   const {
+    jobsStore: { getOnGoingJobs },
     jobInfoStore: { clockInJob, clockOutJob, isLoadingClockIn, isLoadingClockOut, clockInError, clockOutError },
   } = useMst();
 
@@ -29,7 +31,9 @@ const PunchClock = () => {
   // successfully clockIn or clockOut
   const isSuccessClockIn = useSuccess({ loadingState: isLoadingClockIn, errorState: clockInError });
   const isSuccessClockOut = useSuccess({ loadingState: isLoadingClockOut, errorState: clockOutError });
+
   if (isSuccessClockIn || isSuccessClockOut) {
+    getOnGoingJobs();
     navigation.goBack();
   }
 
@@ -68,4 +72,4 @@ const PunchClock = () => {
   );
 };
 
-export default PunchClock;
+export default observer(PunchClock);

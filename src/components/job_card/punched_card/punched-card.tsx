@@ -8,8 +8,22 @@ import { commonStyles } from '../../../common';
 const PunchedCard = (props: PunchedCardProps) => {
   const { title, companyName, date, time, clockInTime, clockOutTime, onPress } = props;
 
+  const renderButton = () => {
+    if (clockInTime && clockOutTime) return null;
+    return (
+      <Button
+        textStyle={CLOCKING_BUTTON_TEXT}
+        style={CLOCKING_BUTTON}
+        block
+        preset="outlined"
+        label={!clockInTime ? 'Clock In' : 'Clock Out'}
+        onPress={onPress}
+      />
+    );
+  };
+
   return (
-    <View style={commonStyles.CARD_VIEW}>
+    <View style={[commonStyles.CARD_VIEW, { marginBottom: 10 }]}>
       <Text preset="title2">{title}</Text>
       <Text>{companyName}</Text>
       <Row>
@@ -26,14 +40,7 @@ const PunchedCard = (props: PunchedCardProps) => {
           <Text style={TIME}>{clockOutTime || '-- : --'}</Text>
         </View>
       </Row>
-      <Button
-        textStyle={CLOCKING_BUTTON_TEXT}
-        style={CLOCKING_BUTTON}
-        block
-        preset="outlined"
-        label="Clock In"
-        onPress={onPress}
-      />
+      {renderButton()}
     </View>
   );
 };
