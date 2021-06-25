@@ -53,6 +53,14 @@ const Account = () => {
       };
     }
 
+    if (verificationStatus === IVerificationStatus.APPROVED) {
+      verification = {
+        icon: 'ic_shield_verified',
+        description: 'You are eligible to work.',
+        title: <Text style={{ color: colors.danger }}>Profile Verified</Text>,
+      };
+    }
+
     // fallback to NOT_INITIATED
     return verification;
   };

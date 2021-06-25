@@ -7,6 +7,7 @@ export enum IVerificationStatus {
   NOT_INITIATED = 1,
   PENDING_REVIEW = 2,
   REQUIRED_UPDATE = 3,
+  APPROVED = 4,
 }
 
 export enum JobStatus {

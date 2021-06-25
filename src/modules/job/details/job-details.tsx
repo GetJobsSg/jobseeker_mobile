@@ -27,6 +27,7 @@ const JobDetails = () => {
       isApplying,
       isAllowApply,
       isLoading,
+      id: jobId,
       title,
       formattedHourlyRate,
       formattedDate,
@@ -79,7 +80,7 @@ const JobDetails = () => {
       />
 
       <ScrollView>
-        <SectionTitle title={title} rate={formattedHourlyRate} />
+        <SectionTitle jobId={jobId} title={title} rate={formattedHourlyRate} />
         <SectionEmployer companyLogo={company.logo} companyName={company.name} onPress={() => {}} />
         <SectionDateTime date={formattedDate} time={formattedTime} />
 
