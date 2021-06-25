@@ -8,6 +8,7 @@ import {
   PersonalPhotoData,
   PersonalPhotoPayload,
 } from '../modules/profile/types';
+import { IVerificationStatus } from '../constants/types';
 import { constructUploadImagePayload } from '../utils/image';
 
 export const UserStore = types
@@ -22,7 +23,7 @@ export const UserStore = types
     nric: types.optional(types.string, ''),
     nricFront: types.optional(types.string, ''),
     nricBack: types.optional(types.string, ''),
-    verified: types.optional(types.boolean, false),
+    verificationStatus: types.optional(types.number, IVerificationStatus.NOT_INITIATED),
     gender: types.maybeNull(types.number),
     rating: types.optional(types.number, 0),
     completedJobs: types.optional(types.number, 0),
@@ -66,7 +67,7 @@ export const UserStore = types
         self.nricFront = profile.nric_front_img || '';
         self.nricBack = profile.nric_back_img || '';
         self.birthDate = profile.dob || '';
-        self.verified = profile.verified || false;
+        self.verificationStatus = profile.verification_status?.id || IVerificationStatus.NOT_INITIATED;
         self.gender = profile.gender?.id || null;
         self.rating = job_statistics.rating;
         self.completedJobs = job_statistics.completed_jobs;
@@ -89,6 +90,7 @@ export const UserStore = types
           dob: values.birthDate,
           mobile: values.mobile,
           gender_id: values.gender,
+          nric_no: 'G3321975Q',
         });
         yield self.getUser();
       } catch (e) {

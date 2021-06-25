@@ -26,4 +26,8 @@ export const colors = {
   textSecondary: '#707070',
   textLight: '#bbb',
   textDanger: '#ff0000',
+
+  danger: '#ff0000',
+  warning: '#ff9d00',
+  success: '#29c100',
 };

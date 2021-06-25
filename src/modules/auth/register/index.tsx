@@ -5,7 +5,6 @@ import { Formik, FormikHelpers } from 'formik';
 import Toast from 'react-native-toast-message';
 import { useMst } from '../../../store';
 import { Button, IconButton, Header, Screen, Text, TextField } from '../../../components';
-import { commonStyles } from '../../../common';
 import { RegisterFormData, RegisterProps } from './types';
 import { usePrevious } from '../../../custom_hooks';
 import { registerValidationSchema } from './validation';
@@ -169,9 +168,9 @@ const RegisterScreen = observer((props: RegisterProps) => {
       )}
 
       {success && (
-        <View style={[commonStyles.CENTER, commonStyles.FULL]}>
-          <Text style={{ maxWidth: 250, textAlign: 'center' }}>You have successfully register. Login now.</Text>
-          <Button preset="primary" label="Login" onPress={handlePostRegisterLogin} style={{ marginTop: 10 }} />
+        <View>
+          <Text preset="header">You have successfully register.</Text>
+          <Button preset="outlined" label="Login Now" onPress={handlePostRegisterLogin} style={{ marginTop: 10 }} />
         </View>
       )}
     </Screen>

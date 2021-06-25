@@ -22,6 +22,7 @@ export interface ProfilePayload {
   mobile: string;
   dob: string;
   gender_id: number | null;
+  nric_no: string;
   nric_front_img: { ext: string; base64: string };
   nric_back_img: { ext: string; base64: string };
   profile_img: { ext: string; base64: string };
@@ -47,9 +48,9 @@ export interface ProfileInfo {
   nric_no: string;
   nric_front_img: string;
   nric_back_img: string;
-  verified: boolean;
   date_updated: string;
   date_created: string;
+  verification_status: VerificationResponse;
   gender: GenderResponse | null;
 }
 
@@ -58,6 +59,13 @@ export interface GenderResponse {
   name: string;
   date_updated: string;
   date_created: string;
+}
+
+export interface VerificationResponse {
+  id: number;
+  name: string;
+  date_created: string;
+  date_updated: string;
 }
 
 export interface JobStatisticInfo {

@@ -3,6 +3,12 @@ export enum Gender {
   FEMALE = 2,
 }
 
+export enum IVerificationStatus {
+  NOT_INITIATED = 1,
+  PENDING_REVIEW = 2,
+  REQUIRED_UPDATE = 3,
+}
+
 export enum JobStatus {
   OPEN = 1,
   ONGOING = 2,
