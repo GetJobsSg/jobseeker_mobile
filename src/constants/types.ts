@@ -10,6 +10,10 @@ export enum IVerificationStatus {
   APPROVED = 4,
 }
 
+export enum IInboxMessage {
+  JOB_OFFER = 1,
+}
+
 export enum JobStatus {
   OPEN = 1,
   ONGOING = 2,

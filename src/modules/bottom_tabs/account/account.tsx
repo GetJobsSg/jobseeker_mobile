@@ -57,7 +57,7 @@ const Account = () => {
       verification = {
         icon: 'ic_shield_verified',
         description: 'You are eligible to work.',
-        title: <Text style={{ color: colors.danger }}>Profile Verified</Text>,
+        title: <Text style={{ color: colors.success }}>Profile Verified</Text>,
       };
     }
 
@@ -88,12 +88,12 @@ const Account = () => {
             title="Wallet"
             onPress={() => navigation.navigate(Routes.wallet_stack, { screen: Routes.wallet_overview })}
           />
-          <ListTile
+          {/* <ListTile
             leadingIcon="ic_job_preferences"
             traillingIcons={['ic_arrow_right']}
             title="Job Preferences"
             onPress={() => {}}
-          />
+          /> */}
           <ListTile
             leadingIcon="ic_settings"
             traillingIcons={['ic_arrow_right']}
