@@ -3,7 +3,15 @@ import { View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { Text } from '../../../../components';
 import Balance from '../balance';
-import { HEADER_CONTAINER, WELCOME_WRAPPER, WELCOME, NAME, NAME_PLACEHOLDER } from './header.styles';
+import {
+  MAIN_CONTAINER,
+  HEADER_CONTAINER,
+  WELCOME_WRAPPER,
+  WELCOME,
+  NAME,
+  NAME_PLACEHOLDER,
+  FLOATING_VIEW,
+} from './header.styles';
 import { useMst } from '../../../../store';
 
 const Header = () => {
@@ -22,12 +30,16 @@ const Header = () => {
 
   if (isAuthenticated) {
     return (
-      <View style={[HEADER_CONTAINER]}>
-        <View style={WELCOME_WRAPPER}>
-          <Text style={WELCOME}>Welcome back,</Text>
-          {isLoading ? renderPlaceholder() : renderUsername()}
+      <View style={MAIN_CONTAINER}>
+        <View style={[HEADER_CONTAINER]}>
+          <View style={WELCOME_WRAPPER}>
+            <Text style={WELCOME}>Welcome back,</Text>
+            {isLoading ? renderPlaceholder() : renderUsername()}
+          </View>
         </View>
-        <Balance />
+        <View style={FLOATING_VIEW}>
+          <Balance />
+        </View>
       </View>
     );
   }

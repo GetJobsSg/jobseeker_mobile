@@ -1,10 +1,12 @@
 import React, { useEffect, useCallback } from 'react';
-import { RefreshControl } from 'react-native';
+import { RefreshControl, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../../navigator/routes';
 import Header from './header';
 import { Text, InfoCard, Screen } from '../../../components';
+import { commonStyles } from '../../../common';
+import { spacing } from '../../../themes';
 import { useMst } from '../../../store';
 
 const HomeScreen = () => {
@@ -38,22 +40,34 @@ const HomeScreen = () => {
   };
 
   return (
-    <Screen refreshControl={<RefreshControl refreshing={isLoadingRecentJobs} onRefresh={handleRefresh} />}>
+    <Screen
+      preset="scroll"
+      addHorizontalPadding={false}
+      refreshControl={<RefreshControl refreshing={isLoadingRecentJobs} onRefresh={handleRefresh} />}
+    >
       <Header />
 
-      <Text preset="title2">Recent Job</Text>
-      {recentJobs.map((item) => (
-        <InfoCard
-          key={item.id}
-          companyName={item.company?.name}
-          date={item.formattedDate}
-          location={item.location?.address}
-          onPress={goToDetails(item.id)}
-          rate={item.formattedHourlyRate}
-          time={item.formattedTime}
-          title={item.title}
-        />
-      ))}
+      <View style={commonStyles.SAFE_MARGIN}>
+        <Text preset="title2">Jobs Posted</Text>
+        {recentJobs.length === 0 ? (
+          <Text preset="hint" style={{ marginTop: spacing.md }}>
+            No available jobs. Check back later!
+          </Text>
+        ) : (
+          recentJobs.map((item) => (
+            <InfoCard
+              key={item.id}
+              companyName={item.company?.name}
+              date={item.formattedDate}
+              location={item.location?.address}
+              onPress={goToDetails(item.id)}
+              rate={item.formattedHourlyRate}
+              time={item.formattedTime}
+              title={item.title}
+            />
+          ))
+        )}
+      </View>
     </Screen>
   );
 };

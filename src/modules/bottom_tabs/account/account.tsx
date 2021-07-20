@@ -7,6 +7,7 @@ import { Screen, ProfileHeader, ListTile } from '../../../components';
 import LoginHeader from './login-header';
 import { useMst } from '../../../store';
 import { colors } from '../../../themes';
+import { commonStyles } from '../../../common';
 import { IVerificationStatus } from '../../../constants/types';
 import { Routes } from '../../../navigator/routes';
 
@@ -71,35 +72,38 @@ const Account = () => {
     <Screen
       refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />}
       preset={isAuthenticated ? 'scroll' : 'fixed'}
+      addHorizontalPadding={false}
     >
       {isAuthenticated ? (
         <View>
           <ProfileHeader />
-          <ListTile
-            leadingIcon={verification.icon}
-            description={verification.description}
-            traillingIcons={['ic_arrow_right']}
-            title={verification.title}
-            onPress={() => navigation.navigate(Routes.profile_stack, { screen: Routes.profile_completion })}
-          />
-          <ListTile
-            leadingIcon="ic_wallet"
-            traillingIcons={['ic_arrow_right']}
-            title="Wallet"
-            onPress={() => navigation.navigate(Routes.wallet_stack, { screen: Routes.wallet_overview })}
-          />
-          {/* <ListTile
-            leadingIcon="ic_job_preferences"
-            traillingIcons={['ic_arrow_right']}
-            title="Job Preferences"
-            onPress={() => {}}
-          /> */}
-          <ListTile
-            leadingIcon="ic_settings"
-            traillingIcons={['ic_arrow_right']}
-            title="Settings"
-            onPress={() => navigation.navigate(Routes.settings_stack)}
-          />
+          <View style={commonStyles.SAFE_PADDING}>
+            <ListTile
+              leadingIcon={verification.icon}
+              description={verification.description}
+              traillingIcons={['ic_arrow_right']}
+              title={verification.title}
+              onPress={() => navigation.navigate(Routes.profile_stack, { screen: Routes.profile_completion })}
+            />
+            <ListTile
+              leadingIcon="ic_wallet"
+              traillingIcons={['ic_arrow_right']}
+              title="Wallet"
+              onPress={() => navigation.navigate(Routes.wallet_stack, { screen: Routes.wallet_overview })}
+            />
+            {/* <ListTile
+              leadingIcon="ic_job_preferences"
+              traillingIcons={['ic_arrow_right']}
+              title="Job Preferences"
+              onPress={() => {}}
+            /> */}
+            <ListTile
+              leadingIcon="ic_settings"
+              traillingIcons={['ic_arrow_right']}
+              title="Settings"
+              onPress={() => navigation.navigate(Routes.settings_stack)}
+            />
+          </View>
         </View>
       ) : (
         <LoginHeader />

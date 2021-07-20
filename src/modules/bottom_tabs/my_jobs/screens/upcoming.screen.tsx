@@ -42,7 +42,7 @@ const UpcomingScreen = () => {
         contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 15 }}
       >
         <Text style={{ color: colors.lightGrey2 }} preset="title2">
-          No Upcoming Jobs
+          No upcoming jobs
         </Text>
       </ScrollView>
     );

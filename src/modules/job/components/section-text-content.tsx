@@ -18,7 +18,7 @@ const SectionTextContent = (props: SectionTextContentProps) => {
   const { sectionTitle, text } = props;
   return (
     <View style={CONTAINER}>
-      <Text preset="title3" style={{ marginBottom: spacing.sm }}>
+      <Text preset="title2" style={{ marginBottom: spacing.sm }}>
         {sectionTitle}
       </Text>
       <Text>{text}</Text>

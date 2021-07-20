@@ -42,7 +42,7 @@ const CompletedScreen = () => {
         contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 15 }}
       >
         <Text style={{ color: colors.lightGrey2 }} preset="title2">
-          You do not complete any jobs
+          Completed jobs will appear here
         </Text>
       </ScrollView>
     );

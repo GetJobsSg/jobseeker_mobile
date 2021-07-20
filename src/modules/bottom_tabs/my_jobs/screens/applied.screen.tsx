@@ -42,7 +42,7 @@ const AppliedScreen = () => {
         contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 15 }}
       >
         <Text style={{ color: colors.lightGrey2 }} preset="title2">
-          You do not apply to any job
+          Jobs applied will appear here
         </Text>
       </ScrollView>
     );

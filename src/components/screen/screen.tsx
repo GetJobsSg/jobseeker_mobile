@@ -16,8 +16,11 @@ const Screen = (props: ScreenProps) => {
     withContainer = true,
     unsafeArea = ['top'],
     statusBar = 'dark-content',
+    addHorizontalPadding = true,
   } = props;
-  const { outer, inner } = presets[preset];
+
+  const presetStyle = addHorizontalPadding === false ? 'none' : preset;
+  const { outer, inner } = presets[presetStyle];
 
   const contentWrapperStyle = withContainer ? inner : outer;
 

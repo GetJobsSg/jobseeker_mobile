@@ -47,7 +47,7 @@ const BottomTabNavigator = () => (
       name={Routes.bottom_tabs_myjobs}
       component={MyJobScreen}
       options={{
-        tabBarLabel: 'MyJobs',
+        tabBarLabel: 'My Jobs',
         tabBarIcon: ({ focused }: any) =>
           focused ? (
             <Icon icon="myjobs_active" style={styles.iconStyle} />

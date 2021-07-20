@@ -25,7 +25,7 @@ export const presets = {
   title2: {
     ...BASE,
     fontSize: fontSize.md,
-    fontWeight: '600',
+    fontWeight: 'bold',
   } as TextStyle,
 
   title3: {

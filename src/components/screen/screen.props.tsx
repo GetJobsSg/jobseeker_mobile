@@ -10,4 +10,5 @@ export interface ScreenProps {
   withContainer?: boolean;
   unsafeArea?: UnsafeArea[] | null;
   statusBar?: 'dark-content' | 'light-content';
+  addHorizontalPadding?: boolean;
 }

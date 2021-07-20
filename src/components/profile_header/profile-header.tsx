@@ -2,7 +2,6 @@ import React from 'react';
 import { View, TouchableWithoutFeedback } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
-import { colors } from '../../themes';
 import { Avatar, Text } from '..';
 import ProfileHeaderPlaceholder from './profile-header-placeholder';
 import {
@@ -70,7 +69,7 @@ const ProfileHeader = () => {
             <Text style={USERNAME} numberOfLines={3} preset={getPreset()}>
               {name}
             </Text>
-            <Text style={SHOW_PROFILE}>Show Profile</Text>
+            <Text style={SHOW_PROFILE}>View Profile</Text>
           </View>
         </TouchableWithoutFeedback>
         <Avatar uri={profileImg} />
@@ -78,13 +77,9 @@ const ProfileHeader = () => {
 
       <View style={STATISTIC_WRAPPER}>
         <StatisticInfo label="Ratings" value={rating} />
-        <View style={{ width: 1, backgroundColor: colors.lightGrey1 }} />
         <StatisticInfo label="Completed" value={completedJobs} />
-        <View style={{ width: 1, backgroundColor: colors.lightGrey1 }} />
         <StatisticInfo label="Work Hours" value={totalWorkHours} />
       </View>
-
-      <View style={{ height: 1, backgroundColor: colors.lightGrey1 }} />
     </View>
   );
 };

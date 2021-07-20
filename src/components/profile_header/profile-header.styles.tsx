@@ -1,8 +1,10 @@
 import { TextStyle, ViewStyle } from 'react-native';
 import { colors, fontSize, spacing } from '../../themes';
+import { commonStyles } from '../../common';
 
 export const PROFILE_CONTAINER = {
-  backgroundColor: colors.white,
+  ...commonStyles.SAFE_PADDING,
+  backgroundColor: colors.primary,
   paddingTop: spacing.lg,
   marginBottom: spacing.xl,
 } as ViewStyle;
@@ -15,14 +17,14 @@ export const USERINFO_WRAPPER = {
 } as ViewStyle;
 
 export const USERNAME = {
-  color: colors.black,
+  color: colors.white,
   marginRight: spacing.xs,
   marginTop: spacing.none,
   marginBottom: spacing.none,
 } as TextStyle;
 
 export const SHOW_PROFILE = {
-  color: colors.primaryLight,
+  color: colors.white,
   fontSize: fontSize.xs,
   marginTop: spacing.sm,
   textDecorationLine: 'underline',
@@ -36,12 +38,12 @@ export const STATISTIC_WRAPPER = {
 } as ViewStyle;
 
 export const STATISTIC_INFO_VALUE = {
-  color: colors.primaryLight,
+  color: colors.white,
   fontWeight: 'bold',
 } as TextStyle;
 
 export const STATISTIC_INFO_LABEL = {
-  color: colors.black,
+  color: colors.white,
   fontSize: fontSize.xxs,
   marginTop: spacing.xs,
 } as TextStyle;

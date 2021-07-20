@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { Text, Header, Screen, IconButton } from '../../../components';
+import { colors, fontSize, spacing } from '../../../themes';
 import { useMst } from '../../../store';
 import { commonStyles } from '../../../common';
 
@@ -20,18 +21,35 @@ const WalletOverviewScreen = () => {
   }, [isAuthenticated, getWallet]);
 
   return (
-    <Screen>
-      <Header title="Wallet" leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />} />
+    <Screen preset="scroll" addHorizontalPadding={false}>
+      <Header
+        title="Wallet"
+        leftIcon={
+          <IconButton icon="circle_back_btn" style={commonStyles.SAFE_PADDING} onPress={() => navigation.goBack()} />
+        }
+      />
 
-      <View style={commonStyles.CARD_VIEW}>
-        <Text>Wallet Balance</Text>
-        <Text style={{ marginTop: 5, marginBottom: 0 }} preset="header">
+      <View
+        style={[
+          commonStyles.SAFE_PADDING,
+          {
+            backgroundColor: colors.primary,
+            marginRight: 40,
+            paddingTop: spacing.lg,
+            paddingBottom: spacing.lg,
+            borderTopRightRadius: 20,
+            borderBottomRightRadius: 20,
+          },
+        ]}
+      >
+        <Text style={{ color: colors.white, fontSize: fontSize.xxs }}>Wallet Balance</Text>
+        <Text style={{ marginTop: 5, marginBottom: 0, color: colors.white }} preset="header">
           {formattedAmountDollar}
         </Text>
       </View>
 
-      <View style={{ marginTop: 20 }}>
-        <Text>All Transaction</Text>
+      <View style={[commonStyles.SAFE_PADDING, { marginTop: 20 }]}>
+        <Text preset="title2">Transactions</Text>
       </View>
     </Screen>
   );

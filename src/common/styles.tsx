@@ -40,6 +40,16 @@ const CARD_VIEW: ViewStyle = {
   paddingHorizontal: spacing.md,
 };
 
+const SAFE_PADDING: ViewStyle = {
+  paddingLeft: 15,
+  paddingRight: 15,
+};
+
+const SAFE_MARGIN: ViewStyle = {
+  marginLeft: 15,
+  marginRight: 15,
+};
+
 export const commonStyles = {
   CONTAINER,
   CARD_VIEW,
@@ -47,4 +57,6 @@ export const commonStyles = {
   FULL,
   CENTER,
   ROW,
+  SAFE_PADDING,
+  SAFE_MARGIN,
 };

@@ -7,6 +7,12 @@ const BASE = {
 } as ViewStyle;
 
 export const presets = {
+  none: {
+    outer: { ...BASE } as ViewStyle,
+    inner: {
+      ...BASE,
+    } as ViewStyle,
+  },
   scroll: {
     outer: { ...BASE } as ViewStyle,
     inner: {
