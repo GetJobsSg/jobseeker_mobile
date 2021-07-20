@@ -22,6 +22,7 @@ export enum Routes {
   'personal_photo' = 'personal_photo',
   'personal_info' = 'personal_info',
   'nric_info' = 'nric_info',
+  'training' = 'training',
 
   // job
   'job_details' = 'job_details',

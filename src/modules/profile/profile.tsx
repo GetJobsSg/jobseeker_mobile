@@ -6,6 +6,7 @@ import NricScreen from './nric';
 import PersonalPhotoScreen from './personal-photo';
 import PersonalInfoScreen from './personal-info';
 import ProfileCompletionScreen from './completion';
+import TrainingScreen from './training';
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,7 @@ const ProfileStack = () => (
     <Stack.Screen name={Routes.personal_photo} component={PersonalPhotoScreen} />
     <Stack.Screen name={Routes.personal_info} component={PersonalInfoScreen} />
     <Stack.Screen name={Routes.nric_info} component={NricScreen} />
+    <Stack.Screen name={Routes.training} component={TrainingScreen} />
   </Stack.Navigator>
 );
 

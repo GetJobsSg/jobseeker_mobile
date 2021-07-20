@@ -6,7 +6,7 @@ export const PROFILE_CONTAINER = {
   ...commonStyles.SAFE_PADDING,
   backgroundColor: colors.primary,
   paddingTop: spacing.lg,
-  marginBottom: spacing.xl,
+  marginBottom: spacing.lg,
 } as ViewStyle;
 
 export const USERINFO_WRAPPER = {

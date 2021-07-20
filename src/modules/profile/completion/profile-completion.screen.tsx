@@ -9,7 +9,7 @@ import { Routes } from '../../../navigator/routes';
 const ProfileCompletion = () => {
   const navigation = useNavigation();
   const {
-    userStore: { isPersonalInfoCompleted, isPersonalPhotoUploaded, isNRICInfoCompleted },
+    userStore: { isPersonalInfoCompleted, isPersonalPhotoUploaded, isNRICInfoCompleted, isTrainingCompleted },
   } = useMst();
 
   const renderTraillingIcons = (infoCompleted: boolean): IconTypes[] => {
@@ -34,6 +34,11 @@ const ProfileCompletion = () => {
         title="NRIC / FIN"
         onPress={() => navigation.navigate(Routes.nric_info)}
         traillingIcons={renderTraillingIcons(isNRICInfoCompleted)}
+      />
+      <ListTile
+        title="Training Questionnaire"
+        onPress={() => navigation.navigate(Routes.training)}
+        traillingIcons={renderTraillingIcons(isTrainingCompleted)}
       />
     </Screen>
   );

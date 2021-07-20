@@ -26,6 +26,7 @@ export interface ProfilePayload {
   nric_front_img: { ext: string; base64: string };
   nric_back_img: { ext: string; base64: string };
   profile_img: { ext: string; base64: string };
+  training_completed: boolean;
 }
 
 export type NRICPayload = Partial<Pick<ProfilePayload, 'nric_front_img' | 'nric_back_img'>>;
@@ -52,6 +53,7 @@ export interface ProfileInfo {
   date_created: string;
   verification_status: VerificationResponse;
   gender: GenderResponse | null;
+  training_completed: boolean;
 }
 
 export interface GenderResponse {

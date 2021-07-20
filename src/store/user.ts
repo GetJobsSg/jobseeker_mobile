@@ -25,6 +25,7 @@ export const UserStore = types
     nricBack: types.optional(types.string, ''),
     verificationStatus: types.optional(types.number, IVerificationStatus.NOT_INITIATED),
     gender: types.maybeNull(types.number),
+    trainingCompleted: types.optional(types.boolean, false),
     rating: types.optional(types.number, 0),
     completedJobs: types.optional(types.number, 0),
     totalWorkHours: types.optional(types.number, 0),
@@ -46,6 +47,9 @@ export const UserStore = types
     },
     get isNRICInfoCompleted() {
       return !!(self.nricFront && self.nricBack);
+    },
+    get isTrainingCompleted() {
+      return self.trainingCompleted;
     },
   }))
   .extend(withErrorHandler)
@@ -69,6 +73,7 @@ export const UserStore = types
         self.birthDate = profile.dob || '';
         self.verificationStatus = profile.verification_status?.id || IVerificationStatus.NOT_INITIATED;
         self.gender = profile.gender?.id || null;
+        self.trainingCompleted = profile.training_completed;
         self.rating = job_statistics.rating;
         self.completedJobs = job_statistics.completed_jobs;
         self.totalWorkHours = job_statistics.total_work_hours;
@@ -127,6 +132,23 @@ export const UserStore = types
         if (values.nricBack) data.nric_back_img = constructUploadImagePayload(values.nricBack);
 
         yield apis.updateProfile(data);
+        yield self.getUser();
+      } catch (e) {
+        self.error = self.getErrMsg(e);
+      } finally {
+        self.isUpdating = false;
+        self.rootStore.uiStore.hideLoadingSpinner();
+      }
+    }),
+
+    completeTraining: flow(function* completeTraining() {
+      try {
+        self.isUpdating = true;
+        self.rootStore.uiStore.showLoadingSpinner();
+
+        yield apis.updateProfile({
+          training_completed: true,
+        });
         yield self.getUser();
       } catch (e) {
         self.error = self.getErrMsg(e);

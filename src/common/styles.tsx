@@ -41,13 +41,13 @@ const CARD_VIEW: ViewStyle = {
 };
 
 const SAFE_PADDING: ViewStyle = {
-  paddingLeft: 15,
-  paddingRight: 15,
+  paddingLeft: 18,
+  paddingRight: 18,
 };
 
 const SAFE_MARGIN: ViewStyle = {
-  marginLeft: 15,
-  marginRight: 15,
+  marginLeft: 18,
+  marginRight: 18,
 };
 
 export const commonStyles = {
