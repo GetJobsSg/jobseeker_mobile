@@ -1,27 +1,83 @@
-import React, { useEffect } from 'react';
-import { View } from 'react-native';
+import React, { useEffect, useCallback } from 'react';
+import { View, FlatList, RefreshControl, ListRenderItem } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
-import { Text, Header, Screen, IconButton } from '../../../components';
+import { Routes } from '../../../navigator/routes';
+import { Text, Header, Screen, IconButton, Touchable } from '../../../components';
 import { colors, fontSize, spacing } from '../../../themes';
 import { useMst } from '../../../store';
 import { commonStyles } from '../../../common';
+import { TransactionInfo } from '../../../store/transaction-info';
 
 const WalletOverviewScreen = () => {
   const navigation = useNavigation();
   const {
     authStore: { isAuthenticated },
     walletStore: { getWallet, formattedAmountDollar },
+    transactionStore: { getAllTransactions, transactions, isLoading },
   } = useMst();
 
-  useEffect(() => {
+  const fetchData = useCallback(() => {
     if (isAuthenticated) {
       getWallet();
+      getAllTransactions();
     }
-  }, [isAuthenticated, getWallet]);
+  }, [isAuthenticated, getWallet, getAllTransactions]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const handleRefresh = () => {
+    fetchData();
+  };
+
+  const onSelectTransaction = (id: number) => () => {
+    navigation.navigate(Routes.wallet_stack, { screen: Routes.wallet_transactionDetails, params: { id } });
+  };
+
+  const returnApprovalStatusColor = (approvalStatus: boolean | null) => {
+    if (approvalStatus === null) {
+      return colors.textWarning;
+    }
+    if (approvalStatus) {
+      return colors.textSuccess;
+    }
+
+    return colors.textDanger;
+  };
+
+  const renderItem: ListRenderItem<TransactionInfo> = ({ item }) => (
+    <Touchable onPress={onSelectTransaction(item.id)}>
+      <View style={{ marginBottom: spacing.md }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5 }}>
+          <View>
+            <Text preset="bold">{item.typeName}</Text>
+            <Text
+              preset="small"
+              style={{
+                color: returnApprovalStatusColor(item.isApproved),
+              }}
+            >
+              {item.approvalStatus}
+            </Text>
+          </View>
+          <Text style={{ color: item.isPositiveAmount ? colors.textSuccess : colors.textWarning }}>
+            {item.formattedAmount}
+          </Text>
+        </View>
+        {item.comment.length > 0 && <Text preset="hint">{item.comment}</Text>}
+        <Text preset="hint">{item.formattedDate}</Text>
+      </View>
+    </Touchable>
+  );
 
   return (
-    <Screen preset="scroll" addHorizontalPadding={false}>
+    <Screen
+      preset="scroll"
+      addHorizontalPadding={false}
+      refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />}
+    >
       <Header
         title="Wallet"
         leftIcon={
@@ -49,7 +105,10 @@ const WalletOverviewScreen = () => {
       </View>
 
       <View style={[commonStyles.SAFE_PADDING, { marginTop: 20 }]}>
-        <Text preset="title2">Transactions</Text>
+        <Text preset="title2" style={{ marginBottom: 20 }}>
+          Transactions
+        </Text>
+        <FlatList data={transactions} renderItem={renderItem} />
       </View>
     </Screen>
   );

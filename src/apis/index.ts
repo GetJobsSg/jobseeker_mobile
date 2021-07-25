@@ -39,3 +39,5 @@ export const clockOut = (id: number, code: string): Promise<{}> =>
 export const getAttendanceDetails = (id: number) => get(`/mobile/job/${id}/attendance`).then((res) => res.data);
 
 export const getInbox = () => get(`/mobile/inbox`).then((res) => res.data);
+
+export const getAllTransactions = () => get(`/mobile/transactions`).then((res) => res.data);

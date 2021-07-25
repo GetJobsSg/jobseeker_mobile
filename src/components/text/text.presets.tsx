@@ -16,6 +16,16 @@ export const presets = {
     marginBottom: spacing.lg,
   } as TextStyle,
 
+  bold: {
+    ...BASE,
+    fontWeight: 'bold',
+  } as TextStyle,
+
+  small: {
+    ...BASE,
+    fontSize: fontSize.xs,
+  } as TextStyle,
+
   title1: {
     ...BASE,
     fontSize: fontSize.lg,

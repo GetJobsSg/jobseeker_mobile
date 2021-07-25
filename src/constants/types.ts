@@ -30,8 +30,8 @@ export enum ApplicationStatus {
 }
 
 export enum TransactionType {
-  SALARY = 'Salary',
-  WITHDRAWAL = 'Withdrawal',
-  CREDIT = 'Credit',
-  Deduction = 'Deduction',
+  SALARY = 1,
+  WITHDRAWAL = 2,
+  CREDIT = 3,
+  DEDUCTION = 4,
 }

@@ -25,7 +25,9 @@ export const colors = {
   textPrimary: '#000',
   textSecondary: '#707070',
   textLight: '#bbb',
-  textDanger: '#ff0000',
+  textDanger: '#CA1B03',
+  textSuccess: '#11954E',
+  textWarning: '#C59A02',
 
   danger: '#ff0000',
   warning: '#ff9d00',
