@@ -36,31 +36,12 @@ const WalletOverviewScreen = () => {
     navigation.navigate(Routes.wallet_stack, { screen: Routes.wallet_transactionDetails, params: { id } });
   };
 
-  const returnApprovalStatusColor = (approvalStatus: boolean | null) => {
-    if (approvalStatus === null) {
-      return colors.textWarning;
-    }
-    if (approvalStatus) {
-      return colors.textSuccess;
-    }
-
-    return colors.textDanger;
-  };
-
   const renderItem: ListRenderItem<TransactionInfo> = ({ item }) => (
     <Touchable onPress={onSelectTransaction(item.id)}>
       <View style={{ marginBottom: spacing.md }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5 }}>
           <View>
             <Text preset="bold">{item.typeName}</Text>
-            <Text
-              preset="small"
-              style={{
-                color: returnApprovalStatusColor(item.isApproved),
-              }}
-            >
-              {item.approvalStatus}
-            </Text>
           </View>
           <Text style={{ color: item.isPositiveAmount ? colors.textSuccess : colors.textWarning }}>
             {item.formattedAmount}

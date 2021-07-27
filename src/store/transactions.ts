@@ -21,7 +21,6 @@ export const TransactionStore = types
         comment: data.comment,
         isApproved: data.is_approved,
         walletId: data.wallet_id,
-        jobId: data.job_id,
         dateCreated: data.date_created,
       };
     },

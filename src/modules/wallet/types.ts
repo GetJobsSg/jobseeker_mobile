@@ -5,11 +5,12 @@ import { Routes } from '../../navigator/routes';
 type WalletParamsList = {
   [Routes.wallet_overview]: undefined;
   [Routes.wallet_allTransaction]: undefined;
-  [Routes.wallet_transactionDetails]: undefined;
+  [Routes.wallet_transactionDetails]: { id: number };
 };
 
 export type WalletNavigationProp = StackNavigationProp<WalletParamsList, Routes.wallet_overview>;
 export type WalletRouteProps = RouteProp<WalletParamsList, Routes.wallet_overview>;
+export type WalletTransactionDetailsProps = RouteProp<WalletParamsList, Routes.wallet_transactionDetails>;
 
 export type WalletScreenProps = {
   navigation: WalletNavigationProp;

@@ -41,3 +41,5 @@ export const getAttendanceDetails = (id: number) => get(`/mobile/job/${id}/atten
 export const getInbox = () => get(`/mobile/inbox`).then((res) => res.data);
 
 export const getAllTransactions = () => get(`/mobile/transactions`).then((res) => res.data);
+
+export const getTransactionDetails = (id: number) => get(`/mobile/transaction/${id}`).then((res) => res.data);

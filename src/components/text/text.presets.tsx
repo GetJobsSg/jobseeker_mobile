@@ -26,6 +26,18 @@ export const presets = {
     fontSize: fontSize.xs,
   } as TextStyle,
 
+  titleXXL: {
+    ...BASE,
+    fontSize: fontSize.xxl,
+    fontWeight: '600',
+  } as TextStyle,
+
+  titleXL: {
+    ...BASE,
+    fontSize: fontSize.xl,
+    fontWeight: '600',
+  } as TextStyle,
+
   title1: {
     ...BASE,
     fontSize: fontSize.lg,
