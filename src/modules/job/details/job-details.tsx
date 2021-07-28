@@ -27,7 +27,6 @@ const JobDetails = () => {
       isApplying,
       isAllowApply,
       isLoading,
-      id: jobId,
       title,
       formattedHourlyRate,
       formattedDate,
@@ -74,13 +73,13 @@ const JobDetails = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
       <Header
-        style={{ paddingHorizontal: 15 }}
+        style={commonStyles.SAFE_PADDING}
         title="Job Details"
         leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />}
       />
 
       <ScrollView>
-        <SectionTitle jobId={jobId} title={title} rate={formattedHourlyRate} />
+        <SectionTitle title={title} rate={formattedHourlyRate} />
         <SectionEmployer companyLogo={company.logo} companyName={company.name} onPress={() => {}} />
         <SectionDateTime date={formattedDate} time={formattedTime} />
 

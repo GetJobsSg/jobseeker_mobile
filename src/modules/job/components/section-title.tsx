@@ -20,14 +20,12 @@ const SALARY = {
 interface SectionTitleProps {
   title: string;
   rate: string;
-  jobId?: number;
 }
 
 const SectionTitle = (props: SectionTitleProps) => {
-  const { jobId, title, rate } = props;
+  const { title, rate } = props;
   return (
     <View style={CONTAINER}>
-      <Text preset="hint">{`JobId - ${jobId}`}</Text>
       <Text preset="title1" style={TITLE}>
         {title}
       </Text>
