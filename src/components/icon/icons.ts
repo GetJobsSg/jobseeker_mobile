@@ -36,6 +36,9 @@ const icons = {
   ic_shield_verified: require('../../assets/icons/account/ic-shield-verified.png'),
   ic_shield_unverified: require('../../assets/icons/account/ic-shield-unverified.png'),
   ic_wallet: require('../../assets/icons/account/ic-wallet.png'),
+
+  // inbox
+  inbox_message: require('../../assets/icons/inbox/mail.png'),
 };
 
 export type IconTypes = keyof typeof icons;

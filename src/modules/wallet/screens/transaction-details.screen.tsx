@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Routes } from '../../../navigator/routes';
 import { Header, Screen, IconButton, Text, Icon, Touchable } from '../../../components';
-import { colors, spacing } from '../../../themes';
+import { colors, spacing, fontSize } from '../../../themes';
 import { commonStyles } from '../../../common';
 import { useMst } from '../../../store';
 import { WalletTransactionDetailsProps } from '../types';
@@ -93,6 +93,7 @@ const TransactionDetailScreen = () => {
               <View>
                 <Text preset="hint">From</Text>
                 <Text>{job.title}</Text>
+                <Text style={{ fontSize: fontSize.xs }}>{job.company.name}</Text>
               </View>
               <Icon icon="ic_arrow_right" containerStyle={{ alignSelf: 'center' }} />
             </View>

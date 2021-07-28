@@ -2,13 +2,14 @@ import { flow, Instance, SnapshotOut, toGenerator, types } from 'mobx-state-tree
 import { withErrorHandler } from './extensions';
 import { IInboxMessage } from '../constants/types';
 import * as apis from '../apis';
+import { constructDateRange } from '../utils/dateTime';
 
 const MessageStore = types.model({
   id: types.optional(types.number, 0),
   title: types.optional(types.string, ''),
   body: types.optional(types.string, ''),
   type: types.optional(types.number, IInboxMessage.JOB_OFFER),
-  jobId: types.maybe(types.number),
+  jobId: types.optional(types.number, 0),
   dateReceived: types.optional(types.string, ''),
 });
 export interface Message extends Instance<typeof MessageStore> {}
@@ -35,9 +36,9 @@ export const InboxStore = types
             id: item.id,
             title: item.title,
             body: item.body,
-            jobId: item.job_id,
-            type: item.inbox_message_type.id || IInboxMessage.JOB_OFFER,
-            dateReceived: item.date_created,
+            jobId: item.job_id || 0,
+            type: item.inbox_message_type !== null ? item.inbox_message_type.id : null || IInboxMessage.JOB_OFFER,
+            dateReceived: constructDateRange(item.date_created, item.date_created),
           });
         });
       } catch (e) {
