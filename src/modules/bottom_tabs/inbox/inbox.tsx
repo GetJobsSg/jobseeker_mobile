@@ -26,7 +26,14 @@ const InboxScreen = () => {
   };
 
   const renderItem: ListRenderItem<Message> = ({ item }) => (
-    <InboxItem title={item.title} body={item.body} jobId={item.jobId} dateReceived={item.dateReceived} />
+    <InboxItem
+      id={item.id}
+      title={item.title}
+      body={item.body}
+      dateReceived={item.dateReceived}
+      fullDateReceived={item.fullDateReceived}
+      seen={item.seen}
+    />
   );
 
   if (isLoadingInbox && !isRefreshing) return <Spinner preset="center" />;

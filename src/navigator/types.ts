@@ -7,6 +7,7 @@ export type RootParams = {
   [Routes.profile_stack]: undefined;
   [Routes.settings_stack]: undefined;
   [Routes.job_stack]: undefined;
+  [Routes.inbox_stack]: undefined;
 };
 
 export type BottomTabParams = {

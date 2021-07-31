@@ -1,28 +1,34 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View } from 'react-native';
+import { observer } from 'mobx-react-lite';
+import { View, TouchableOpacity, TextStyle } from 'react-native';
 import { Routes } from '../../../navigator/routes';
-import { Text, Row, Icon, Touchable } from '../../../components';
+import { Text, Row, Icon } from '../../../components';
 
 interface InboxItemProps {
+  id: number;
   title: string;
   body: string;
-  jobId?: number;
   dateReceived: string;
+  fullDateReceived: string;
+  seen: boolean;
 }
 const InboxItem = (props: InboxItemProps) => {
-  const { title, body, jobId, dateReceived } = props;
+  const { id, title, body, dateReceived, fullDateReceived, seen } = props;
   const navigation = useNavigation();
 
   const handleOnPress = () => {
-    // route user to offer details page
-    if (jobId) {
-      navigation.navigate(Routes.job_stack, { screen: Routes.job_offer_details, params: { id: jobId } });
-    }
+    navigation.navigate(Routes.inbox_stack, {
+      screen: Routes.inbox_details,
+      params: { id, title, body, seen, fullDateReceived },
+    });
+    // navigation.navigate(Routes.job_stack, { screen: Routes.job_offer_details, params: { id: 1 } });
   };
 
+  const boldTitleHeader = seen ? null : ({ fontWeight: 'bold' } as TextStyle);
+
   return (
-    <Touchable onPress={handleOnPress}>
+    <TouchableOpacity onPress={handleOnPress} activeOpacity={0.6}>
       <Row style={{ marginBottom: 25 }}>
         <Icon
           icon="inbox_message"
@@ -31,10 +37,10 @@ const InboxItem = (props: InboxItemProps) => {
         />
         <View style={{ flex: 1, marginLeft: 12 }}>
           <Row>
-            <Text preset="title3" numberOfLines={1} style={{ flex: 1, fontWeight: 'bold' }}>
+            <Text preset="title3" numberOfLines={1} style={[{ flex: 1 }, boldTitleHeader]}>
               {title}
             </Text>
-            <Text preset="title3" style={{ marginLeft: 5, fontWeight: 'bold' }}>
+            <Text preset="title3" style={[{ marginLeft: 5 }, boldTitleHeader]}>
               {dateReceived}
             </Text>
           </Row>
@@ -43,8 +49,8 @@ const InboxItem = (props: InboxItemProps) => {
           </Text>
         </View>
       </Row>
-    </Touchable>
+    </TouchableOpacity>
   );
 };
 
-export default InboxItem;
+export default observer(InboxItem);
