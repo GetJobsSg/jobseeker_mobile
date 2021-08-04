@@ -75,3 +75,8 @@ export interface JobStatisticInfo {
   completed_jobs: number;
   total_work_hours: number;
 }
+
+export interface TrainingQuestion {
+  question: string;
+  isCompleted: number;
+}

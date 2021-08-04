@@ -22,5 +22,6 @@ module.exports = {
     'react/no-array-index-key': 'warn',
     'react/require-default-props': 'off',
     'react-hooks/exhaustive-deps': 'warn',
+    'no-plusplus': 'off',
   },
 };
