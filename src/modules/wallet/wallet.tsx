@@ -1,6 +1,13 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { WalletOverviewScreen, AllTransactionScreen, TransactionDetailScreen } from './screens';
+import {
+  WalletOverviewScreen,
+  AllTransactionScreen,
+  TransactionDetailScreen,
+  WithdrawalScreen,
+  AddBankAccountScreen,
+  BankAccountDetailScreen,
+} from './screens';
 import { Routes } from '../../navigator/routes';
 
 const Stack = createStackNavigator();
@@ -10,6 +17,9 @@ const WalletStack = () => (
     <Stack.Screen name={Routes.wallet_overview} component={WalletOverviewScreen} />
     <Stack.Screen name={Routes.wallet_allTransaction} component={AllTransactionScreen} />
     <Stack.Screen name={Routes.wallet_transactionDetails} component={TransactionDetailScreen} />
+    <Stack.Screen name={Routes.wallet_withdrawal} component={WithdrawalScreen} />
+    <Stack.Screen name={Routes.wallet_bank_accountDetails} component={BankAccountDetailScreen} />
+    <Stack.Screen name={Routes.wallet_add_bank_account} component={AddBankAccountScreen} />
   </Stack.Navigator>
 );
 

@@ -8,7 +8,16 @@ export const getProfile = (): Promise<ProfileInfoResponse> => get('/mobile/profi
 
 export const updateProfile = (data: Partial<ProfilePayload>) => put('/mobile/profile', data).then((res) => res.data);
 
+export const getBanks = () => get('/mobile/banks').then((res) => res.data);
+
 export const getWallet = () => get('/mobile/wallet').then((res) => res.data);
+
+export const withdrawWallet = (id: number): Promise<{}> =>
+  post(`/mobile/wallet/withdraw/${id}`).then((res) => res.data);
+
+export const getBankAccount = (id: number) => get(`/mobile/wallet/bank/${id}`).then((res) => res.data);
+
+export const getBankAccounts = () => get('/mobile/wallet/bank').then((res) => res.data);
 
 export const getCategories = () => get('/job/categories').then((res) => res.data);
 

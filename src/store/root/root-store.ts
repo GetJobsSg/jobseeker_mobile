@@ -3,6 +3,8 @@ import { AuthStore } from '../auth';
 import { UiStore } from '../ui';
 import { UserStore } from '../user';
 import { WalletStore } from '../wallet';
+import { BankAccountInfoStore } from '../bank-account-info';
+import { BankAccountStore } from '../bank-account';
 import { JobInfoStore } from '../job-info';
 import { JobStore } from '../jobs';
 import { InboxStore } from '../inbox';
@@ -20,6 +22,8 @@ export const RootStore = types.model('RootStore').props({
   transactionStore: types.optional(TransactionStore, {} as any),
   dataStore: types.optional(DataStore, {} as any),
   walletStore: types.optional(WalletStore, {} as any),
+  bankAccountInfoStore: types.optional(BankAccountInfoStore, {} as any),
+  bankAccountStore: types.optional(BankAccountStore, {} as any),
   uiStore: types.optional(UiStore, {} as any),
 });
 
@@ -30,6 +34,8 @@ export const rootStore = RootStore.create({
   jobsStore: {},
   jobInfoStore: {},
   walletStore: {},
+  bankAccountInfoStore: {},
+  bankAccountStore: {},
   inboxStore: {},
   transactionInfoStore: {},
   transactionStore: {},

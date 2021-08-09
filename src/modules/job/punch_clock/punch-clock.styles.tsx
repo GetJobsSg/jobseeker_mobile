@@ -4,7 +4,6 @@ import { colors, spacing } from '../../../themes';
 export const CELL_ROOT = {
   justifyContent: 'flex-start',
   paddingVertical: spacing.lg,
-  paddingBottom: spacing.xl + spacing.xl,
 } as ViewStyle;
 
 export const CELL = {

@@ -3,7 +3,7 @@ import { View, FlatList, RefreshControl, ListRenderItem } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../../navigator/routes';
-import { Text, Header, Screen, IconButton, Touchable } from '../../../components';
+import { Text, Header, Screen, Icon, IconButton, Touchable, Row } from '../../../components';
 import { colors, fontSize, spacing } from '../../../themes';
 import { useMst } from '../../../store';
 import { commonStyles } from '../../../common';
@@ -79,10 +79,26 @@ const WalletOverviewScreen = () => {
           },
         ]}
       >
-        <Text style={{ color: colors.white, fontSize: fontSize.xxs }}>Wallet Balance</Text>
-        <Text style={{ marginTop: 5, marginBottom: 0, color: colors.white }} preset="header">
-          {formattedAmountDollar}
-        </Text>
+        <Row>
+          <View style={{ flex: 1 }}>
+            <Text style={{ color: colors.white, fontSize: fontSize.xxs }}>Wallet Balance</Text>
+            <Row>
+              <Text style={{ flex: 1, marginTop: 5, marginBottom: 0, color: colors.white }} preset="header">
+                {formattedAmountDollar}
+              </Text>
+            </Row>
+          </View>
+          <Touchable onPress={() => navigation.navigate(Routes.wallet_stack, { screen: Routes.wallet_withdrawal })}>
+            <View>
+              <Row style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+                <Text preset="bold" style={{ fontSize: fontSize.xs, color: colors.white, paddingRight: spacing.xs }}>
+                  Withdraw
+                </Text>
+                <Icon icon="ic_arrow_right_primary" style={{ tintColor: colors.white }} />
+              </Row>
+            </View>
+          </Touchable>
+        </Row>
       </View>
 
       <View style={[commonStyles.SAFE_PADDING, { marginTop: 20 }]}>

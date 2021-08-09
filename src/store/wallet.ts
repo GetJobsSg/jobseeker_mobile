@@ -1,4 +1,4 @@
-import { flow, Instance, SnapshotOut, types } from 'mobx-state-tree';
+import { flow, Instance, SnapshotOut, toGenerator, types } from 'mobx-state-tree';
 import { withErrorHandler } from './extensions';
 import { WalletResponse } from '../modules/wallet/types';
 import * as apis from '../apis';
@@ -24,6 +24,16 @@ export const WalletStore = types
         const resp = yield apis.getWallet();
         const data = resp.data as WalletResponse;
         self.amountDollar = data.balance;
+      } catch (e) {
+        self.error = self.getErrMsg(e);
+      } finally {
+        self.isLoading = false;
+      }
+    }),
+    withdraw: flow(function* withdraw(id: number) {
+      try {
+        self.isLoading = true;
+        yield* toGenerator(apis.withdrawWallet(id));
       } catch (e) {
         self.error = self.getErrMsg(e);
       } finally {

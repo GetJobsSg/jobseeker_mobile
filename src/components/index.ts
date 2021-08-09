@@ -6,6 +6,7 @@ export { default as Header } from './header';
 export { default as Icon } from './icon';
 export { default as IconButton } from './icon_button';
 
+export { default as Card } from './card';
 export { default as InfoCard } from './job_card/info_card';
 export { default as PunchedCard } from './job_card/punched_card';
 

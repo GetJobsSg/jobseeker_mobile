@@ -39,6 +39,7 @@ const Frame = (props: FrameProps) => {
         (res) => {
           if (res.didCancel) return;
           if (res.errorCode) return;
+          if (!res.assets) return;
           const imageAsset = res.assets[0];
           onImagePick(imageAsset);
         },
@@ -57,6 +58,7 @@ const Frame = (props: FrameProps) => {
         (res) => {
           if (res.didCancel) return;
           if (res.errorCode) return;
+          if (!res.assets) return;
           const imageAsset = res.assets[0];
           onImagePick(imageAsset);
         },

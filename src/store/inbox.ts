@@ -33,7 +33,6 @@ export const InboxStore = types
 
         self.inboxMessages.clear();
 
-        // todo: add types
         res.data.forEach((item: any) => {
           self.inboxMessages.push({
             id: item.id,
