@@ -55,7 +55,7 @@ const WalletOverviewScreen = () => {
 
   return (
     <Screen
-      preset="scroll"
+      preset="fixed"
       addHorizontalPadding={false}
       refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />}
     >

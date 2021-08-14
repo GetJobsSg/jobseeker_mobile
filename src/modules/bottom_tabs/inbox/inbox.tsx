@@ -33,13 +33,15 @@ const InboxScreen = () => {
       dateReceived={item.dateReceived}
       fullDateReceived={item.fullDateReceived}
       seen={item.seen}
+      type={item.type}
+      jobId={item.jobId}
     />
   );
 
   if (isLoadingInbox && !isRefreshing) return <Spinner preset="center" />;
 
   return (
-    <Screen preset="scroll">
+    <Screen preset="fixed">
       <FlatList
         refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
         ListHeaderComponent={<Text preset="header">Inbox</Text>}

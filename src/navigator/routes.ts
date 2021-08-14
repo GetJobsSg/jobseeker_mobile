@@ -27,7 +27,6 @@ export enum Routes {
 
   // job
   'job_details' = 'job_details',
-  'job_offer_details' = 'job_offer_details',
   'punch_clock' = 'punch_clock',
 
   // wallet

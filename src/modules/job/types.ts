@@ -11,7 +11,6 @@ interface ClockOutParams {
 
 export type JobParamsList = {
   [Routes.job_details]: { id: number };
-  [Routes.job_offer_details]: { id: number };
   [Routes.punch_clock]: ClockInParams | ClockOutParams;
 };
 

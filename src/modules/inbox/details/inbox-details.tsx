@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { View } from 'react-native';
-import { Header, Text, Screen, IconButton } from '../../../components';
+import { Button, Header, Text, Screen, IconButton, Spinner } from '../../../components';
 import { Routes } from '../../../navigator/routes';
 import { colors, spacing } from '../../../themes';
 import { useMst } from '../../../store';
+import { IInboxMessage } from '../../../constants/types';
 
 type InboxParamsList = {
   [Routes.inbox_details]: {
@@ -15,6 +16,8 @@ type InboxParamsList = {
     dateReceived: string;
     fullDateReceived: string;
     seen: boolean;
+    type: number | null;
+    jobId: number | null;
   };
 };
 
@@ -26,22 +29,102 @@ const InboxDetails = () => {
   const {
     authStore: { isAuthenticated },
     inboxStore: { updateSeenReceipt },
+    jobInfoStore: {
+      getJobDetails,
+      isLoading,
+      formattedDate,
+      formattedTime,
+      formattedHourlyRate,
+      isOfferAccepted,
+      isOfferDeclined,
+      isAllowToAcceptOffer,
+      acceptJobOffer,
+      declineJobOffer,
+    },
   } = useMst();
 
   const {
-    params: { id, title, body, seen, fullDateReceived },
+    params: { id, title, body, seen, fullDateReceived, type, jobId },
   } = useRoute<InboxDetailsProps>();
 
+  // update receipt seen
   useEffect(() => {
-    if (isAuthenticated) {
-      if (!seen) {
-        updateSeenReceipt(id);
-      }
+    if (isAuthenticated && !seen) {
+      updateSeenReceipt(id);
     }
-  }, [isAuthenticated, updateSeenReceipt]);
+  }, [id, isAuthenticated, seen, updateSeenReceipt]);
+
+  // fetch job details if messageType is JOB_OFFER
+  useEffect(() => {
+    if (jobId && type === IInboxMessage.JOB_OFFER) {
+      getJobDetails(jobId);
+    }
+  }, [getJobDetails, type, jobId]);
+
+  const renderActionInfo = () => {
+    // user have accepted or declined
+    if (isOfferAccepted || isOfferDeclined) {
+      return (
+        <Text preset="title3" style={{ backgroundColor: colors.lightGrey0, borderRadius: 10, padding: 12 }}>
+          {isOfferAccepted && 'You accepted the job offer'}
+          {isOfferDeclined && 'You declined the job offer'}
+        </Text>
+      );
+    }
+
+    // job no longer accept offer
+    if (!isAllowToAcceptOffer) {
+      return (
+        <Text preset="title3" style={{ backgroundColor: colors.lightGrey0, borderRadius: 10, padding: 12 }}>
+          Job stop accepting candidate
+        </Text>
+      );
+    }
+
+    return (
+      <>
+        <Button
+          style={{ width: 140, marginBottom: spacing.sm }}
+          label="Accept"
+          onPress={() => acceptJobOffer(jobId as number)}
+        />
+
+        <Button
+          style={{ width: 140 }}
+          preset="outlined"
+          label="Declined"
+          onPress={() => declineJobOffer(jobId as number)}
+        />
+      </>
+    );
+  };
+
+  const renderMessageBody = () => {
+    // render job offer ui
+    // TODO: break this to separate component
+    if (type === IInboxMessage.JOB_OFFER) {
+      if (isLoading) return <Spinner preset="center" />;
+
+      return (
+        <View>
+          <Text>{body}</Text>
+
+          <View style={{ marginTop: spacing.sm }}>
+            <Text style={{ fontWeight: 'bold' }}>{formattedDate}</Text>
+            <Text style={{ fontWeight: 'bold' }}>{formattedTime}</Text>
+            <Text style={{ fontWeight: 'bold', color: colors.accent }}>{formattedHourlyRate}</Text>
+          </View>
+
+          <View style={{ marginTop: spacing.sm }}>{renderActionInfo()}</View>
+        </View>
+      );
+    }
+
+    return <Text>{body}</Text>;
+  };
 
   return (
-    <Screen preset="fixed">
+    <Screen preset="scroll">
       <Header title="Message" leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />} />
 
       <Text preset="title2" style={{ marginTop: spacing.md }}>
@@ -50,7 +133,7 @@ const InboxDetails = () => {
 
       <View style={{ height: 2, backgroundColor: colors.lightGrey1, marginTop: 20, marginBottom: 20 }} />
 
-      <Text>{body}</Text>
+      {renderMessageBody()}
 
       <Text preset="hint" style={{ marginTop: spacing.xl }}>
         {fullDateReceived}
