@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { FlatList, ListRenderItem, RefreshControl } from 'react-native';
-import { Screen, Spinner, Text } from '../../../components';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Spinner, Text } from '../../../components';
 import InboxItem from './inbox-item';
 import { useMst } from '../../../store';
 import { Message } from '../../../store/inbox';
+import { spacing } from '../../../themes';
 
 const InboxScreen = () => {
   const {
@@ -41,15 +43,17 @@ const InboxScreen = () => {
   if (isLoadingInbox && !isRefreshing) return <Spinner preset="center" />;
 
   return (
-    <Screen preset="fixed">
+    <SafeAreaView edges={['top']} style={{ flex: 1 }}>
+      <Text style={{ paddingHorizontal: spacing.md }} preset="header">
+        Inbox
+      </Text>
       <FlatList
         refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
-        ListHeaderComponent={<Text preset="header">Inbox</Text>}
         data={inboxMessages}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
       />
-    </Screen>
+    </SafeAreaView>
   );
 };
 
