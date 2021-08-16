@@ -95,7 +95,6 @@ export const UserStore = types
           dob: values.birthDate,
           mobile: values.mobile,
           gender_id: values.gender,
-          nric_no: 'G3321975Q',
         });
         yield self.getUser();
       } catch (e) {
@@ -128,8 +127,11 @@ export const UserStore = types
 
         const data: NRICPayload = {};
 
+        if (values.nricNo) data.nric_no = values.nricNo;
         if (values.nricFront) data.nric_front_img = constructUploadImagePayload(values.nricFront);
         if (values.nricBack) data.nric_back_img = constructUploadImagePayload(values.nricBack);
+
+        console.log('data>>>>', data);
 
         yield apis.updateProfile(data);
         yield self.getUser();

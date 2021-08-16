@@ -37,3 +37,8 @@ export const mobileValidator = yup
   .length(8, 'Invalid mobile number');
 
 export const genderValidator = yup.string().nullable().required('Please select your gender');
+
+export const nricValidator = yup
+  .string()
+  .required('NRIC/FIN is mandatory field')
+  .length(9, 'NRIC/FIN comprising 9 alphanumeric characters');

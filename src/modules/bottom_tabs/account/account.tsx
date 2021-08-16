@@ -106,7 +106,9 @@ const Account = () => {
           </View>
         </View>
       ) : (
-        <LoginHeader />
+        <View style={commonStyles.CONTAINER}>
+          <LoginHeader />
+        </View>
       )}
     </Screen>
   );
