@@ -120,7 +120,7 @@ export const UserStore = types
       }
     }),
 
-    uploadNric: flow(function* uploadNric(values: NricFormData) {
+    updateNricInfo: flow(function* updateNricInfo(values: NricFormData) {
       try {
         self.isUpdating = true;
         self.rootStore.uiStore.showLoadingSpinner();
@@ -130,8 +130,6 @@ export const UserStore = types
         if (values.nricNo) data.nric_no = values.nricNo;
         if (values.nricFront) data.nric_front_img = constructUploadImagePayload(values.nricFront);
         if (values.nricBack) data.nric_back_img = constructUploadImagePayload(values.nricBack);
-
-        console.log('data>>>>', data);
 
         yield apis.updateProfile(data);
         yield self.getUser();

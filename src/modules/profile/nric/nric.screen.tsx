@@ -19,7 +19,7 @@ const nricValidationSchema = yup.object({
 const NricScreen = () => {
   const navigation = useNavigation();
   const {
-    userStore: { nric, nricFront, nricBack, uploadNric, isUpdating, error },
+    userStore: { nric, nricFront, nricBack, updateNricInfo, isUpdating, error },
   } = useMst();
 
   // formik form
@@ -27,7 +27,7 @@ const NricScreen = () => {
     initialValues: { nricNo: nric || '' },
     validationSchema: nricValidationSchema,
     onSubmit: (_data: NricFormData) => {
-      uploadNric(_data);
+      updateNricInfo(_data);
     },
   });
 
