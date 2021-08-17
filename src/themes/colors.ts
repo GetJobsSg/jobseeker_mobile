@@ -29,7 +29,7 @@ export const colors = {
   textSuccess: '#11954E',
   textWarning: '#C59A02',
 
-  danger: '#ff0000',
+  danger: '#CE1F1D',
   warning: '#ff9d00',
   success: '#29c100',
 };

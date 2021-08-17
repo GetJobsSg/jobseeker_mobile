@@ -1,4 +1,4 @@
-import { get, post, put } from '../utils/network';
+import { get, post, put, del } from '../utils/network';
 import { ProfilePayload, ProfileInfoResponse } from '../modules/profile/types';
 import { AllJobResponse, JobInfoResponse, MyJobsRequestParams } from '../modules/job/types';
 
@@ -18,6 +18,13 @@ export const withdrawWallet = (id: number): Promise<{}> =>
 export const getBankAccount = (id: number) => get(`/mobile/wallet/bank/${id}`).then((res) => res.data);
 
 export const getBankAccounts = () => get('/mobile/wallet/bank').then((res) => res.data);
+
+export const addBankAccount = (data: any) => post('/mobile/wallet/bank', data).then((res) => res.data);
+
+export const deleteBankAccount = (id: number) => del(`/mobile/wallet/bank/${id}`).then((res) => res.data);
+
+export const updateBankAccount = (id: number, data: any): Promise<{}> =>
+  put(`/mobile/wallet/bank/${id}`, data).then((res) => res.data);
 
 export const getCategories = () => get('/job/categories').then((res) => res.data);
 

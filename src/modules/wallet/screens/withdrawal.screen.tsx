@@ -1,9 +1,9 @@
 import React, { useEffect, useCallback } from 'react';
-import { FlatList, RefreshControl, ListRenderItem } from 'react-native';
+import { FlatList, RefreshControl, ListRenderItem, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../../navigator/routes';
-import { Text, Row, Header, Screen, IconButton, Card } from '../../../components';
+import { Text, Row, Header, Screen, IconButton, Card, Button } from '../../../components';
 import { colors, spacing } from '../../../themes';
 import { useMst } from '../../../store';
 import { BankAccountInfo } from '../../../store/bank-account-info';
@@ -22,7 +22,10 @@ const WithdrawalScreen = () => {
   }, [isAuthenticated, getBankAccounts]);
 
   useEffect(() => {
-    fetchData();
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchData();
+    });
+    return unsubscribe;
   }, [fetchData]);
 
   const handleRefresh = () => {
@@ -31,6 +34,10 @@ const WithdrawalScreen = () => {
 
   const onSelectBankAccount = (id: number) => () => {
     navigation.navigate(Routes.wallet_stack, { screen: Routes.wallet_bank_accountDetails, params: { id } });
+  };
+
+  const onSelectAddBankAccount = () => {
+    navigation.navigate(Routes.wallet_stack, { screen: Routes.wallet_add_edit_bank_account, params: { id: 0 } });
   };
 
   const renderItem: ListRenderItem<BankAccountInfo> = ({ item }) => (
@@ -53,7 +60,10 @@ const WithdrawalScreen = () => {
       <Text preset="header" style={{ marginBottom: 20 }}>
         Select a Bank Account
       </Text>
-      <FlatList data={bankAccounts} renderItem={renderItem} />
+      <FlatList data={bankAccounts.slice()} renderItem={renderItem} />
+      <Button block label="Add Account" onPress={() => onSelectAddBankAccount()} />
+
+      <View style={{ marginVertical: 20 }} />
     </Screen>
   );
 };

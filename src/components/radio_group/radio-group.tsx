@@ -8,11 +8,12 @@ import {
   RADIO_LABEL,
   SELECTED_RADIO_THUMB,
   SELECTED_RADIO_LABEL,
+  ERROR_HINTS,
 } from './radio-group.styles';
 import { RadioOption, RadioProps } from './radio-group.props';
 
 const RadioGroup = (props: RadioProps) => {
-  const { alignment = 'horizontal', label, options, onChange, style, value } = props;
+  const { error = null, alignment = 'horizontal', label, options, onChange, style, value } = props;
 
   const handleRadioPress = (option: RadioOption) => () => onChange(option);
 
@@ -20,7 +21,7 @@ const RadioGroup = (props: RadioProps) => {
     alignment === 'horizontal' ? ({ flexDirection: 'row' } as ViewStyle) : ({ flexDirection: 'column' } as ViewStyle);
 
   return (
-    <>
+    <View>
       <Text preset="label">{label}</Text>
       <View style={[RADIO_GROUP_CONTAINER, alignStyle, style]}>
         {options.map((option) => {
@@ -33,7 +34,8 @@ const RadioGroup = (props: RadioProps) => {
           );
         })}
       </View>
-    </>
+      {error && error.shown && error.message && <Text style={ERROR_HINTS}>{error.message}</Text>}
+    </View>
   );
 };
 

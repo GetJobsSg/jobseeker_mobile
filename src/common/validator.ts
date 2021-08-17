@@ -36,4 +36,14 @@ export const mobileValidator = yup
   .required('Please enter your mobile number')
   .length(8, 'Invalid mobile number');
 
+export const accountNoValidator = yup
+  .string()
+  .required('Please enter your account number')
+  .min(5, 'Invalid account number')
+  .max(30, 'Invalid account number');
+
+export const bankValidator = yup.number().moreThan(0, 'Please select a bank').required('Please select a bank');
+
 export const genderValidator = yup.string().nullable().required('Please select your gender');
+
+export const optionValidator = yup.number().moreThan(-1, 'Please select an option').required('Please select an option');

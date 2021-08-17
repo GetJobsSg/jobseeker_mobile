@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { observer } from 'mobx-react-lite';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { Routes } from '../../../navigator/routes';
 import { Text, Header, IconButton, Button } from '../../../components';
 import { colors, spacing } from '../../../themes';
 import { useMst } from '../../../store';
@@ -33,12 +34,17 @@ const BankAccountDetailScreen = () => {
     navigation.popToTop();
   };
 
+  const onSelectEdit = () => {
+    navigation.navigate(Routes.wallet_stack, { screen: Routes.wallet_add_edit_bank_account, params: { id } });
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
       <Header
         title="Withdraw"
         style={commonStyles.SAFE_PADDING}
         leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />}
+        rightLabel={<Text onPress={() => onSelectEdit()}>Edit</Text>}
       />
 
       <ScrollView style={commonStyles.SAFE_PADDING}>

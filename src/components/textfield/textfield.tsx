@@ -13,6 +13,7 @@ const TextField = (props: TextFieldProps) => {
     error = null,
     onChangeText,
     preset = 'default',
+    keyboardType = 'default',
     label = '',
     value = '',
     style: overrideStyle,
@@ -36,6 +37,7 @@ const TextField = (props: TextFieldProps) => {
           style={textFieldStyle}
           onChangeText={onChangeText}
           selectionColor={colors.primary}
+          keyboardType={keyboardType}
           value={value}
           {...rest}
         />

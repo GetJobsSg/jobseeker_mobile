@@ -1,5 +1,5 @@
 import { TextStyle, ViewStyle } from 'react-native';
-import { colors, spacing } from '../../themes';
+import { colors, fontSize, spacing } from '../../themes';
 
 export const RADIO_GROUP_CONTAINER = {
   display: 'flex',
@@ -36,3 +36,9 @@ export const SELECTED_RADIO_LABEL = {
   ...RADIO_LABEL,
   fontWeight: '500',
 } as TextStyle;
+
+export const ERROR_HINTS: TextStyle = {
+  color: colors.textDanger,
+  fontSize: fontSize.xxs,
+  marginBottom: spacing.sm,
+};

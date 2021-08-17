@@ -25,3 +25,9 @@ export const EDIT = {
   color: colors.primaryLight,
   fontSize: fontSize.sm,
 } as TextStyle;
+
+export const ERROR_HINTS: TextStyle = {
+  color: colors.textDanger,
+  fontSize: fontSize.xxs,
+  marginBottom: spacing.sm,
+};

@@ -15,6 +15,29 @@ export const BankAccountStore = types
   })
   .extend(withErrorHandler)
   .actions((self) => ({
+    getBankAccounts: flow(function* getBankAccounts() {
+      try {
+        self.isLoading = true;
+        const res = yield* toGenerator(apis.getBankAccounts());
+        self.bankAccounts.clear();
+
+        res.data.forEach((item: BankAccountResponse) => {
+          self.bankAccounts.push({
+            id: item.id,
+            walletID: item.wallet_id,
+            accountNo: item.account_no,
+            isPrimary: item.is_primary,
+            bank: item.bank,
+          });
+        });
+      } catch (e) {
+        self.error = self.getErrMsg(e);
+      } finally {
+        self.isLoading = false;
+      }
+    }),
+  }))
+  .actions((self) => ({
     getBanks: flow(function* getBanks() {
       try {
         self.isLoading = true;
@@ -35,21 +58,30 @@ export const BankAccountStore = types
         self.isLoading = false;
       }
     }),
-    getBankAccounts: flow(function* getBankAccounts() {
+
+    addBankAccount: flow(function* addBankAccount(data: any) {
       try {
         self.isLoading = true;
-        const res = yield* toGenerator(apis.getBankAccounts());
-        self.bankAccounts.clear();
 
-        res.data.forEach((item: BankAccountResponse) => {
-          self.bankAccounts.push({
-            id: item.id,
-            walletID: item.wallet_id,
-            accountNo: item.account_no,
-            isPrimary: item.is_primary,
-            bank: item.bank,
-          });
-        });
+        const transformed = { bank_id: data.bankID, account_no: data.accountNo, is_primary: data.isPrimary };
+
+        yield* toGenerator(apis.addBankAccount(transformed));
+
+        yield self.getBankAccounts();
+      } catch (e) {
+        self.error = self.getErrMsg(e);
+      } finally {
+        self.isLoading = false;
+      }
+    }),
+
+    deleteBankAccount: flow(function* deleteBankAccount(id: number) {
+      try {
+        self.isLoading = true;
+
+        yield* toGenerator(apis.deleteBankAccount(id));
+
+        yield self.getBankAccounts();
       } catch (e) {
         self.error = self.getErrMsg(e);
       } finally {

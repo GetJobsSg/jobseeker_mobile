@@ -5,7 +5,7 @@ import {
   AllTransactionScreen,
   TransactionDetailScreen,
   WithdrawalScreen,
-  AddBankAccountScreen,
+  AddEditBankAccountScreen,
   BankAccountDetailScreen,
 } from './screens';
 import { Routes } from '../../navigator/routes';
@@ -19,7 +19,7 @@ const WalletStack = () => (
     <Stack.Screen name={Routes.wallet_transactionDetails} component={TransactionDetailScreen} />
     <Stack.Screen name={Routes.wallet_withdrawal} component={WithdrawalScreen} />
     <Stack.Screen name={Routes.wallet_bank_accountDetails} component={BankAccountDetailScreen} />
-    <Stack.Screen name={Routes.wallet_add_bank_account} component={AddBankAccountScreen} />
+    <Stack.Screen name={Routes.wallet_add_edit_bank_account} component={AddEditBankAccountScreen} />
   </Stack.Navigator>
 );
 

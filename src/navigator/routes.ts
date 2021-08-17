@@ -36,7 +36,7 @@ export enum Routes {
   'wallet_transactionDetails' = 'wallet_transactionDetails',
   'wallet_withdrawal' = 'wallet_withdrawal',
   'wallet_bank_accountDetails' = 'wallet_bank_accountDetails',
-  'wallet_add_bank_account' = 'wallet_add_bank_account',
+  'wallet_add_edit_bank_account' = 'wallet_add_edit_bank_account',
 
   // Inbox
   'inbox_details' = 'inbox_details',

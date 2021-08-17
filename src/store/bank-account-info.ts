@@ -36,6 +36,25 @@ export const BankAccountInfoStore = types
         self.isLoading = false;
       }
     }),
+  }))
+  .actions((self) => ({
+    updateBankAccount: flow(function* updateBankAccount(id: number, data: any) {
+      try {
+        self.isLoading = true;
+
+        yield apis.updateBankAccount(id, {
+          bank_id: data.bankID,
+          account_no: data.accountNo,
+          is_primary: data.isPrimary,
+        });
+
+        yield self.getBankAccount(id);
+      } catch (e) {
+        self.error = self.getErrMsg(e);
+      } finally {
+        self.isLoading = false;
+      }
+    }),
   }));
 
 type BankAccountInfoStoreInstance = Instance<typeof BankAccountInfoStore>;
