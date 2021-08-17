@@ -12,6 +12,7 @@ export type PersonalPhotoData = { profileImage: Asset };
 export type PersonalPhotoPayload = Pick<ProfilePayload, 'profile_img'>;
 
 export interface NricFormData {
+  nricNo?: string;
   nricFront?: Asset;
   nricBack?: Asset;
 }
@@ -29,7 +30,7 @@ export interface ProfilePayload {
   training_completed: boolean;
 }
 
-export type NRICPayload = Partial<Pick<ProfilePayload, 'nric_front_img' | 'nric_back_img'>>;
+export type NRICPayload = Partial<Pick<ProfilePayload, 'nric_no' | 'nric_front_img' | 'nric_back_img'>>;
 
 export interface ProfileInfoResponse {
   data: {

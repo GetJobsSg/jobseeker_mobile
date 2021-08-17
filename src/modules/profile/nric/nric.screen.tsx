@@ -1,65 +1,72 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React from 'react';
+import * as yup from 'yup';
 import { observer } from 'mobx-react-lite';
-import { Asset } from 'react-native-image-picker';
+import { useFormik } from 'formik';
 
-import { Screen, Frame, Header, IconButton, Text } from '../../../components';
+import { Screen, Frame, Header, IconButton, Text, TextField } from '../../../components';
 import { useSuccess } from '../../../custom_hooks';
 import { useMst } from '../../../store';
 import { NricFormData } from '../types';
+import { nricValidator } from '../../../common';
+
+const nricValidationSchema = yup.object({
+  nricNo: nricValidator,
+  nricFront: yup.object().notRequired(),
+  nricBack: yup.object().notRequired(),
+});
 
 const NricScreen = () => {
   const navigation = useNavigation();
   const {
-    userStore: { nricFront, nricBack, uploadNric, isUpdating, error },
+    userStore: { nric, nricFront, nricBack, updateNricInfo, isUpdating, error },
   } = useMst();
 
-  const [selectedNricFrontImage, setSelectedNricFrontImage] = useState<Asset>();
-  const [selectedNricBackImage, setSelectedNricBackImage] = useState<Asset>();
+  // formik form
+  const { dirty, values, errors, isValid, setFieldValue, handleSubmit } = useFormik({
+    initialValues: { nricNo: nric || '' },
+    validationSchema: nricValidationSchema,
+    onSubmit: (_data: NricFormData) => {
+      updateNricInfo(_data);
+    },
+  });
 
   // upload successful
   const isUploadSuccess = useSuccess({ loadingState: isUpdating, errorState: error });
   if (isUploadSuccess) setTimeout(() => navigation.goBack(), 0);
-
-  const handleImageTarget = (target: 'nricFront' | 'nricBack', imageAsset: Asset) => {
-    if (target === 'nricFront') {
-      setSelectedNricFrontImage(imageAsset);
-    } else {
-      setSelectedNricBackImage(imageAsset);
-    }
-  };
-
-  const handleUpload = () => {
-    // no image is selected
-    if (!selectedNricFrontImage?.uri && !selectedNricBackImage?.uri) return;
-
-    const nricData: NricFormData = {};
-    if (selectedNricFrontImage) nricData.nricFront = selectedNricFrontImage;
-    if (selectedNricBackImage) nricData.nricBack = selectedNricBackImage;
-
-    uploadNric(nricData);
-  };
-
-  const isImageSelected = () => !!selectedNricFrontImage || !!selectedNricBackImage;
 
   return (
     <Screen preset="scroll" unsafeArea={['top', 'bottom']}>
       <Header
         title="NRIC / FIN"
         leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />}
-        rightLabel={isImageSelected() ? <Text onPress={handleUpload}>Upload</Text> : null}
+        rightLabel={dirty && isValid ? <Text onPress={handleSubmit}>Save</Text> : null}
+      />
+
+      <TextField
+        error={{
+          shown: !!errors.nricNo,
+          message: errors.nricNo,
+        }}
+        value={values.nricNo || ''}
+        label="NRIC / FIN No"
+        onChangeText={(text) => setFieldValue('nricNo', text)}
       />
 
       <Frame
         placeholder="Upload your NRIC / FIN Front Page"
-        displayImage={selectedNricFrontImage?.uri || nricFront}
-        onImagePick={(imageAsset) => handleImageTarget('nricFront', imageAsset)}
+        displayImage={values.nricFront?.uri || nricFront}
+        onImagePick={(imageAsset) => {
+          setFieldValue('nricFront', imageAsset);
+        }}
       />
 
       <Frame
         placeholder="Upload your NRIC / FIN Back Page"
-        displayImage={selectedNricBackImage?.uri || nricBack}
-        onImagePick={(imageAsset) => handleImageTarget('nricBack', imageAsset)}
+        displayImage={values.nricBack?.uri || nricBack}
+        onImagePick={(imageAsset) => {
+          setFieldValue('nricBack', imageAsset);
+        }}
       />
     </Screen>
   );

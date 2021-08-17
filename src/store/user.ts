@@ -95,7 +95,6 @@ export const UserStore = types
           dob: values.birthDate,
           mobile: values.mobile,
           gender_id: values.gender,
-          nric_no: 'G3321975Q',
         });
         yield self.getUser();
       } catch (e) {
@@ -121,13 +120,14 @@ export const UserStore = types
       }
     }),
 
-    uploadNric: flow(function* uploadNric(values: NricFormData) {
+    updateNricInfo: flow(function* updateNricInfo(values: NricFormData) {
       try {
         self.isUpdating = true;
         self.rootStore.uiStore.showLoadingSpinner();
 
         const data: NRICPayload = {};
 
+        if (values.nricNo) data.nric_no = values.nricNo;
         if (values.nricFront) data.nric_front_img = constructUploadImagePayload(values.nricFront);
         if (values.nricBack) data.nric_back_img = constructUploadImagePayload(values.nricBack);
 

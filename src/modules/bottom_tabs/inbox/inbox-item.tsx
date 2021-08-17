@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { View, TouchableOpacity, TextStyle } from 'react-native';
 import { Routes } from '../../../navigator/routes';
 import { Text, Row, Icon } from '../../../components';
+import { colors, spacing } from '../../../themes';
 
 interface InboxItemProps {
   id: number;
@@ -12,24 +13,32 @@ interface InboxItemProps {
   dateReceived: string;
   fullDateReceived: string;
   seen: boolean;
+  type: number;
+  jobId: number | null;
 }
 const InboxItem = (props: InboxItemProps) => {
-  const { id, title, body, dateReceived, fullDateReceived, seen } = props;
+  const { id, title, body, dateReceived, fullDateReceived, seen, jobId, type } = props;
   const navigation = useNavigation();
 
   const handleOnPress = () => {
     navigation.navigate(Routes.inbox_stack, {
       screen: Routes.inbox_details,
-      params: { id, title, body, seen, fullDateReceived },
+      params: { id, title, body, seen, type, fullDateReceived, jobId },
     });
     // navigation.navigate(Routes.job_stack, { screen: Routes.job_offer_details, params: { id: 1 } });
   };
 
-  const boldTitleHeader = seen ? null : ({ fontWeight: 'bold' } as TextStyle);
+  const messageTitleStyle = seen
+    ? ({ fontWeight: '400', color: colors.textSecondary } as TextStyle)
+    : ({ fontWeight: 'bold' } as TextStyle);
+
+  const messageBodyStyle = seen
+    ? ({ fontWeight: '300', color: colors.textSecondary } as TextStyle)
+    : ({ fontWeight: '400', color: colors.black } as TextStyle);
 
   return (
-    <TouchableOpacity onPress={handleOnPress} activeOpacity={0.6}>
-      <Row style={{ marginBottom: 25 }}>
+    <TouchableOpacity style={[{ padding: spacing.md }]} onPress={handleOnPress} activeOpacity={0.6}>
+      <Row style={{ marginBottom: 0 }}>
         <Icon
           icon="inbox_message"
           containerStyle={{ backgroundColor: 'rgba(70,0,70,0.4)', borderRadius: 30, padding: 10 }}
@@ -37,14 +46,14 @@ const InboxItem = (props: InboxItemProps) => {
         />
         <View style={{ flex: 1, marginLeft: 12 }}>
           <Row>
-            <Text preset="title3" numberOfLines={1} style={[{ flex: 1 }, boldTitleHeader]}>
+            <Text preset="title3" numberOfLines={1} style={[{ flex: 1 }, messageTitleStyle]}>
               {title}
             </Text>
-            <Text preset="title3" style={[{ marginLeft: 5 }, boldTitleHeader]}>
+            <Text preset="title3" style={[{ marginLeft: 5 }, messageTitleStyle]}>
               {dateReceived}
             </Text>
           </Row>
-          <Text preset="hint" numberOfLines={2}>
+          <Text preset="hint" numberOfLines={2} style={[messageBodyStyle]}>
             {body}
           </Text>
         </View>

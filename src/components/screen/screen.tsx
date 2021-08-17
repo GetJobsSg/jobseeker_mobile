@@ -8,6 +8,10 @@ import { colors } from '../../themes';
 const isIOS = Platform.OS === 'ios';
 const avoidViewBehaviour = isIOS ? 'padding' : undefined;
 
+/**
+ * TODO: refactor screen component to FixedScreen and ScrollingScreen component
+ */
+
 const Screen = (props: ScreenProps) => {
   const {
     children,
