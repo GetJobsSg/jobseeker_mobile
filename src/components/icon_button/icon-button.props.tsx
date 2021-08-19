@@ -1,4 +1,4 @@
-import { ViewStyle } from 'react-native';
+import { ViewStyle, ImageStyle } from 'react-native';
 import { IconTypes, IconRenderer } from '../icon/icons';
 
 export interface IconButtonProps {
@@ -6,4 +6,5 @@ export interface IconButtonProps {
   onPress: () => void;
   size?: number;
   style?: ViewStyle;
+  iconStyle?: ImageStyle;
 }

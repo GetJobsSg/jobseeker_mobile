@@ -15,12 +15,12 @@ export const CARD_CONTAINER = {
   backgroundColor: colors.white,
   borderWidth: 0.2,
   borderColor: colors.lightGrey1,
-  shadowColor: colors.lightGrey1,
+  shadowColor: colors.black,
   shadowOpacity: 1,
   elevation: 2,
   shadowOffset: { width: 0, height: 4 },
   shadowRadius: 5,
-  paddingVertical: spacing.sm + spacing.xs,
+  paddingVertical: spacing.md,
   paddingHorizontal: spacing.md,
 } as ViewStyle;
 

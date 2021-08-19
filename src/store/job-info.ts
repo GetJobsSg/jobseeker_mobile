@@ -98,6 +98,7 @@ export const JobInfoStore = types
         // companyInfo
         self.company.id = job.company.id;
         self.company.name = job.company.name;
+        self.company.logo = job.company.logo_img;
 
         // job status
         self.jobStatus.id = job.job_status.id;

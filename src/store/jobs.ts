@@ -1,7 +1,7 @@
 import { flow, Instance, SnapshotOut, toGenerator, types } from 'mobx-state-tree';
 import { JobDetails } from 'src/modules/job/types';
 import { withErrorHandler } from './extensions';
-import { JobInfoStore, JobInfo } from './job-info';
+import { JobInfoStore } from './job-info';
 import * as apis from '../apis';
 
 export const JobStore = types
@@ -10,6 +10,10 @@ export const JobStore = types
     recentJobs: types.optional(types.array(JobInfoStore), []),
     isLoadingRecentJobs: types.optional(types.boolean, false),
     errorRecentJobs: types.optional(types.string, ''),
+
+    companyJobs: types.optional(types.array(JobInfoStore), []),
+    isLoadingCompanyJobs: types.optional(types.boolean, false),
+    errorCompanyJobs: types.optional(types.string, ''),
 
     appliedJobs: types.optional(types.array(JobInfoStore), []),
     isLoadingAppliedJobs: types.optional(types.boolean, false),
@@ -29,7 +33,7 @@ export const JobStore = types
   })
   .extend(withErrorHandler)
   .actions(() => ({
-    transformToState(data: JobDetails): Partial<JobInfo> {
+    transformToState(data: JobDetails) {
       return {
         id: data.job.id,
         title: data.job.title,
@@ -78,6 +82,24 @@ export const JobStore = types
         self.errorRecentJobs = self.getErrMsg(e);
       } finally {
         self.isLoadingRecentJobs = false;
+      }
+    }),
+
+    getCompanyJobs: flow(function* getCompanyJobs(id: number) {
+      try {
+        self.isLoadingCompanyJobs = true;
+        const res = yield* toGenerator(apis.getCompanyJobs(id));
+        self.companyJobs.clear();
+
+        if (!res?.data) return;
+
+        res.data.forEach((item) => {
+          self.companyJobs.push(self.transformToState(item));
+        });
+      } catch (e) {
+        self.errorCompanyJobs = self.getErrMsg(e);
+      } finally {
+        self.isLoadingCompanyJobs = false;
       }
     }),
 

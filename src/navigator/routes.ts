@@ -7,6 +7,7 @@ export enum Routes {
   'settings_stack' = 'settings_stack',
   'job_stack' = 'job_stack',
   'inbox_stack' = 'inbox_stack',
+  'company_stack' = 'company_stack',
 
   // auth
   'authModal_login' = 'authModal_login',
@@ -39,4 +40,7 @@ export enum Routes {
 
   // Inbox
   'inbox_details' = 'inbox_details',
+
+  // Company
+  'company_details' = 'company_details',
 }

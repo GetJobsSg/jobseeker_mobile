@@ -10,6 +10,7 @@ import { ProfileStack } from '../modules/profile';
 import { SettingStack } from '../modules/settings';
 import { JobStack } from '../modules/job';
 import { InboxStack } from '../modules/inbox';
+import { CompanyStack } from '../modules/company';
 import { Spinner } from '../components';
 
 import { RootParams } from './types';
@@ -32,6 +33,7 @@ const RootNavigator = () => (
       <RootStack.Screen name={Routes.settings_stack} component={SettingStack} />
       <RootStack.Screen name={Routes.job_stack} component={JobStack} />
       <RootStack.Screen name={Routes.inbox_stack} component={InboxStack} />
+      <RootStack.Screen name={Routes.company_stack} component={CompanyStack} />
     </RootStack.Navigator>
 
     <Spinner />

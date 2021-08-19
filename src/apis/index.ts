@@ -35,8 +35,13 @@ export const getApplicationStatus = () => get('/job/application/status').then((r
 export const getAllJobs = (params = { sort: 'desc' }): Promise<AllJobResponse> =>
   get('/mobile/job', { params }).then((res) => res.data);
 
+export const getCompanyJobs = (id: number, params = { sort: 'desc' }): Promise<AllJobResponse> =>
+  get(`/mobile/job/company/${id}`, { params }).then((res) => res.data);
+
 export const getMyJobs = (options: MyJobsRequestParams): Promise<AllJobResponse> =>
   get(`/mobile/job/mine`, { params: options }).then((res) => res.data);
+
+export const getCompanyDetails = (id: number) => get(`/mobile/company/${id}`).then((res) => res.data);
 
 export const getJobDetails = (id: number): Promise<JobInfoResponse> => get(`/mobile/job/${id}`).then((res) => res.data);
 

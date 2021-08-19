@@ -14,4 +14,6 @@ export interface HeaderProps {
   rightIcons?: React.ReactElement[];
 
   rightLabel?: React.ReactElement | null;
+
+  color?: string;
 }

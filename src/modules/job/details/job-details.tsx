@@ -70,6 +70,10 @@ const JobDetails = () => {
     );
   }
 
+  const onSelectEmployer = () => {
+    navigation.navigate(Routes.company_stack, { screen: Routes.company_details, params: { id: company.id } });
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
       <Header
@@ -80,7 +84,7 @@ const JobDetails = () => {
 
       <ScrollView>
         <SectionTitle title={title} rate={formattedHourlyRate} />
-        <SectionEmployer companyLogo={company.logo} companyName={company.name} onPress={() => {}} />
+        <SectionEmployer companyLogo={company.logo} companyName={company.name} onPress={onSelectEmployer} />
         <SectionDateTime date={formattedDate} time={formattedTime} />
 
         <SectionTextContent sectionTitle="Requirement" text={requirements} />

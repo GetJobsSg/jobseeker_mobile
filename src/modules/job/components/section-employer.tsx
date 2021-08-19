@@ -1,7 +1,7 @@
 import React from 'react';
-import { TextStyle, ViewStyle, View } from 'react-native';
+import { TextStyle, ViewStyle, View, TouchableOpacity } from 'react-native';
 import { colors, spacing } from '../../../themes';
-import { Text, Row, Touchable, Avatar, Icon } from '../../../components';
+import { Text, Row, Avatar, Icon } from '../../../components';
 import { commonStyles } from '../../../common';
 
 const CONTAINER = {
@@ -28,7 +28,7 @@ const SectionEmployer = (props: SectionEmployerProps) => {
   const { companyName, companyLogo, onPress } = props;
   return (
     <View style={CONTAINER}>
-      <Touchable underlayColor={colors.lightGrey0} onPress={onPress}>
+      <TouchableOpacity onPress={onPress}>
         <Row>
           <Row style={{ flex: 1 }}>
             <Avatar uri={companyLogo} size={50} />
@@ -38,7 +38,7 @@ const SectionEmployer = (props: SectionEmployerProps) => {
           </Row>
           <Icon icon="ic_arrow_right" />
         </Row>
-      </Touchable>
+      </TouchableOpacity>
     </View>
   );
 };

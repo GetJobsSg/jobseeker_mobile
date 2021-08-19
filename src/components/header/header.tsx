@@ -5,7 +5,7 @@ import { presets } from './header.presets';
 import { Text } from '..';
 
 const Header = (props: HeaderProps) => {
-  const { preset = 'default', leftIcon, title = '', rightIcons, rightLabel, style: containerStyle } = props;
+  const { preset = 'default', leftIcon, title = '', rightIcons, rightLabel, style: containerStyle, color } = props;
   const headerStyle = presets[preset];
 
   const renderRightContent = () => {
@@ -23,7 +23,7 @@ const Header = (props: HeaderProps) => {
     <View style={[headerStyle.container, containerStyle]}>
       <View style={headerStyle.leftContainer}>{leftIcon}</View>
       <View style={headerStyle.textContainer}>
-        <Text style={headerStyle.title} numberOfLines={1}>
+        <Text style={[headerStyle.title, color ? { color } : null]} numberOfLines={1}>
           {title}
         </Text>
       </View>

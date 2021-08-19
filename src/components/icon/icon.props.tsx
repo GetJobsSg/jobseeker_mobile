@@ -1,4 +1,4 @@
-import { ViewStyle, ImageStyle } from 'react-native';
+import { ViewStyle, ImageStyle, StyleProp } from 'react-native';
 import { IconTypes, IconRenderer } from './icons';
 
 export interface IconProps {
@@ -12,5 +12,5 @@ export interface IconProps {
   size?: number;
 
   /** style override for the icon image */
-  style?: ImageStyle;
+  style?: StyleProp<ImageStyle>;
 }
