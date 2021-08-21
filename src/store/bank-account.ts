@@ -63,7 +63,7 @@ export const BankAccountStore = types
       try {
         self.isLoading = true;
 
-        const transformed = { bank_id: data.bankID, account_no: data.accountNo, is_primary: data.isPrimary };
+        const transformed = { bank_id: data.bankID, account_no: data.accountNo };
 
         yield* toGenerator(apis.addBankAccount(transformed));
 

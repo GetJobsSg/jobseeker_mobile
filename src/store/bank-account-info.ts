@@ -45,7 +45,7 @@ export const BankAccountInfoStore = types
         yield apis.updateBankAccount(id, {
           bank_id: data.bankID,
           account_no: data.accountNo,
-          is_primary: data.isPrimary,
+          is_primary: data.isPrimary === 1,
         });
 
         yield self.getBankAccount(id);

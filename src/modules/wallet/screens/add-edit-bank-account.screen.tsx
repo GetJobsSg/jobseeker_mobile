@@ -50,7 +50,7 @@ const AddEditBankAccountScreen = () => {
   const initialValues: BankAccountFormData = {
     accountNo: id > 0 ? accountNo : '',
     bankID: id > 0 ? bank.id : 0,
-    isPrimary: id > 0 ? Number(isPrimary) : -1,
+    isPrimary: id > 0 ? Number(isPrimary) : 0,
   };
 
   const handleFormSubmit = (data: BankAccountFormData) => {
@@ -127,19 +127,21 @@ const AddEditBankAccountScreen = () => {
                   <FlatList data={banks} renderItem={({ item }) => renderBankItem(item as Bank, setFieldValue)} />
                 </Sheet>
 
-                <RadioGroup
-                  label="Set as primary account?"
-                  value={values.isPrimary}
-                  onChange={(selected) => setFieldValue('isPrimary', selected.value)}
-                  error={{
-                    shown: touched.isPrimary && errors.isPrimary,
-                    message: errors.isPrimary,
-                  }}
-                  options={[
-                    { label: 'Yes', value: 1 },
-                    { label: 'No', value: 0 },
-                  ]}
-                />
+                {id > 0 && (
+                  <RadioGroup
+                    label="Set as primary account?"
+                    value={values.isPrimary}
+                    onChange={(selected) => setFieldValue('isPrimary', selected.value)}
+                    error={{
+                      shown: touched.isPrimary && errors.isPrimary,
+                      message: errors.isPrimary,
+                    }}
+                    options={[
+                      { label: 'Yes', value: 1 },
+                      { label: 'No', value: 0 },
+                    ]}
+                  />
+                )}
               </View>
             </View>
           )}
