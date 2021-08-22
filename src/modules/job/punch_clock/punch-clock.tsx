@@ -42,11 +42,11 @@ const PunchClock = () => {
 
   const headerTitle = type === 'clock-in' ? 'Clock In' : 'Clock Out';
 
-  const handleClockInOut = () => {
+  const handleClockInOut = (inputCode: string) => {
     if (type === 'clock-in') {
-      clockInJob(jobId, code);
+      clockInJob(jobId, inputCode);
     } else {
-      clockOutJob(jobId, code);
+      clockOutJob(jobId, inputCode);
     }
   };
 
@@ -64,7 +64,12 @@ const PunchClock = () => {
           alignSelf: 'center',
         }}
       >
-        <QRCodeScanner onRead={(e) => e} cameraStyle={{ width: 200, height: 200 }} />
+        <QRCodeScanner
+          onRead={(e) => handleClockInOut(e.data)}
+          reactivate
+          reactivateTimeout={2000}
+          cameraStyle={{ width: 200, height: 200 }}
+        />
       </View>
 
       <View style={{ marginTop: 30, paddingBottom: spacing.xl, alignSelf: 'center' }}>
@@ -89,7 +94,12 @@ const PunchClock = () => {
         />
       </View>
 
-      <Button block label={headerTitle} disabled={isLoadingClockIn || isLoadingClockOut} onPress={handleClockInOut} />
+      <Button
+        block
+        label={headerTitle}
+        disabled={isLoadingClockIn || isLoadingClockOut}
+        onPress={() => handleClockInOut(code)}
+      />
     </Screen>
   );
 };
