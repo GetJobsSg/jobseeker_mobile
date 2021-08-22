@@ -23,6 +23,7 @@ export const UserStore = types
     nric: types.optional(types.string, ''),
     nricFront: types.optional(types.string, ''),
     nricBack: types.optional(types.string, ''),
+    educationLevelID: types.optional(types.number, 0),
     verificationStatus: types.optional(types.number, IVerificationStatus.NOT_INITIATED),
     gender: types.maybeNull(types.number),
     trainingCompleted: types.optional(types.boolean, false),
@@ -41,7 +42,7 @@ export const UserStore = types
       return !!self.profileImg;
     },
     get isPersonalInfoCompleted() {
-      const requiredItem = [self.firstName, self.lastName, self.mobile, self.gender];
+      const requiredItem = [self.firstName, self.lastName, self.mobile, self.gender, self.educationLevelID];
       const incompleteField = requiredItem.filter((value) => !value);
       return incompleteField.length === 0;
     },
@@ -71,6 +72,7 @@ export const UserStore = types
         self.nricFront = profile.nric_front_img || '';
         self.nricBack = profile.nric_back_img || '';
         self.birthDate = profile.dob || '';
+        self.educationLevelID = profile.education_level_id || 0;
         self.verificationStatus = profile.verification_status?.id || IVerificationStatus.NOT_INITIATED;
         self.gender = profile.gender?.id || null;
         self.trainingCompleted = profile.training_completed;
@@ -95,6 +97,7 @@ export const UserStore = types
           dob: values.birthDate,
           mobile: values.mobile,
           gender_id: values.gender,
+          education_level_id: values.educationLevelID,
         });
         yield self.getUser();
       } catch (e) {

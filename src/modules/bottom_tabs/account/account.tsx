@@ -15,12 +15,14 @@ const Account = () => {
   const {
     authStore: { isAuthenticated },
     userStore: { getUser, isLoading, verificationStatus },
+    educationLevelStore: { getEducationLevel },
   } = useMst();
   const navigation = useNavigation();
 
   useEffect(() => {
     if (isAuthenticated) {
       getUser();
+      getEducationLevel();
     }
   }, [getUser, isAuthenticated]);
 

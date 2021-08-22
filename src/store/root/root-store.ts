@@ -2,6 +2,7 @@ import { Instance, onSnapshot, SnapshotOut, types } from 'mobx-state-tree';
 import { AuthStore } from '../auth';
 import { UiStore } from '../ui';
 import { UserStore } from '../user';
+import { EducationLevelStore } from '../education-level';
 import { WalletStore } from '../wallet';
 import { BankAccountInfoStore } from '../bank-account-info';
 import { BankAccountStore } from '../bank-account';
@@ -16,6 +17,7 @@ import { DataStore } from '../data';
 export const RootStore = types.model('RootStore').props({
   authStore: types.optional(AuthStore, {} as any),
   userStore: types.optional(UserStore, {} as any),
+  educationLevelStore: types.optional(EducationLevelStore, {} as any),
   jobsStore: types.optional(JobStore, {} as any),
   jobInfoStore: types.optional(JobInfoStore, {} as any),
   inboxStore: types.optional(InboxStore, {} as any),
@@ -33,6 +35,7 @@ export const RootStore = types.model('RootStore').props({
 export const rootStore = RootStore.create({
   authStore: {},
   userStore: {},
+  educationLevelStore: {},
   jobsStore: {},
   jobInfoStore: {},
   walletStore: {},

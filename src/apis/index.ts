@@ -8,6 +8,8 @@ export const getProfile = (): Promise<ProfileInfoResponse> => get('/mobile/profi
 
 export const updateProfile = (data: Partial<ProfilePayload>) => put('/mobile/profile', data).then((res) => res.data);
 
+export const getEducationLevel = () => get('/educationlevel').then((res) => res.data);
+
 export const getBanks = () => get('/mobile/banks').then((res) => res.data);
 
 export const getWallet = () => get('/mobile/wallet').then((res) => res.data);

@@ -5,6 +5,7 @@ export interface PersonalInfoFormData {
   lastName: string;
   mobile: string;
   birthDate: string;
+  educationLevelID: number;
   gender: number | null;
 }
 
@@ -27,6 +28,7 @@ export interface ProfilePayload {
   nric_front_img: { ext: string; base64: string };
   nric_back_img: { ext: string; base64: string };
   profile_img: { ext: string; base64: string };
+  education_level_id: number | null;
   training_completed: boolean;
 }
 
@@ -50,6 +52,7 @@ export interface ProfileInfo {
   nric_no: string;
   nric_front_img: string;
   nric_back_img: string;
+  education_level_id: number | null;
   date_updated: string;
   date_created: string;
   verification_status: VerificationResponse;
@@ -69,6 +72,11 @@ export interface VerificationResponse {
   name: string;
   date_created: string;
   date_updated: string;
+}
+
+export interface EducationResponse {
+  id: number;
+  name: string;
 }
 
 export interface JobStatisticInfo {
