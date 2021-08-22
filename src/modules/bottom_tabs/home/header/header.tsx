@@ -28,7 +28,7 @@ const Header = () => {
 
   const renderUsername = () => (
     <Text preset="header" style={NAME} numberOfLines={1}>
-      {firstName}
+      {firstName} 🎉
     </Text>
   );
 

@@ -1,10 +1,8 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { observer } from 'mobx-react-lite';
-import { useNavigation } from '@react-navigation/native';
-import { Routes } from '../../../navigator/routes';
 import { AppliedScreen, CompletedScreen, OngoingScreen, UpcomingScreen } from './screens';
-import { Container, Text, Screen, Button } from '../../../components';
+import { Container, Text, Screen, LoginMessage } from '../../../components';
 import { colors } from '../../../themes';
 import { MyJobsParams } from './types';
 import { useMst } from '../../../store';
@@ -12,19 +10,18 @@ import { useMst } from '../../../store';
 const Tab = createMaterialTopTabNavigator<MyJobsParams>();
 
 const MyJobScreen = () => {
-  const navigation = useNavigation();
   const {
     authStore: { isAuthenticated },
   } = useMst();
 
   return (
     <Screen preset="fixed" withContainer={false}>
-      <Container>
-        <Text preset="header">My Jobs</Text>
-      </Container>
-
       {isAuthenticated ? (
         <>
+          <Container>
+            <Text preset="header">My Jobs</Text>
+          </Container>
+
           <Tab.Navigator
             tabBarOptions={{
               scrollEnabled: true,
@@ -83,13 +80,7 @@ const MyJobScreen = () => {
           </Tab.Navigator>
         </>
       ) : (
-        <Container>
-          <Button
-            block
-            label="Login"
-            onPress={() => navigation.navigate(Routes.auth_modal_stack, { screen: Routes.authModal_login })}
-          />
-        </Container>
+        <LoginMessage />
       )}
     </Screen>
   );

@@ -5,6 +5,7 @@ export { default as Frame } from './frame';
 export { default as Header } from './header';
 export { default as Icon } from './icon';
 export { default as IconButton } from './icon_button';
+export { default as LoginMessage } from './login_message';
 
 export { default as Card } from './card';
 export { default as InfoCard } from './job_card/info_card';

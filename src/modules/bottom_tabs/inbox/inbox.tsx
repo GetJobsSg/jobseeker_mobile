@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { FlatList, ListRenderItem, RefreshControl } from 'react-native';
+import { FlatList, ListRenderItem, RefreshControl, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Spinner, Text } from '../../../components';
+import { Spinner, Text, LoginMessage } from '../../../components';
 import InboxItem from './inbox-item';
 import { useMst } from '../../../store';
 import { Message } from '../../../store/inbox';
-import { spacing } from '../../../themes';
+import { colors, spacing } from '../../../themes';
 
 const InboxScreen = () => {
   const {
@@ -43,16 +43,24 @@ const InboxScreen = () => {
   if (isLoadingInbox && !isRefreshing) return <Spinner preset="center" />;
 
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1 }}>
-      <Text style={{ paddingHorizontal: spacing.md }} preset="header">
-        Inbox
-      </Text>
-      <FlatList
-        refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
-        data={inboxMessages}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-      />
+    <SafeAreaView edges={['top']} style={{ backgroundColor: colors.white, flex: 1 }}>
+      {isAuthenticated ? (
+        <View>
+          <Text style={{ paddingHorizontal: spacing.md }} preset="header">
+            Inbox
+          </Text>
+          <FlatList
+            refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
+            data={inboxMessages}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
+          />
+        </View>
+      ) : (
+        <View>
+          <LoginMessage />
+        </View>
+      )}
     </SafeAreaView>
   );
 };

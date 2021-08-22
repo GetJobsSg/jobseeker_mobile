@@ -38,7 +38,7 @@ const WalletOverviewScreen = () => {
 
   const renderItem: ListRenderItem<TransactionInfo> = ({ item }) => (
     <Touchable onPress={onSelectTransaction(item.id)}>
-      <View style={{ marginBottom: spacing.md }}>
+      <View style={[commonStyles.SAFE_PADDING, { paddingBottom: spacing.md }]}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5 }}>
           <View>
             <Text preset="bold">{item.typeName}</Text>
@@ -101,8 +101,8 @@ const WalletOverviewScreen = () => {
         </Row>
       </View>
 
-      <View style={[commonStyles.SAFE_PADDING, { marginTop: 20 }]}>
-        <Text preset="title2" style={{ marginBottom: 20 }}>
+      <View style={{ flex: 1, marginTop: 20 }}>
+        <Text preset="title2" style={[commonStyles.SAFE_PADDING, { marginBottom: 20 }]}>
           Transactions
         </Text>
         <FlatList data={transactions} renderItem={renderItem} />
