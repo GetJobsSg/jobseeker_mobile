@@ -9,7 +9,7 @@
     "ios:small": "react-native run-ios --simulator=\"iPhone SE (2nd generation)\"",
     "ios:large": "react-native run-ios --simulator=\"iPhone 11 Pro Max (14.4)\"",
     "ios:device": "react-native run-ios --device \"benson iPhone\"",
-    "start": "react-native start",
+    "start": "react-native start --port 8082",
     "test": "jest",
     "type:check": "tsc --noEmit",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
