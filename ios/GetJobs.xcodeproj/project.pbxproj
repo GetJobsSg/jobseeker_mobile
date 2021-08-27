@@ -504,7 +504,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = MHRWPC526A;
+				DEVELOPMENT_TEAM = JP6L8S7SXY;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = GetJobs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -516,7 +516,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.getjobs.jobseeker.dev.example;
+				PRODUCT_BUNDLE_IDENTIFIER = com.getjobs.jobseeker;
 				PRODUCT_NAME = GetJobs;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -534,7 +534,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = MHRWPC526A;
+				DEVELOPMENT_TEAM = JP6L8S7SXY;
 				INFOPLIST_FILE = GetJobs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -545,7 +545,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.getjobs.jobseeker.dev.example;
+				PRODUCT_BUNDLE_IDENTIFIER = com.getjobs.jobseeker;
 				PRODUCT_NAME = GetJobs;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
