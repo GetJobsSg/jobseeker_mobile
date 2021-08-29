@@ -6,15 +6,15 @@ import { RootStoreProvider } from './store/root/root-store-context';
 import { rootStore } from './store';
 
 const App = () => (
-  <NotificationProvider>
-    <RootStoreProvider value={rootStore}>
-      <AuthProvider>
+  <RootStoreProvider value={rootStore}>
+    <AuthProvider>
+      <NotificationProvider>
         <DataProvider>
           <RootNavigator />
         </DataProvider>
-      </AuthProvider>
-    </RootStoreProvider>
-  </NotificationProvider>
+      </NotificationProvider>
+    </AuthProvider>
+  </RootStoreProvider>
 );
 
 export default App;
