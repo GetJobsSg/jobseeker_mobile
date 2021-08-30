@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Toast from 'react-native-toast-message';
 
@@ -11,15 +11,43 @@ import { SettingStack } from '../modules/settings';
 import { JobStack } from '../modules/job';
 import { InboxStack } from '../modules/inbox';
 import { CompanyStack } from '../modules/company';
-import { Spinner } from '../components';
+import { Spinner, Text } from '../components';
 
 import { RootParams } from './types';
 import { Routes } from './routes';
 
 const RootStack = createStackNavigator<RootParams>();
 
+const linking: LinkingOptions = {
+  prefixes: ['https://getjobs.com', 'http://getjobs.com', 'getjobs://'],
+  config: {
+    screens: {
+      [Routes.bottom_tabs_stack]: {
+        initialRouteName: Routes.bottom_tabs_home,
+        screens: {
+          [Routes.bottom_tabs_home]: 'home',
+          [Routes.bottom_tabs_myjobs]: 'myJobs',
+          [Routes.bottom_tabs_inbox]: 'inbox',
+          [Routes.bottom_tabs_account]: 'account',
+        },
+      },
+      [Routes.job_stack]: {
+        screens: {
+          [Routes.job_details]: 'jobDetails/:id',
+        },
+      },
+      [Routes.inbox_stack]: {
+        screens: {
+          [Routes.inbox_details]: 'inbox/:id',
+        },
+      },
+    },
+  },
+};
+
 const RootNavigator = () => (
-  <NavigationContainer>
+  // TODO: add skeleton ui for fallback
+  <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
     <RootStack.Navigator
       initialRouteName={Routes.bottom_tabs_stack}
       mode="modal"
