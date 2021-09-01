@@ -4,9 +4,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
+import { IVerificationStatus } from '../../../constants/types';
 import { Routes } from '../../../navigator/routes';
 import { colors } from '../../../themes';
-import { Header, IconButton, Button } from '../../../components';
+import { Header, IconButton, Button, Text } from '../../../components';
 import { SectionTitle, SectionEmployer, SectionDateTime, SectionTextContent } from '../components';
 import { commonStyles } from '../../../common';
 import { useMst } from '../../../store';
@@ -21,6 +22,7 @@ const JobDetails = () => {
   } = useRoute<JobDetailsRouteProp>();
   const {
     authStore: { isAuthenticated },
+    userStore: { verificationStatus },
     jobInfoStore: {
       getJobDetails,
       applyJob,
@@ -52,6 +54,24 @@ const JobDetails = () => {
             navigation.navigate(Routes.auth_modal_stack, { screen: Routes.authModal_login });
           }}
         />
+      );
+    }
+
+    if (verificationStatus === IVerificationStatus.NOT_INITIATED) {
+      return (
+        <Text preset="small" style={{ textAlign: 'center' }}>
+          Complete your worker profile and start to apply for job as soon as your profile is verified.
+        </Text>
+      );
+    }
+    if (
+      verificationStatus === IVerificationStatus.PENDING_REVIEW ||
+      verificationStatus === IVerificationStatus.REQUIRED_UPDATE
+    ) {
+      return (
+        <Text preset="small" style={{ textAlign: 'center' }}>
+          Your profile is pending review. Once your profile is approved you will be able to apply this job.
+        </Text>
       );
     }
 
