@@ -11,7 +11,7 @@ import { SettingStack } from '../modules/settings';
 import { JobStack } from '../modules/job';
 import { InboxStack } from '../modules/inbox';
 import { CompanyStack } from '../modules/company';
-import { Spinner, Text } from '../components';
+import { Spinner } from '../components';
 
 import { RootParams } from './types';
 import { Routes } from './routes';
@@ -33,7 +33,7 @@ const linking: LinkingOptions = {
       },
       [Routes.job_stack]: {
         screens: {
-          [Routes.job_details]: 'jobDetails/:id',
+          [Routes.job_details]: 'job-details/:id',
         },
       },
       [Routes.inbox_stack]: {
@@ -46,8 +46,7 @@ const linking: LinkingOptions = {
 };
 
 const RootNavigator = () => (
-  // TODO: add skeleton ui for fallback
-  <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
+  <NavigationContainer linking={linking}>
     <RootStack.Navigator
       initialRouteName={Routes.bottom_tabs_stack}
       mode="modal"

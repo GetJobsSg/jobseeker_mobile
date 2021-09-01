@@ -12,6 +12,7 @@ export enum IVerificationStatus {
 
 export enum IInboxMessage {
   JOB_OFFER = 1,
+  PROFILE_APPROVED = 4,
 }
 
 export enum JobStatus {

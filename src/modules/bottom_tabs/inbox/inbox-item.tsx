@@ -11,21 +11,17 @@ interface InboxItemProps {
   title: string;
   body: string;
   dateReceived: string;
-  fullDateReceived: string;
   seen: boolean;
-  type: number;
-  jobId: number | null;
 }
 const InboxItem = (props: InboxItemProps) => {
-  const { id, title, body, dateReceived, fullDateReceived, seen, jobId, type } = props;
+  const { id, title, body, dateReceived, seen } = props;
   const navigation = useNavigation();
 
   const handleOnPress = () => {
     navigation.navigate(Routes.inbox_stack, {
       screen: Routes.inbox_details,
-      params: { id, title, body, seen, type, fullDateReceived, jobId },
+      params: { id },
     });
-    // navigation.navigate(Routes.job_stack, { screen: Routes.job_offer_details, params: { id: 1 } });
   };
 
   const messageTitleStyle = seen

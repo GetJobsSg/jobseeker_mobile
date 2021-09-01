@@ -28,39 +28,39 @@ const InboxScreen = () => {
   };
 
   const renderItem: ListRenderItem<Message> = ({ item }) => (
-    <InboxItem
-      id={item.id}
-      title={item.title}
-      body={item.body}
-      dateReceived={item.dateReceived}
-      fullDateReceived={item.fullDateReceived}
-      seen={item.seen}
-      type={item.type}
-      jobId={item.jobId}
-    />
+    <InboxItem id={item.id} title={item.title} body={item.body} dateReceived={item.dateReceived} seen={item.seen} />
   );
+
+  if (!isAuthenticated) {
+    return (
+      <SafeAreaView edges={['top']} style={{ backgroundColor: colors.white, flex: 1 }}>
+        <View>
+          <LoginMessage />
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   if (isLoadingInbox && !isRefreshing) return <Spinner preset="center" />;
 
   return (
     <SafeAreaView edges={['top']} style={{ backgroundColor: colors.white, flex: 1 }}>
-      {isAuthenticated ? (
-        <View>
-          <Text style={{ paddingHorizontal: spacing.md }} preset="header">
-            Inbox
-          </Text>
+      <View>
+        <Text style={{ paddingHorizontal: spacing.md }} preset="header">
+          Inbox
+        </Text>
+
+        {inboxMessages.length === 0 ? (
+          <Text style={{ paddingHorizontal: spacing.md }}>No Message</Text>
+        ) : (
           <FlatList
             refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
             data={inboxMessages}
             renderItem={renderItem}
             keyExtractor={(item) => item.id.toString()}
           />
-        </View>
-      ) : (
-        <View>
-          <LoginMessage />
-        </View>
-      )}
+        )}
+      </View>
     </SafeAreaView>
   );
 };

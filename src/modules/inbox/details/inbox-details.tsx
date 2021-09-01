@@ -28,10 +28,10 @@ const InboxDetails = () => {
 
   const {
     authStore: { isAuthenticated },
-    inboxStore: { updateSeenReceipt },
+    inboxStore: { updateSeenReceipt, getInboxDetails, isLoadingInboxDetails, inboxDetails },
     jobInfoStore: {
       getJobDetails,
-      isLoading,
+      isLoading: isLoadingJobDetails,
       formattedDate,
       formattedTime,
       formattedHourlyRate,
@@ -44,8 +44,22 @@ const InboxDetails = () => {
   } = useMst();
 
   const {
-    params: { id, title, body, seen, fullDateReceived, type, jobId },
+    params: { id },
   } = useRoute<InboxDetailsProps>();
+
+  // load inbox message details
+  useEffect(() => {
+    getInboxDetails(id);
+  }, [getInboxDetails, id]);
+
+  const { jobId, type, title, body, fullDateReceived, seen } = inboxDetails;
+
+  // after loaded inbox details, load job details if message type is job_offer
+  useEffect(() => {
+    if (jobId && type === IInboxMessage.JOB_OFFER) {
+      getJobDetails(jobId);
+    }
+  }, [getJobDetails, jobId, type]);
 
   // update receipt seen
   useEffect(() => {
@@ -53,13 +67,6 @@ const InboxDetails = () => {
       updateSeenReceipt(id);
     }
   }, [id, isAuthenticated, seen, updateSeenReceipt]);
-
-  // fetch job details if messageType is JOB_OFFER
-  useEffect(() => {
-    if (jobId && type === IInboxMessage.JOB_OFFER) {
-      getJobDetails(jobId);
-    }
-  }, [getJobDetails, type, jobId]);
 
   const renderActionInfo = () => {
     // user have accepted or declined
@@ -103,7 +110,7 @@ const InboxDetails = () => {
     // render job offer ui
     // TODO: break this to separate component
     if (type === IInboxMessage.JOB_OFFER) {
-      if (isLoading) return <Spinner preset="center" />;
+      if (isLoadingJobDetails) return <Spinner preset="center" />;
 
       return (
         <View>
@@ -122,6 +129,10 @@ const InboxDetails = () => {
 
     return <Text>{body}</Text>;
   };
+
+  if (isLoadingInboxDetails) {
+    return <Spinner preset="center" />;
+  }
 
   return (
     <Screen preset="scroll">

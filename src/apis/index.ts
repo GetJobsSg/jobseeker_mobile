@@ -1,6 +1,7 @@
 import { get, post, put, del } from '../utils/network';
 import { ProfilePayload, ProfileInfoResponse } from '../modules/profile/types';
 import { AllJobResponse, JobInfoResponse, MyJobsRequestParams } from '../modules/job/types';
+import { IInboxDetailsResponse } from '../modules/inbox/types';
 
 export const registerUser = (data: any) => post('/mobile/register', data).then((res) => res.data);
 
@@ -62,6 +63,9 @@ export const clockOut = (id: number, code: string): Promise<{}> =>
 export const getAttendanceDetails = (id: number) => get(`/mobile/job/${id}/attendance`).then((res) => res.data);
 
 export const getInbox = () => get(`/mobile/inbox`).then((res) => res.data);
+
+export const getInboxDetails = (id: number): Promise<IInboxDetailsResponse> =>
+  get(`/mobile/inbox/${id}`).then((res) => res.data);
 
 export const updateSeenReceipt = (id: number): Promise<{}> => put(`/mobile/inbox/${id}`).then((res) => res.data);
 
