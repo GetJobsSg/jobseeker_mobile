@@ -20,14 +20,14 @@ export const cPasswordValidator = yup
 export const firstNameValidator = yup
   .string()
   .required('Please enter your first name.')
-  .min(3, 'Minimum 3 characters.')
+  .min(2, 'Minimum 2 characters.')
   .max(50, 'Maximum 50 characters.')
   .test('alphabets', 'Only alphabets letter is allowed.', (val) => isAlphaCharacters(val));
 
 export const lastNameValidator = yup
   .string()
   .required('Please enter your last name.')
-  .min(3, 'Minimum 3 characters.')
+  .min(2, 'Minimum 2 characters.')
   .max(50, 'Maximum 50 characters.')
   .test('alphabets', 'Only alphabets letter is allowed.', (val) => isAlphaCharacters(val));
 

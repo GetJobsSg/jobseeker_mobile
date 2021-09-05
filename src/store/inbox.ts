@@ -1,7 +1,8 @@
 import { flow, Instance, SnapshotOut, toGenerator, types } from 'mobx-state-tree';
+import moment from 'moment';
 import { withErrorHandler } from './extensions';
 import { IInboxMessage } from '../constants/types';
-import { DD_MMMM_YYYY_HOUR_MIN_A } from '../constants/dateTime';
+import { DD_MMM, DD_MMMM_YYYY_HOUR_MIN_A } from '../constants/dateTime';
 import * as apis from '../apis';
 import { constructDateRange } from '../utils/dateTime';
 
@@ -10,7 +11,7 @@ const MessageStore = types.model({
   title: types.optional(types.string, ''),
   body: types.optional(types.string, ''),
   type: types.optional(types.number, IInboxMessage.JOB_OFFER),
-  jobId: types.optional(types.number, 0),
+  jobId: types.maybeNull(types.number),
   dateReceived: types.optional(types.string, ''),
   fullDateReceived: types.optional(types.string, ''),
   seen: types.optional(types.boolean, false),
@@ -23,6 +24,10 @@ export const InboxStore = types
     inboxMessages: types.optional(types.array(MessageStore), []),
     isLoadingInbox: types.optional(types.boolean, false),
     errorInboxMessages: types.optional(types.string, ''),
+
+    inboxDetails: types.optional(MessageStore, {}),
+    isLoadingInboxDetails: types.optional(types.boolean, false),
+    errorInboxDetails: types.optional(types.string, ''),
   })
   .extend(withErrorHandler)
   .actions((self) => ({
@@ -53,6 +58,27 @@ export const InboxStore = types
     }),
   }))
   .actions((self) => ({
+    getInboxDetails: flow(function* getInboxDetails(id: number) {
+      try {
+        self.isLoadingInboxDetails = true;
+        const res = yield* toGenerator(apis.getInboxDetails(id));
+        const { data } = res;
+        self.inboxDetails.id = data.id;
+        self.inboxDetails.title = data.title;
+        self.inboxDetails.body = data.body;
+        self.inboxDetails.type = data.inbox_message_type.id;
+        self.inboxDetails.jobId = data.job_id;
+        self.inboxDetails.title = data.title;
+        self.inboxDetails.jobId = data.job_id;
+        self.inboxDetails.dateReceived = moment(data.date_created).format(DD_MMM);
+        self.inboxDetails.fullDateReceived = moment(data.date_created).format(DD_MMMM_YYYY_HOUR_MIN_A);
+        self.inboxDetails.seen = data.seen;
+      } catch (e) {
+        self.errorInboxDetails = self.getErrMsg(e);
+      } finally {
+        self.isLoadingInboxDetails = false;
+      }
+    }),
     updateSeenReceipt: flow(function* updateSeenReceipt(id: number) {
       try {
         yield* toGenerator(apis.updateSeenReceipt(id));

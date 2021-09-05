@@ -15,11 +15,12 @@ import { Spinner } from '../components';
 
 import { RootParams } from './types';
 import { Routes } from './routes';
+import { linking } from './deepLinkConfig';
 
 const RootStack = createStackNavigator<RootParams>();
 
 const RootNavigator = () => (
-  <NavigationContainer>
+  <NavigationContainer linking={linking}>
     <RootStack.Navigator
       initialRouteName={Routes.bottom_tabs_stack}
       mode="modal"
