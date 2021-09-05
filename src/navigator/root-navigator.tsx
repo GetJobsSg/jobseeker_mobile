@@ -1,5 +1,5 @@
 import React from 'react';
-import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Toast from 'react-native-toast-message';
 
@@ -15,35 +15,9 @@ import { Spinner } from '../components';
 
 import { RootParams } from './types';
 import { Routes } from './routes';
+import { linking } from './deepLinkConfig';
 
 const RootStack = createStackNavigator<RootParams>();
-
-const linking: LinkingOptions = {
-  prefixes: ['https://getjobs.com', 'http://getjobs.com', 'getjobs://'],
-  config: {
-    screens: {
-      [Routes.bottom_tabs_stack]: {
-        initialRouteName: Routes.bottom_tabs_home,
-        screens: {
-          [Routes.bottom_tabs_home]: 'home',
-          [Routes.bottom_tabs_myjobs]: 'myJobs',
-          [Routes.bottom_tabs_inbox]: 'inbox',
-          [Routes.bottom_tabs_account]: 'account',
-        },
-      },
-      [Routes.job_stack]: {
-        screens: {
-          [Routes.job_details]: 'job-details/:id',
-        },
-      },
-      [Routes.inbox_stack]: {
-        screens: {
-          [Routes.inbox_details]: 'inbox/:id',
-        },
-      },
-    },
-  },
-};
 
 const RootNavigator = () => (
   <NavigationContainer linking={linking}>
