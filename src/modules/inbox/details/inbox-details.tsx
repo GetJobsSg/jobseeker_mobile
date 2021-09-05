@@ -49,8 +49,10 @@ const InboxDetails = () => {
 
   // load inbox message details
   useEffect(() => {
-    getInboxDetails(id);
-  }, [getInboxDetails, id]);
+    if (id && isAuthenticated) {
+      getInboxDetails(id);
+    }
+  }, [getInboxDetails, isAuthenticated, id]);
 
   const { jobId, type, title, body, fullDateReceived, seen } = inboxDetails;
 

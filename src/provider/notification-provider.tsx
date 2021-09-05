@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import messaging from '@react-native-firebase/messaging';
+import { observer } from 'mobx-react-lite';
 import { useMst } from '../store';
 
 interface NotificatioProviderProps {
@@ -8,7 +9,7 @@ interface NotificatioProviderProps {
 
 const NotificationProvider = (props: NotificatioProviderProps) => {
   const {
-    authStore: { isAuthenticated },
+    authStore: { isAuthenticated, setFcmToken, userFcmToken, updateUserFcmToken },
   } = useMst();
 
   const getFcmToken = async () => {
@@ -25,23 +26,36 @@ const NotificationProvider = (props: NotificatioProviderProps) => {
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
     if (isEnabled) {
       const fcmToken = await getFcmToken();
-      if (fcmToken && isAuthenticated) {
-        // call apis to save this fcmToken to db
+      if (fcmToken) {
+        console.log('requestNotificationPermission setFcmToken');
+        setFcmToken(fcmToken);
       }
     } else {
-      console.info('Notification permission is not granted');
+      console.warn('Notification permission is not granted');
     }
   };
 
-  // when app launched, check notification permission
+  // this will trigger everytime the app launch from quit state
   useEffect(() => {
     requestNotificationPermission();
   }, []);
 
-  // listen to the changes of fcmToken
+  // update user fcmToken when
+  // 1. app open from quit state: isAuthenticated: false => true, userFcmToken: "" => "string"
+  // 2. user just login, take note that everytime user logout, we will refresh with a new fcmToken for the device
+  useEffect(() => {
+    if (isAuthenticated && userFcmToken) {
+      updateUserFcmToken(userFcmToken);
+    }
+  }, [isAuthenticated, updateUserFcmToken, userFcmToken]);
+
+  // this will trigger in case the fcmToken changed
   useEffect(() => {
     const fcmSubscriber = messaging().onTokenRefresh((token) => {
-      console.info('fcmToken refreshed', token);
+      if (isAuthenticated) {
+        setFcmToken(token);
+        updateUserFcmToken(token);
+      }
     });
     return fcmSubscriber;
   });
@@ -50,4 +64,4 @@ const NotificationProvider = (props: NotificatioProviderProps) => {
   return <>{children}</>;
 };
 
-export default NotificationProvider;
+export default observer(NotificationProvider);

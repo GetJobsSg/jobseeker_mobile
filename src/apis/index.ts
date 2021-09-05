@@ -5,6 +5,9 @@ import { IInboxDetailsResponse } from '../modules/inbox/types';
 
 export const registerUser = (data: any) => post('/mobile/register', data).then((res) => res.data);
 
+export const updateUserFcmToken = (token: string): Promise<{}> =>
+  put(`/mobile/notification/token`, { token }).then((res) => res.data);
+
 export const getProfile = (): Promise<ProfileInfoResponse> => get('/mobile/profile').then((res) => res.data);
 
 export const updateProfile = (data: Partial<ProfilePayload>) => put('/mobile/profile', data).then((res) => res.data);
