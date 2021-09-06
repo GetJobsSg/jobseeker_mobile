@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Vibration } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 import { observer } from 'mobx-react-lite';
 import { useMst } from '../store';
@@ -10,6 +11,7 @@ interface NotificatioProviderProps {
 const NotificationProvider = (props: NotificatioProviderProps) => {
   const {
     authStore: { isAuthenticated, setFcmToken, userFcmToken, updateUserFcmToken },
+    inboxStore: { getInboxMessages },
   } = useMst();
 
   const getFcmToken = async () => {
@@ -59,6 +61,20 @@ const NotificationProvider = (props: NotificatioProviderProps) => {
     });
     return fcmSubscriber;
   });
+
+  // this will trigger when app received notification when foreground state (app is open and in view)
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage((notification) => {
+      console.log(notification);
+      Vibration.vibrate();
+      console.log('onNotification triggered .....');
+      if (isAuthenticated) {
+        console.log('calling getInboxMessages.....');
+        getInboxMessages();
+      }
+    });
+    return unsubscribe;
+  }, []); // set up the listener on mount only
 
   const { children } = props;
   return <>{children}</>;

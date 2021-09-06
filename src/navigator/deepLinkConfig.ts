@@ -6,6 +6,7 @@ import { Routes } from './routes';
 export const linking: LinkingOptions = {
   prefixes: ['https://getjobs.com', 'http://getjobs.com', 'getjobs://'],
   config: {
+    // use deeplink url getjobs://home, getjobs://inbox/:id and etc to deeplinking to the target route
     screens: {
       [Routes.bottom_tabs_stack]: {
         initialRouteName: Routes.bottom_tabs_home,
