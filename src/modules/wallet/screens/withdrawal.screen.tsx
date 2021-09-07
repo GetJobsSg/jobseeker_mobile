@@ -55,7 +55,7 @@ const WithdrawalScreen = () => {
   );
 
   return (
-    <Screen preset="scroll" refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />}>
+    <Screen preset="fixed" refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />}>
       <Header title="Withdraw" leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />} />
       <Text preset="header" style={{ marginBottom: 20 }}>
         Select a Bank Account

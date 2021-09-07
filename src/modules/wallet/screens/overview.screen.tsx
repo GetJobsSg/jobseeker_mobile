@@ -105,7 +105,14 @@ const WalletOverviewScreen = () => {
         <Text preset="title2" style={[commonStyles.SAFE_PADDING, { marginBottom: 20 }]}>
           Transactions
         </Text>
-        <FlatList data={transactions} renderItem={renderItem} />
+
+        {transactions.length ? (
+          <FlatList data={transactions} renderItem={renderItem} />
+        ) : (
+          <Text preset="small" style={commonStyles.SAFE_PADDING}>
+            No transaction
+          </Text>
+        )}
       </View>
     </Screen>
   );

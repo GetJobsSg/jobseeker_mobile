@@ -45,7 +45,7 @@ const InboxScreen = () => {
 
   return (
     <SafeAreaView edges={['top']} style={{ backgroundColor: colors.white, flex: 1 }}>
-      <View>
+      <View style={{ flex: 1 }}>
         <Text style={{ paddingHorizontal: spacing.md }} preset="header">
           Inbox
         </Text>
