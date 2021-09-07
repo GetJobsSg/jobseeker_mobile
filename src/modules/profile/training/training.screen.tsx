@@ -54,6 +54,7 @@ const TrainingScreen = () => {
       />
       {questionsArr.map((data: TrainingQuestion, index: number) => (
         <RadioGroup
+          key={index}
           label={data.question}
           value={data.isCompleted}
           onChange={(selected) => setQuestionComplete(index, selected.value as number)}
