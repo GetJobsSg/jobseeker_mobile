@@ -7,6 +7,7 @@ export const linking: LinkingOptions = {
   prefixes: ['https://getjobs.com', 'http://getjobs.com', 'getjobs://'],
   config: {
     // use deeplink url getjobs://home, getjobs://inbox/:id and etc to deeplinking to the target route
+    initialRouteName: Routes.bottom_tabs_stack,
     screens: {
       [Routes.bottom_tabs_stack]: {
         initialRouteName: Routes.bottom_tabs_home,
@@ -29,36 +30,45 @@ export const linking: LinkingOptions = {
       },
     },
   },
+
+  // this function will only get trigger when app open from quit state
   async getInitialURL() {
     // Check if app was opened from a deep link
     const url = await Linking.getInitialURL();
-    if (url != null) return url;
+    if (url != null) {
+      console.log('App is open from quit state via a deeplink url eg: getjobs://route', url);
+      return url;
+    }
 
-    // Check if there is an initial firebase notification
-    // Get deep link from data
-    // if this is undefined, the app will just open the app
     const message = await messaging().getInitialNotification();
-    return message?.data?.deepLink;
-  },
-  subscribe(listener) {
-    const onReceiveURL = ({ url }: { url: string }) => listener(url);
+    if (message) {
+      console.log(
+        'App is open from quit state via notification, retrieve the deeplink url from push notif payload and let react navigation handle the routing',
+        message,
+      );
+      return message?.data?.deepLink;
+    }
 
-    // Listen to incoming links from deep linking
+    // fallback null, just open the app
+    return null;
+  },
+
+  subscribe(listener) {
+    const onReceiveURL = ({ url }: { url: string }) => {
+      console.log('App is open from background state via deeplink url', url);
+      listener(url);
+    };
     Linking.addEventListener('url', onReceiveURL);
 
-    // Listen to firebase push notifications
     const unsubscribeNotification = messaging().onNotificationOpenedApp((message) => {
       const url = message?.data?.deepLink;
-
       if (url) {
-        // Any custom logic to check whether the URL needs to be handled
-        // Call the listener to let React Navigation handle the URL
+        console.log('App is open from background state via notification', url);
         listener(url);
       }
     });
 
     return () => {
-      // Clean up the event listeners
       Linking.removeEventListener('url', onReceiveURL);
       unsubscribeNotification();
     };

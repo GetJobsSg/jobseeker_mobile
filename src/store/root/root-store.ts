@@ -12,7 +12,6 @@ import { InboxStore } from '../inbox';
 import { TransactionInfoStore } from '../transaction-info';
 import { TransactionStore } from '../transactions';
 import { CompanyStore } from '../company';
-import { DataStore } from '../data';
 
 export const RootStore = types.model('RootStore').props({
   authStore: types.optional(AuthStore, {} as any),
@@ -24,7 +23,6 @@ export const RootStore = types.model('RootStore').props({
   transactionInfoStore: types.optional(TransactionInfoStore, {} as any),
   transactionStore: types.optional(TransactionStore, {} as any),
   companyStore: types.optional(CompanyStore, {} as any),
-  dataStore: types.optional(DataStore, {} as any),
   walletStore: types.optional(WalletStore, {} as any),
   bankAccountInfoStore: types.optional(BankAccountInfoStore, {} as any),
   bankAccountStore: types.optional(BankAccountStore, {} as any),
@@ -46,7 +44,6 @@ export const rootStore = RootStore.create({
   transactionStore: {},
   companyStore: {},
   uiStore: {},
-  dataStore: {},
 });
 
 // print snapShot in local development

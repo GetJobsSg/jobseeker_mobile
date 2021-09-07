@@ -26,8 +26,8 @@ export enum ApplicationStatus {
   NONE = 0,
   PENDING = 1,
   OFFERED = 2,
-  ACCEPTED = 3,
-  REJECTED = 4,
+  REJECTED = 3,
+  ACCEPTED = 4,
 }
 
 export enum TransactionType {
