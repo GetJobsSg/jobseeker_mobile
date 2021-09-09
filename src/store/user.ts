@@ -90,7 +90,6 @@ export const UserStore = types
   }))
   .actions((self) => ({
     updateUser: flow(function* updateUser(values: PersonalInfoFormData) {
-      console.log({ values });
       try {
         self.isUpdating = true;
         self.rootStore.uiStore.showLoadingSpinner();
@@ -101,7 +100,7 @@ export const UserStore = types
           mobile: values.mobile,
           gender_id: values.gender,
           education_level_id: values.educationLevelID,
-          vaccinated: true,
+          vaccinated: values.vaccinated === 1,
         });
         yield self.getUser();
       } catch (e) {
