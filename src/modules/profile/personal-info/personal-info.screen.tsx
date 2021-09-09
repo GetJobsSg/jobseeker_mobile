@@ -160,6 +160,7 @@ const PersonalInfo = () => {
 
             <RadioGroup
               label="Gender"
+              alignment="horizontal"
               value={values.gender}
               onChange={(selected) => setFieldValue('gender', selected.value)}
               options={genderOptions}
@@ -167,6 +168,7 @@ const PersonalInfo = () => {
 
             <RadioGroup
               label="Have you fully vacinated?"
+              alignment="vertical"
               value={values.vaccinated}
               onChange={(selected) => setFieldValue('vaccinated', selected.value)}
               options={yesNoOptions}

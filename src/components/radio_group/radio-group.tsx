@@ -2,7 +2,7 @@ import React from 'react';
 import { View, TouchableOpacity, ViewStyle } from 'react-native';
 import { Text } from '..';
 import {
-  RADIO_GROUP_CONTAINER,
+  RADIO_FIELD_CONTAINER,
   RADIO_CONTAINER,
   RADIO_THUMB,
   RADIO_LABEL,
@@ -18,12 +18,14 @@ const RadioGroup = (props: RadioProps) => {
   const handleRadioPress = (option: RadioOption) => () => onChange(option);
 
   const alignStyle =
-    alignment === 'horizontal' ? ({ flexDirection: 'row' } as ViewStyle) : ({ flexDirection: 'column' } as ViewStyle);
+    alignment === 'horizontal'
+      ? ({ flexDirection: 'row', flexWrap: 'wrap' } as ViewStyle)
+      : ({ flexDirection: 'column' } as ViewStyle);
 
   return (
-    <View>
+    <View style={RADIO_FIELD_CONTAINER}>
       <Text preset="label">{label}</Text>
-      <View style={[RADIO_GROUP_CONTAINER, alignStyle, style]}>
+      <View style={[alignStyle, style]}>
         {options.map((option) => {
           const thumbStyle = option.value === value ? SELECTED_RADIO_THUMB : RADIO_THUMB;
           return (

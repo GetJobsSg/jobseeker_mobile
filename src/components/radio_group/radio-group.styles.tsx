@@ -1,16 +1,14 @@
 import { TextStyle, ViewStyle } from 'react-native';
 import { colors, fontSize, spacing } from '../../themes';
 
-export const RADIO_GROUP_CONTAINER = {
-  display: 'flex',
-  flexWrap: 'wrap',
+export const RADIO_FIELD_CONTAINER = {
+  paddingTop: spacing.md,
 } as ViewStyle;
 
 export const RADIO_CONTAINER = {
   flexDirection: 'row',
   paddingVertical: spacing.sm,
-  flex: 1,
-  // marginRight: spacing.xl,
+  paddingRight: spacing.md,
   marginBottom: spacing.sm,
 } as ViewStyle;
 
