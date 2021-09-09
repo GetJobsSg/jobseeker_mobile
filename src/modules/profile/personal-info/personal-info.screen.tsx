@@ -16,7 +16,7 @@ import {
   Sheet,
   Touchable,
 } from '../../../components';
-import { genderOptions } from '../../../constants/options';
+import { genderOptions, yesNoOptions } from '../../../constants/options';
 import { useMst } from '../../../store';
 import { spacing } from '../../../themes';
 import { PersonalInfoFormData } from '../types';
@@ -29,7 +29,18 @@ const PersonalInfo = () => {
   const navigation = useNavigation();
   const birthRef = useRef<any>();
   const {
-    userStore: { error, updateUser, isUpdating, lastName, gender, firstName, mobile, birthDate, educationLevelID },
+    userStore: {
+      error,
+      updateUser,
+      isUpdating,
+      lastName,
+      gender,
+      firstName,
+      mobile,
+      birthDate,
+      educationLevelID,
+      vaccinated,
+    },
     educationLevelStore: { educationLevel },
   } = useMst();
 
@@ -46,6 +57,7 @@ const PersonalInfo = () => {
     mobile,
     birthDate,
     educationLevelID,
+    vaccinated,
   };
 
   const handleFormSubmit = (data: PersonalInfoFormData) => {
@@ -125,6 +137,7 @@ const PersonalInfo = () => {
             />
             <Sheet type="datePicker" onOK={(data) => setFieldValue('birthDate', data.toISOString())} ref={birthRef} />
 
+            {/* TODO: create picker component */}
             <Selector
               label="Education Level"
               value={
@@ -150,6 +163,13 @@ const PersonalInfo = () => {
               value={values.gender}
               onChange={(selected) => setFieldValue('gender', selected.value)}
               options={genderOptions}
+            />
+
+            <RadioGroup
+              label="Have you fully vacinated?"
+              value={values.vaccinated}
+              onChange={(selected) => setFieldValue('vaccinated', selected.value)}
+              options={yesNoOptions}
             />
           </View>
         )}

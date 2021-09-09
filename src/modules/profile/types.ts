@@ -7,6 +7,7 @@ export interface PersonalInfoFormData {
   birthDate: string;
   educationLevelID: number;
   gender: number | null;
+  vaccinated: number;
 }
 
 export type PersonalPhotoData = { profileImage: Asset };
@@ -29,6 +30,7 @@ export interface ProfilePayload {
   nric_back_img: { ext: string; base64: string };
   profile_img: { ext: string; base64: string };
   education_level_id: number | null;
+  vaccinated: boolean;
   training_completed: boolean;
 }
 
@@ -56,6 +58,7 @@ export interface ProfileInfo {
   date_updated: string;
   date_created: string;
   verification_status: VerificationResponse;
+  vaccinated: boolean;
   gender: GenderResponse | null;
   training_completed: boolean;
 }

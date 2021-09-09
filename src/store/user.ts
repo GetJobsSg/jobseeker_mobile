@@ -24,6 +24,7 @@ export const UserStore = types
     nricFront: types.optional(types.string, ''),
     nricBack: types.optional(types.string, ''),
     educationLevelID: types.optional(types.number, 0),
+    vaccinated: types.optional(types.number, 0),
     verificationStatus: types.optional(types.number, IVerificationStatus.NOT_INITIATED),
     gender: types.maybeNull(types.number),
     trainingCompleted: types.optional(types.boolean, false),
@@ -74,6 +75,7 @@ export const UserStore = types
         self.birthDate = profile.dob || '';
         self.educationLevelID = profile.education_level_id || 0;
         self.verificationStatus = profile.verification_status?.id || IVerificationStatus.NOT_INITIATED;
+        self.vaccinated = profile.vaccinated ? 1 : 0;
         self.gender = profile.gender?.id || null;
         self.trainingCompleted = profile.training_completed;
         self.rating = job_statistics.rating;
@@ -88,6 +90,7 @@ export const UserStore = types
   }))
   .actions((self) => ({
     updateUser: flow(function* updateUser(values: PersonalInfoFormData) {
+      console.log({ values });
       try {
         self.isUpdating = true;
         self.rootStore.uiStore.showLoadingSpinner();
@@ -98,6 +101,7 @@ export const UserStore = types
           mobile: values.mobile,
           gender_id: values.gender,
           education_level_id: values.educationLevelID,
+          vaccinated: true,
         });
         yield self.getUser();
       } catch (e) {
