@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
+import { fontSize } from '../../../themes';
 import { Screen, Header, IconButton, Text, RadioGroup } from '../../../components';
 import { TrainingQuestion } from '../types';
 import { useMst } from '../../../store';
@@ -56,6 +57,7 @@ const TrainingScreen = () => {
         <RadioGroup
           key={index}
           label={data.question}
+          labelStyle={{ fontSize: fontSize.xs }}
           value={data.isCompleted}
           onChange={(selected) => setQuestionComplete(index, selected.value as number)}
           options={[

@@ -1,4 +1,4 @@
-import { ViewStyle } from 'react-native';
+import { TextStyle, ViewStyle } from 'react-native';
 
 interface FieldError {
   shown: boolean | undefined | string; // pattern to typing from formik
@@ -13,6 +13,7 @@ export type RadioOption = {
 export interface RadioProps {
   error?: FieldError;
   label?: string;
+  labelStyle?: TextStyle;
   options: RadioOption[];
   onChange: (selected: RadioOption) => void;
   value: string | number | undefined | null;

@@ -55,10 +55,10 @@ const BankAccountDetailScreen = () => {
           {accountNo}
         </Text>
 
-        <Text preset="label">Bank</Text>
+        <Text preset="labelTiny">Bank</Text>
         <Text>{bank.name}</Text>
 
-        <Text preset="label" style={{ marginTop: spacing.sm }}>
+        <Text preset="labelTiny" style={{ marginTop: spacing.sm }}>
           Code
         </Text>
         <Text>{bank.code}</Text>

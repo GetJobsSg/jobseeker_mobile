@@ -4,7 +4,7 @@ import { TextFieldProps } from './textfield.props';
 import { presets } from './textfield.presets';
 import { Text } from '..';
 import { colors } from '../../themes';
-import { FIELD_LABEL, ERROR_HINTS } from './textfield.styles';
+import { ERROR_HINTS, FIELD_WRAPPER } from './textfield.styles';
 
 const { flatten } = StyleSheet;
 
@@ -17,33 +17,40 @@ const TextField = (props: TextFieldProps) => {
     label = '',
     value = '',
     style: overrideStyle,
+    editable = true,
     ...rest
   } = props;
   const [focus, setFocus] = useState(false);
 
-  const focusStyle = focus ? ({ borderWidth: 1, borderColor: colors.black } as TextStyle) : {};
-  const textFieldStyle = flatten([presets[preset], focusStyle, overrideStyle]);
+  const focusStyle = focus
+    ? ({ borderBottomWidth: 1, borderColor: colors.black } as TextStyle)
+    : ({ borderBottomWidth: 1, borderColor: colors.lightGrey1 } as TextStyle);
+
+  const disabledStyle = !editable
+    ? ({ color: colors.lightGrey2, borderBottomColor: colors.transparent } as ViewStyle)
+    : {};
+
+  const textFieldStyle = flatten([presets[preset], focusStyle, overrideStyle, disabledStyle]);
 
   const labelStyle = focus ? ({ color: colors.black } as TextStyle) : {};
-  const bottomSpacing = !error?.shown ? ({ marginBottom: 25 } as ViewStyle) : {}; // allocate some bottom spacing when no error hint is display
 
   return (
-    <View style={[{ position: 'relative' }, bottomSpacing]}>
-      <>
-        <Text style={[FIELD_LABEL, labelStyle]}>{label}</Text>
-        <TextInput
-          onFocus={() => setFocus(true)}
-          onBlur={() => setFocus(false)}
-          style={textFieldStyle}
-          onChangeText={onChangeText}
-          selectionColor={colors.primary}
-          keyboardType={keyboardType}
-          value={value}
-          {...rest}
-        />
-
-        {error && error.shown && error.message && <Text style={ERROR_HINTS}>{error.message}</Text>}
-      </>
+    <View style={FIELD_WRAPPER}>
+      <Text preset="labelTiny" style={[labelStyle]}>
+        {label}
+      </Text>
+      <TextInput
+        editable={editable}
+        onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
+        style={textFieldStyle}
+        onChangeText={onChangeText}
+        selectionColor={colors.primary}
+        keyboardType={keyboardType}
+        value={value}
+        {...rest}
+      />
+      {error && error.shown && error.message && <Text style={ERROR_HINTS}>{error.message}</Text>}
     </View>
   );
 };

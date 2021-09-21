@@ -104,6 +104,7 @@ const LoginScreen = observer((props: LoginProps) => {
                 setOnChangeValidation(true);
                 handleSubmit();
               }}
+              style={{ marginTop: spacing.xl }}
             />
 
             <Text

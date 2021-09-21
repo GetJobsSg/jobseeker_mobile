@@ -56,7 +56,13 @@ export const presets = {
     fontWeight: '600',
   } as TextStyle,
 
-  label: {
+  labelTiny: {
+    color: colors.textSecondary,
+    fontWeight: '400',
+    fontSize: fontSize.tiny,
+  } as TextStyle,
+
+  labelXS: {
     color: colors.darkGrey0,
     fontSize: fontSize.xs,
   } as TextStyle,

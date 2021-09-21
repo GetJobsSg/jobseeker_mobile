@@ -24,6 +24,8 @@ export const UserStore = types
     nricFront: types.optional(types.string, ''),
     nricBack: types.optional(types.string, ''),
     educationLevelID: types.optional(types.number, 0),
+    emailVerified: types.optional(types.boolean, false),
+    mobileVerified: types.optional(types.boolean, false),
     vaccinated: types.optional(types.number, 0),
     verificationStatus: types.optional(types.number, IVerificationStatus.NOT_INITIATED),
     gender: types.maybeNull(types.number),
@@ -74,6 +76,8 @@ export const UserStore = types
         self.nricBack = profile.nric_back_img || '';
         self.birthDate = profile.dob || '';
         self.educationLevelID = profile.education_level_id || 0;
+        self.emailVerified = profile.email_verified || false;
+        self.mobileVerified = profile.mobile_verified || false;
         self.verificationStatus = profile.verification_status?.id || IVerificationStatus.NOT_INITIATED;
         self.vaccinated = profile.vaccinated ? 1 : 0;
         self.gender = profile.gender?.id || null;

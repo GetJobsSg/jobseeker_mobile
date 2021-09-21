@@ -31,6 +31,7 @@ const PersonalInfo = () => {
   const {
     userStore: {
       error,
+      email,
       updateUser,
       isUpdating,
       lastName,
@@ -97,6 +98,13 @@ const PersonalInfo = () => {
               rightLabel={dirty ? <Text onPress={handleSubmit}>Save</Text> : null}
               title="Personal Information"
             />
+
+            <>
+              <TextField value={email} editable={false} label="Email" onChangeText={() => {}} />
+              {/* <Text style={VERIFICATION_HINTS}>
+                Email is not verified. <Text style={RESEND}>Resend</Text>
+              </Text> */}
+            </>
 
             <TextField
               value={values.firstName}

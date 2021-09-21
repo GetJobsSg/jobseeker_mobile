@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { IconTypes } from 'src/components/icon/icons';
 import { Screen, Header, ListTile, IconButton } from '../../../components';
@@ -11,9 +11,6 @@ const ProfileCompletion = () => {
   const {
     userStore: { isPersonalInfoCompleted, isPersonalPhotoUploaded, isNRICInfoCompleted, isTrainingCompleted },
   } = useMst();
-
-  const { params } = useRoute();
-  console.log({ params });
 
   const renderTraillingIcons = (infoCompleted: boolean): IconTypes[] => {
     if (infoCompleted) return ['circle_done', 'ic_arrow_right'];

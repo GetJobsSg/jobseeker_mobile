@@ -13,7 +13,7 @@ import {
 import { RadioOption, RadioProps } from './radio-group.props';
 
 const RadioGroup = (props: RadioProps) => {
-  const { error = null, alignment = 'horizontal', label, options, onChange, style, value } = props;
+  const { error = null, alignment = 'horizontal', label, labelStyle, options, onChange, style, value } = props;
 
   const handleRadioPress = (option: RadioOption) => () => onChange(option);
 
@@ -24,7 +24,9 @@ const RadioGroup = (props: RadioProps) => {
 
   return (
     <View style={RADIO_FIELD_CONTAINER}>
-      <Text preset="label">{label}</Text>
+      <Text preset="labelTiny" style={labelStyle}>
+        {label}
+      </Text>
       <View style={[alignStyle, style]}>
         {options.map((option) => {
           const thumbStyle = option.value === value ? SELECTED_RADIO_THUMB : RADIO_THUMB;

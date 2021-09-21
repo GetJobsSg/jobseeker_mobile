@@ -9,6 +9,7 @@ export interface TextFieldProps extends TextInputProps {
   error?: FieldError;
   label: string;
   value: string;
+  editable?: boolean;
   onChangeText: (t: string) => void;
   preset?: TextFieldPresets;
   style?: StyleProp<ViewStyle>;

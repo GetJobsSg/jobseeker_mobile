@@ -10,6 +10,7 @@ import { usePrevious } from '../../../custom_hooks';
 import { registerValidationSchema } from './validation';
 import { IconTypes } from '../../../components/icon/icons';
 import { Routes } from '../../../navigator/routes';
+import { spacing } from '../../../themes';
 
 const initialValues: RegisterFormData = {
   email: '',
@@ -160,7 +161,7 @@ const RegisterScreen = observer((props: RegisterProps) => {
                   setOnChangeValidation(true);
                   handleSubmit();
                 }}
-                style={{ marginTop: 10 }}
+                style={{ marginTop: spacing.xl }}
               />
             </>
           )}

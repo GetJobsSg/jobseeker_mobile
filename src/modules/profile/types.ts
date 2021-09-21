@@ -57,6 +57,8 @@ export interface ProfileInfo {
   education_level_id: number | null;
   date_updated: string;
   date_created: string;
+  email_verified: boolean;
+  mobile_verified: boolean;
   verification_status: VerificationResponse;
   vaccinated: boolean;
   gender: GenderResponse | null;

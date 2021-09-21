@@ -2,24 +2,16 @@ import { TextStyle } from 'react-native';
 import { colors, fontSize, spacing } from '../../themes';
 
 const BASE = {
-  textDecorationColor: colors.darkBlue0,
-  paddingTop: spacing.xl,
+  paddingTop: spacing.sm,
   paddingBottom: spacing.sm,
-  paddingHorizontal: spacing.sm,
   color: colors.black,
   fontWeight: '600',
-  fontSize: fontSize.xs,
+  fontSize: fontSize.sm,
 } as TextStyle;
-
-const BORDER = {
-  borderWidth: 1,
-  borderColor: colors.lightGrey2,
-};
 
 export const presets = {
   default: {
     ...BASE,
-    ...BORDER,
   } as TextStyle,
 };
 

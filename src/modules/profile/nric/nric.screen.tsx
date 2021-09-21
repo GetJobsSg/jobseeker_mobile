@@ -9,6 +9,7 @@ import { useSuccess } from '../../../custom_hooks';
 import { useMst } from '../../../store';
 import { NricFormData } from '../types';
 import { nricValidator } from '../../../common';
+import { spacing } from '../../../themes';
 
 const nricValidationSchema = yup.object({
   nricNo: nricValidator,
@@ -48,6 +49,7 @@ const NricScreen = () => {
           shown: !!errors.nricNo,
           message: errors.nricNo,
         }}
+        style={{ marginBottom: spacing.sm }}
         value={values.nricNo || ''}
         label="NRIC / FIN No"
         onChangeText={(text) => setFieldValue('nricNo', text)}

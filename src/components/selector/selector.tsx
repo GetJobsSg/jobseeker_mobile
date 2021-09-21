@@ -12,7 +12,7 @@ const Selector = (props: SelectorProps) => {
       <TouchableOpacity style={CONTAINER} onPress={onPress}>
         <Row justify="space-between" align="center">
           <View>
-            <Text preset="label">{label}</Text>
+            <Text preset="labelTiny">{label}</Text>
             {value !== '' ? <Text style={VALUE}>{value}</Text> : <Text style={PLACEHOLDER}>{placeholder}</Text>}
           </View>
           <View>

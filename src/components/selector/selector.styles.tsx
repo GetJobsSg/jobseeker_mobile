@@ -12,8 +12,8 @@ export const LABEL = {
 
 export const VALUE = {
   fontWeight: '600',
-  marginTop: spacing.xs,
-  fontSize: fontSize.md,
+  marginTop: spacing.sm,
+  fontSize: fontSize.sm,
 } as TextStyle;
 
 export const PLACEHOLDER = {
@@ -23,7 +23,7 @@ export const PLACEHOLDER = {
 
 export const EDIT = {
   color: colors.primaryLight,
-  fontSize: fontSize.sm,
+  fontSize: fontSize.xs,
 } as TextStyle;
 
 export const ERROR_HINTS: TextStyle = {
