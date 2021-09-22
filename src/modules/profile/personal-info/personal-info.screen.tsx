@@ -12,6 +12,7 @@ import {
   IconButton,
   RadioGroup,
   TextField,
+  PhoneInput,
   Selector,
   Sheet,
   Touchable,
@@ -99,12 +100,7 @@ const PersonalInfo = () => {
               title="Personal Information"
             />
 
-            <>
-              <TextField value={email} editable={false} label="Email" onChangeText={() => {}} />
-              {/* <Text style={VERIFICATION_HINTS}>
-                Email is not verified. <Text style={RESEND}>Resend</Text>
-              </Text> */}
-            </>
+            <TextField value={email} editable={false} label="Email" onChangeText={() => {}} />
 
             <TextField
               value={values.firstName}
@@ -137,6 +133,8 @@ const PersonalInfo = () => {
               keyboardType="number-pad"
               maxLength={8}
             />
+
+            <PhoneInput label="Mobile No" value="90449045" onChangeText={() => {}} />
 
             <Selector
               label="Birth Date"

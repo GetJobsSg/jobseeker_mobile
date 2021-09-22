@@ -2,8 +2,8 @@ import { StyleProp, TextInputProps, ViewStyle } from 'react-native';
 import { TextFieldPresets } from './textfield.presets';
 
 interface FieldError {
-  shown: boolean | undefined | string; // pattern to typing from formik
-  message: string | undefined; // pattern to typing from formik
+  shown: boolean | undefined | string; // follow formik typing
+  message: string | undefined; // follow formik typing
 }
 export interface TextFieldProps extends TextInputProps {
   error?: FieldError;
