@@ -2,7 +2,11 @@ import { TextStyle, ViewStyle } from 'react-native';
 import { spacing, fontSize, colors } from '../../themes';
 
 export const CONTAINER = {
-  paddingVertical: spacing.md,
+  paddingTop: spacing.sm,
+  paddingBottom: spacing.sm,
+  borderBottomWidth: 1,
+  borderBottomColor: colors.lightGrey1,
+  marginVertical: spacing.md,
 } as ViewStyle;
 
 export const LABEL = {

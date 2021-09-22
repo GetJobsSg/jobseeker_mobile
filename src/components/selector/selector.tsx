@@ -12,7 +12,7 @@ const Selector = (props: SelectorProps) => {
       <TouchableOpacity style={CONTAINER} onPress={onPress}>
         <Row justify="space-between" align="center">
           <View>
-            <Text preset="labelTiny">{label}</Text>
+            <Text preset="labelXXS">{label}</Text>
             {value !== '' ? <Text style={VALUE}>{value}</Text> : <Text style={PLACEHOLDER}>{placeholder}</Text>}
           </View>
           <View>
@@ -20,7 +20,6 @@ const Selector = (props: SelectorProps) => {
           </View>
         </Row>
       </TouchableOpacity>
-
       {error && error.shown && error.message && <Text style={ERROR_HINTS}>{error.message}</Text>}
     </View>
   );

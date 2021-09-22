@@ -24,7 +24,7 @@ const RadioGroup = (props: RadioProps) => {
 
   return (
     <View style={RADIO_FIELD_CONTAINER}>
-      <Text preset="labelTiny" style={labelStyle}>
+      <Text preset="labelXXS" style={labelStyle}>
         {label}
       </Text>
       <View style={[alignStyle, style]}>

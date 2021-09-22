@@ -26,9 +26,7 @@ const TextField = (props: TextFieldProps) => {
     ? ({ borderBottomWidth: 1, borderColor: colors.black } as TextStyle)
     : ({ borderBottomWidth: 1, borderColor: colors.lightGrey1 } as TextStyle);
 
-  const disabledStyle = !editable
-    ? ({ color: colors.lightGrey2, borderBottomColor: colors.transparent } as ViewStyle)
-    : {};
+  const disabledStyle = !editable ? ({ color: colors.lightGrey2 } as ViewStyle) : {};
 
   const textFieldStyle = flatten([presets[preset], focusStyle, overrideStyle, disabledStyle]);
 
@@ -36,7 +34,7 @@ const TextField = (props: TextFieldProps) => {
 
   return (
     <View style={FIELD_WRAPPER}>
-      <Text preset="labelTiny" style={[labelStyle]}>
+      <Text preset="labelXXS" style={[labelStyle]}>
         {label}
       </Text>
       <TextInput
