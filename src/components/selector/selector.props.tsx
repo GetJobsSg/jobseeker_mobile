@@ -4,6 +4,7 @@ interface FieldError {
 }
 
 export interface SelectorProps {
+  actionLabel?: string;
   error?: FieldError;
   label: string;
   value: string;
