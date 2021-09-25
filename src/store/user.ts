@@ -58,6 +58,10 @@ export const UserStore = types
       return !!self.profileImg;
     },
     get isPersonalInfoCompleted() {
+      // either email or mobile is not verify === profile incomplete
+      if (!self.emailVerified || !self.mobileVerified) return false;
+
+      // either one field is not updated = profile incomplete
       const requiredItem = [self.firstName, self.lastName, self.mobile, self.gender, self.educationLevelID];
       const incompleteField = requiredItem.filter((value) => !value);
       return incompleteField.length === 0;
