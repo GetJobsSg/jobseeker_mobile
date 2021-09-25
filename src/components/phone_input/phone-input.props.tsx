@@ -6,6 +6,7 @@ interface FieldError {
 }
 
 export interface PhoneInputProps extends TextInputProps {
+  dialingCode: string;
   label: string;
   value: string;
   onChangeText: (t: string) => void;

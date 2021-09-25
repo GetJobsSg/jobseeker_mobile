@@ -1,4 +1,15 @@
 import { Asset } from 'react-native-image-picker';
+import { Routes } from '../../navigator/routes';
+
+export type ProfileParamList = {
+  [Routes.profile_completion]: undefined;
+  [Routes.personal_photo]: undefined;
+  [Routes.personal_info]: undefined;
+  [Routes.nric_info]: undefined;
+  [Routes.training]: undefined;
+  [Routes.editMobile]: { mobile: string };
+  [Routes.otpVerify]: undefined;
+};
 
 export interface PersonalInfoFormData {
   firstName: string;
@@ -33,6 +44,8 @@ export interface ProfilePayload {
   vaccinated: boolean;
   training_completed: boolean;
 }
+
+export type OTPVerifyType = 'email' | 'mobile';
 
 export type NRICPayload = Partial<Pick<ProfilePayload, 'nric_no' | 'nric_front_img' | 'nric_back_img'>>;
 

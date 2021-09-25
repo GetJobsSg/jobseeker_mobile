@@ -5,10 +5,8 @@ import { colors, spacing } from '../../themes';
 import { PhoneInputProps } from './phone-input.props';
 import { DIALING_CODE_TEXT, DIALING_CODE_WRAPPER, ERROR_HINTS, FIELD_WRAPPER, PHONE_INPUT } from './phone-input.styles';
 
-const dialingCode = '+65';
-
 const PhoneInput = (props: PhoneInputProps) => {
-  const { error, label, value } = props;
+  const { dialingCode, error, label, onChangeText, value } = props;
   const [focus, setFocus] = useState(false);
   const focusStyle = focus ? ({ borderBottomColor: colors.black } as TextStyle) : {};
 
@@ -26,11 +24,12 @@ const PhoneInput = (props: PhoneInputProps) => {
             onFocus={() => setFocus(true)}
             onBlur={() => setFocus(false)}
             value={value}
+            onChangeText={onChangeText}
             style={[PHONE_INPUT, focusStyle]}
           />
         </View>
       </View>
-      {error && error.shown && error.message && <Text style={ERROR_HINTS}>Invalid mobile number format</Text>}
+      {error && error.shown && error.message && <Text style={ERROR_HINTS}>{error.message}</Text>}
     </View>
   );
 };

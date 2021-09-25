@@ -6,7 +6,7 @@ export const CONTAINER = {
   paddingBottom: spacing.sm,
   borderBottomWidth: 1,
   borderBottomColor: colors.lightGrey1,
-  marginVertical: spacing.md,
+  marginVertical: spacing.sm,
 } as ViewStyle;
 
 export const LABEL = {
@@ -25,7 +25,7 @@ export const PLACEHOLDER = {
   color: colors.lightGrey2,
 } as TextStyle;
 
-export const EDIT = {
+export const ACTION_TEXT = {
   color: colors.primaryLight,
   fontSize: fontSize.xs,
 } as TextStyle;

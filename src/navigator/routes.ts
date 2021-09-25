@@ -25,6 +25,8 @@ export enum Routes {
   'personal_info' = 'personal_info',
   'nric_info' = 'nric_info',
   'training' = 'training',
+  'editMobile' = 'editMobile',
+  'otpVerify' = 'otpVerify',
 
   // job
   'job_details' = 'job_details',

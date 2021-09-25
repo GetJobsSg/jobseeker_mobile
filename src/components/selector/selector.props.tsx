@@ -4,9 +4,11 @@ interface FieldError {
 }
 
 export interface SelectorProps {
+  actionLabel?: string;
+  children?: React.ReactElement;
   error?: FieldError;
   label: string;
-  value: string;
+  value?: string;
   placeholder?: string;
   onPress: () => void;
 }

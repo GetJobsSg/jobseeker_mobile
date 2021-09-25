@@ -4,6 +4,7 @@ import moment from 'moment';
 import { View, FlatList } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { Formik } from 'formik';
+import { Routes } from '../../../navigator/routes';
 import { useSuccess } from '../../../custom_hooks';
 import {
   Screen,
@@ -12,7 +13,6 @@ import {
   IconButton,
   RadioGroup,
   TextField,
-  PhoneInput,
   Selector,
   Sheet,
   Touchable,
@@ -42,6 +42,8 @@ const PersonalInfo = () => {
       birthDate,
       educationLevelID,
       vaccinated,
+      emailVerified,
+      mobileVerified,
     },
     educationLevelStore: { educationLevel },
   } = useMst();
@@ -100,7 +102,27 @@ const PersonalInfo = () => {
               title="Personal Information"
             />
 
-            <TextField value={email} editable={false} label="Email" onChangeText={() => {}} />
+            <Selector
+              actionLabel={!emailVerified ? 'Verify' : 'Edit'}
+              error={{
+                message: 'Please verify email address',
+                shown: !emailVerified,
+              }}
+              label="Email"
+              onPress={() => navigation.navigate(Routes.otpVerify, { mobile })}
+              value={email}
+            />
+
+            <Selector
+              actionLabel={mobile && !mobileVerified ? 'Verify' : 'Edit'}
+              error={{
+                message: 'Please verify mobile number',
+                shown: !!mobile && !mobileVerified,
+              }}
+              label="Mobile"
+              onPress={() => navigation.navigate(Routes.editMobile, { mobile })}
+              value={mobile}
+            />
 
             <TextField
               value={values.firstName}
@@ -133,8 +155,6 @@ const PersonalInfo = () => {
               keyboardType="number-pad"
               maxLength={8}
             />
-
-            <PhoneInput label="Mobile No" value="90449045" onChangeText={() => {}} />
 
             <Selector
               label="Birth Date"
