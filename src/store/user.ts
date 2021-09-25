@@ -12,6 +12,12 @@ import {
 import { IVerificationStatus } from '../constants/types';
 import { constructUploadImagePayload } from '../utils/image';
 
+const parseVaccinatedStatus = (vaccinated: boolean | null) => {
+  if (vaccinated === null) return null;
+  if (vaccinated === true) return 1;
+  return 0;
+};
+
 export const UserStore = types
   .model('UserStore')
   .props({
@@ -25,10 +31,10 @@ export const UserStore = types
     nric: types.optional(types.string, ''),
     nricFront: types.optional(types.string, ''),
     nricBack: types.optional(types.string, ''),
-    educationLevelID: types.optional(types.number, 0),
+    educationLevelID: types.maybeNull(types.number),
     emailVerified: types.optional(types.boolean, false),
     mobileVerified: types.optional(types.boolean, false),
-    vaccinated: types.optional(types.number, 0),
+    vaccinated: types.maybeNull(types.number),
     verificationStatus: types.optional(types.number, IVerificationStatus.NOT_INITIATED),
     gender: types.maybeNull(types.number),
     trainingCompleted: types.optional(types.boolean, false),
@@ -82,11 +88,11 @@ export const UserStore = types
         self.nricFront = profile.nric_front_img || '';
         self.nricBack = profile.nric_back_img || '';
         self.birthDate = profile.dob || '';
-        self.educationLevelID = profile.education_level_id || 0;
+        self.educationLevelID = profile.education_level_id || null;
         self.emailVerified = profile.email_verified || false;
         self.mobileVerified = profile.mobile_verified || false;
         self.verificationStatus = profile.verification_status?.id || IVerificationStatus.NOT_INITIATED;
-        self.vaccinated = profile.vaccinated ? 1 : 0;
+        self.vaccinated = parseVaccinatedStatus(profile.vaccinated);
         self.gender = profile.gender?.id || null;
         self.trainingCompleted = profile.training_completed;
         self.rating = job_statistics.rating;
@@ -108,7 +114,6 @@ export const UserStore = types
           first_name: values.firstName,
           last_name: values.lastName,
           dob: values.birthDate,
-          mobile: values.mobile,
           gender_id: values.gender,
           education_level_id: values.educationLevelID,
           vaccinated: values.vaccinated === 1,
