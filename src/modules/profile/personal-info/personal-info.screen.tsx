@@ -42,6 +42,8 @@ const PersonalInfo = () => {
       birthDate,
       educationLevelID,
       vaccinated,
+      emailVerified,
+      mobileVerified,
     },
     educationLevelStore: { educationLevel },
   } = useMst();
@@ -101,14 +103,22 @@ const PersonalInfo = () => {
             />
 
             <Selector
-              actionLabel="Verify"
+              actionLabel={!emailVerified ? 'Verify' : 'Edit'}
+              error={{
+                message: 'Please verify email address',
+                shown: !emailVerified,
+              }}
               label="Email"
-              onPress={() => navigation.navigate(Routes.otpVerify)}
+              onPress={() => navigation.navigate(Routes.otpVerify, { mobile })}
               value={email}
             />
 
             <Selector
-              actionLabel="Edit"
+              actionLabel={mobile && !mobileVerified ? 'Verify' : 'Edit'}
+              error={{
+                message: 'Please verify mobile number',
+                shown: !!mobile && !mobileVerified,
+              }}
               label="Mobile"
               onPress={() => navigation.navigate(Routes.editMobile, { mobile })}
               value={mobile}

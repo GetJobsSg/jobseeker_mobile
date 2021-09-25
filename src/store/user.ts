@@ -7,6 +7,7 @@ import {
   NRICPayload,
   PersonalPhotoData,
   PersonalPhotoPayload,
+  OTPVerifyType,
 } from '../modules/profile/types';
 import { IVerificationStatus } from '../constants/types';
 import { constructUploadImagePayload } from '../utils/image';
@@ -14,6 +15,7 @@ import { constructUploadImagePayload } from '../utils/image';
 export const UserStore = types
   .model('UserStore')
   .props({
+    // user profile
     profileImg: types.optional(types.string, ''),
     firstName: types.optional(types.string, ''),
     lastName: types.optional(types.string, ''),
@@ -36,6 +38,11 @@ export const UserStore = types
     isLoading: types.optional(types.boolean, false),
     isUpdating: types.optional(types.boolean, false),
     error: types.optional(types.string, ''),
+    // mobile or email otp
+    isSendingOTP: types.optional(types.boolean, false),
+    sendOTPError: types.optional(types.string, ''),
+    isVerifyingOTP: types.optional(types.boolean, false),
+    verifyOTPError: types.optional(types.string, ''),
   })
   .views((self) => ({
     get name() {
@@ -151,11 +158,40 @@ export const UserStore = types
       }
     }),
 
+    updateMobileNumber: flow(function* updateMobileNumber(mobile: string) {
+      try {
+        self.isSendingOTP = true;
+        self.verifyOTPError = '';
+        self.rootStore.uiStore.showLoadingSpinner();
+        yield apis.updateProfile({ mobile });
+        yield apis.resendOTP('mobile');
+      } catch (e) {
+        self.sendOTPError = self.getErrMsg(e);
+      } finally {
+        self.rootStore.uiStore.hideLoadingSpinner();
+        self.isSendingOTP = false;
+      }
+    }),
+
+    verifyOTP: flow(function* verifyOTP(contactType: OTPVerifyType, code: string) {
+      try {
+        self.isVerifyingOTP = true;
+        self.verifyOTPError = '';
+        self.rootStore.uiStore.showLoadingSpinner();
+        yield apis.verifyOTP(contactType, code);
+        yield self.getUser();
+      } catch (e) {
+        self.verifyOTPError = self.getErrMsg(e);
+      } finally {
+        self.rootStore.uiStore.hideLoadingSpinner();
+        self.isVerifyingOTP = false;
+      }
+    }),
+
     completeTraining: flow(function* completeTraining() {
       try {
         self.isUpdating = true;
         self.rootStore.uiStore.showLoadingSpinner();
-
         yield apis.updateProfile({
           training_completed: true,
         });

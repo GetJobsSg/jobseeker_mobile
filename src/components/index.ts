@@ -22,5 +22,6 @@ export { default as Spinner } from './spinner';
 export { default as Tag } from './tag';
 export { default as Text } from './text';
 export { default as TextField } from './textfield';
+export { default as OtpVerification } from './otp_verification';
 export { default as PhoneInput } from './phone_input';
 export { default as Touchable } from './touchable';

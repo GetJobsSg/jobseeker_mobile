@@ -6,7 +6,13 @@ import { SelectorProps } from './selector.props';
 import { spacing } from '../../themes';
 
 const Selector = (props: SelectorProps) => {
-  const { actionLabel = 'Edit', error = null, label, placeholder = 'Not Set', value, onPress } = props;
+  const { actionLabel = 'Edit', children, error = null, label, placeholder = 'Not Set', value, onPress } = props;
+
+  const renderContent = () => {
+    if (children) return children;
+    if (value && value !== '') return <Text style={VALUE}>{value}</Text>;
+    return <Text style={PLACEHOLDER}>{placeholder}</Text>; // render placeholder
+  };
 
   return (
     <View>
@@ -14,7 +20,7 @@ const Selector = (props: SelectorProps) => {
         <View>
           <Text preset="labelXXS">{label}</Text>
           <Row justify="space-between" align="center" style={{ paddingTop: spacing.sm, paddingBottom: spacing.xxs }}>
-            {value !== '' ? <Text style={VALUE}>{value}</Text> : <Text style={PLACEHOLDER}>{placeholder}</Text>}
+            {renderContent()}
             <Text style={ACTION_TEXT}>{actionLabel}</Text>
           </Row>
         </View>

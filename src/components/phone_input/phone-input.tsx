@@ -29,7 +29,7 @@ const PhoneInput = (props: PhoneInputProps) => {
           />
         </View>
       </View>
-      {error && error.shown && error.message && <Text style={ERROR_HINTS}>Invalid mobile number format</Text>}
+      {error && error.shown && error.message && <Text style={ERROR_HINTS}>{error.message}</Text>}
     </View>
   );
 };

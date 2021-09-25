@@ -1,5 +1,5 @@
 import { get, post, put, del } from '../utils/network';
-import { ProfilePayload, ProfileInfoResponse } from '../modules/profile/types';
+import { ProfilePayload, ProfileInfoResponse, OTPVerifyType } from '../modules/profile/types';
 import { AllJobResponse, JobInfoResponse, MyJobsRequestParams } from '../modules/job/types';
 import { IInboxDetailsResponse } from '../modules/inbox/types';
 
@@ -11,6 +11,12 @@ export const updateUserFcmToken = (token: string): Promise<{}> =>
 export const getProfile = (): Promise<ProfileInfoResponse> => get('/mobile/profile').then((res) => res.data);
 
 export const updateProfile = (data: Partial<ProfilePayload>) => put('/mobile/profile', data).then((res) => res.data);
+
+export const resendOTP = (contactType: OTPVerifyType) =>
+  post(`/mobile/verification/resend/${contactType}`).then((res) => res.data);
+
+export const verifyOTP = (contactType: OTPVerifyType, code: string) =>
+  post(`/mobile/verification/verify/${contactType}`, { code }).then((res) => res.data);
 
 export const getEducationLevel = () => get('/educationlevel').then((res) => res.data);
 

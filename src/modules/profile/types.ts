@@ -45,6 +45,8 @@ export interface ProfilePayload {
   training_completed: boolean;
 }
 
+export type OTPVerifyType = 'email' | 'mobile';
+
 export type NRICPayload = Partial<Pick<ProfilePayload, 'nric_no' | 'nric_front_img' | 'nric_back_img'>>;
 
 export interface ProfileInfoResponse {
