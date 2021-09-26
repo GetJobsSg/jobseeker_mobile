@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { CodeField, useBlurOnFulfill } from 'react-native-confirmation-code-field';
+// import { colors } from '../../themes';
 import { Button, Text } from '..';
 import { OTPVerificationProps } from './otp-verification.props';
 import {
@@ -17,7 +18,7 @@ import {
 const CELL_COUNT = 5;
 
 const OTPVerification = (props: OTPVerificationProps) => {
-  const { errorText, title, subTitle, onConfirm } = props;
+  const { errorText, title, subTitle, onConfirm /* onResendOTP */ } = props;
   const [code, setCode] = useState('');
   const ref = useBlurOnFulfill({ value: code, cellCount: CELL_COUNT });
 
@@ -45,6 +46,16 @@ const OTPVerification = (props: OTPVerificationProps) => {
           )}
         />
         {!!errorText && <Text style={ERROR_HINT}>Invalid code. Please try again later.</Text>}
+        {/* <Text preset="hint">
+          Did not get your OTP?{' '}
+          <Text
+            preset="hint"
+            style={{ textDecorationLine: 'underline', color: colors.darkBlue0 }}
+            onPress={onResendOTP}
+          >
+            Resend
+          </Text>
+        </Text> */}
       </View>
       <Button disabled={code.length !== CELL_COUNT} label="Verify" onPress={handleConfirmOTPCode} />
     </>

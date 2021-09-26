@@ -19,6 +19,8 @@ export const SUBTITLE = {
 
 export const ERROR_HINT = {
   color: colors.textDanger,
+  fontSize: fontSize.xs,
+  marginBottom: spacing.sm,
 } as TextStyle;
 
 export const CELL_ROOT = {

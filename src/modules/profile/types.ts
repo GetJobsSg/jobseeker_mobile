@@ -8,7 +8,7 @@ export type ProfileParamList = {
   [Routes.nric_info]: undefined;
   [Routes.training]: undefined;
   [Routes.editMobile]: { mobile: string };
-  [Routes.otpVerify]: undefined;
+  [Routes.verifyEmail]: { email: string };
 };
 
 export interface PersonalInfoFormData {

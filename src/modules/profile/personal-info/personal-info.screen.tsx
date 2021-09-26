@@ -100,9 +100,10 @@ const PersonalInfo = () => {
         />
 
         <Selector
-          actionLabel={!emailVerified ? 'Verify' : 'Edit'}
+          actionLabel={!emailVerified ? 'Verify' : ''}
           label="Email"
-          onPress={() => navigation.navigate(Routes.otpVerify, { mobile })}
+          disabled={emailVerified}
+          onPress={() => navigation.navigate(Routes.verifyEmail, { email })}
           value={email}
         />
 

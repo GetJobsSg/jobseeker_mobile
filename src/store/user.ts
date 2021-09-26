@@ -153,7 +153,7 @@ export const UserStore = types
 
         const data: NRICPayload = {};
 
-        if (values.nricNo) data.nric_no = values.nricNo;
+        if (values.nricNo) data.nric_no = values.nricNo.toUpperCase();
         if (values.nricFront) data.nric_front_img = constructUploadImagePayload(values.nricFront);
         if (values.nricBack) data.nric_back_img = constructUploadImagePayload(values.nricBack);
 
@@ -174,6 +174,19 @@ export const UserStore = types
         self.rootStore.uiStore.showLoadingSpinner();
         yield apis.updateProfile({ mobile });
         yield apis.resendOTP('mobile');
+      } catch (e) {
+        self.sendOTPError = self.getErrMsg(e);
+      } finally {
+        self.rootStore.uiStore.hideLoadingSpinner();
+        self.isSendingOTP = false;
+      }
+    }),
+
+    resendOTP: flow(function* resendOTP(contactType: OTPVerifyType) {
+      try {
+        self.isSendingOTP = true;
+        self.rootStore.uiStore.showLoadingSpinner();
+        yield apis.resendOTP(contactType);
       } catch (e) {
         self.sendOTPError = self.getErrMsg(e);
       } finally {

@@ -6,7 +6,16 @@ import { SelectorProps } from './selector.props';
 import { spacing } from '../../themes';
 
 const Selector = (props: SelectorProps) => {
-  const { actionLabel = 'Edit', children, error = null, label, placeholder = 'Not Set', value, onPress } = props;
+  const {
+    actionLabel = 'Edit',
+    children,
+    disabled,
+    error = null,
+    label,
+    placeholder = 'Not Set',
+    value,
+    onPress,
+  } = props;
 
   const renderContent = () => {
     if (children) return children;
@@ -16,7 +25,7 @@ const Selector = (props: SelectorProps) => {
 
   return (
     <View>
-      <TouchableOpacity style={CONTAINER} onPress={onPress}>
+      <TouchableOpacity disabled={disabled} style={CONTAINER} onPress={onPress}>
         <View>
           <Text preset="labelXXS">{label}</Text>
           <Row justify="space-between" align="center" style={{ paddingTop: spacing.sm, paddingBottom: spacing.xxs }}>
