@@ -52,7 +52,8 @@ const NricScreen = () => {
         style={{ marginBottom: spacing.sm }}
         value={values.nricNo || ''}
         label="NRIC / FIN No"
-        onChangeText={(text) => setFieldValue('nricNo', text)}
+        maxLength={9}
+        onChangeText={(text) => setFieldValue('nricNo', text.toUpperCase())}
       />
 
       <Frame

@@ -9,7 +9,7 @@ import PersonalInfoScreen from './personal-info';
 import ProfileCompletionScreen from './completion';
 import TrainingScreen from './training';
 import MobileEditScreen from './mobile-edit';
-import OtpVerifyScreen from './verify';
+import EmailVerifyScreen from './email-verify';
 
 const Stack = createStackNavigator<ProfileParamList>();
 
@@ -21,7 +21,7 @@ const ProfileStack = () => (
     <Stack.Screen name={Routes.nric_info} component={NricScreen} />
     <Stack.Screen name={Routes.training} component={TrainingScreen} />
     <Stack.Screen name={Routes.editMobile} component={MobileEditScreen} />
-    <Stack.Screen name={Routes.otpVerify} component={OtpVerifyScreen} />
+    <Stack.Screen name={Routes.verifyEmail} component={EmailVerifyScreen} />
   </Stack.Navigator>
 );
 

@@ -44,7 +44,13 @@ export const accountNoValidator = yup
 
 export const bankValidator = yup.number().moreThan(0, 'Please select a bank').required('Please select a bank');
 
+export const birthValidator = yup.string().required('Please select your birth date');
+
+export const educationValidator = yup.number().nullable().required('Please select your education');
+
 export const genderValidator = yup.string().nullable().required('Please select your gender');
+
+export const vacinatedValidator = yup.number().nullable().required('Please select your vacinated status');
 
 export const optionValidator = yup.number().moreThan(-1, 'Please select an option').required('Please select an option');
 

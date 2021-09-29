@@ -6,6 +6,7 @@ interface FieldError {
 export interface SelectorProps {
   actionLabel?: string;
   children?: React.ReactElement;
+  disabled?: boolean;
   error?: FieldError;
   label: string;
   value?: string;

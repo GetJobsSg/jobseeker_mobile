@@ -8,17 +8,16 @@ export type ProfileParamList = {
   [Routes.nric_info]: undefined;
   [Routes.training]: undefined;
   [Routes.editMobile]: { mobile: string };
-  [Routes.otpVerify]: undefined;
+  [Routes.verifyEmail]: { email: string };
 };
 
 export interface PersonalInfoFormData {
   firstName: string;
   lastName: string;
-  mobile: string;
   birthDate: string;
-  educationLevelID: number;
+  educationLevelID: number | null;
   gender: number | null;
-  vaccinated: number;
+  vaccinated: number | null;
 }
 
 export type PersonalPhotoData = { profileImage: Asset };
@@ -73,7 +72,7 @@ export interface ProfileInfo {
   email_verified: boolean;
   mobile_verified: boolean;
   verification_status: VerificationResponse;
-  vaccinated: boolean;
+  vaccinated: boolean | null;
   gender: GenderResponse | null;
   training_completed: boolean;
 }
