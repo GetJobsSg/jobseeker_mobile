@@ -1,4 +1,4 @@
-package com.getjobs.jobseeker;
+package com.jilcreation.getjobs;
 
 import com.facebook.react.ReactActivity;
 

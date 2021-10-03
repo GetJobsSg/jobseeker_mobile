@@ -132,7 +132,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.getjobs.jobseeker"
+        applicationId "com.jilcreation.getjobs"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -149,6 +149,12 @@ android {
         }
     }
     signingConfigs {
+        release {
+            storeFile file('release.keystore')
+            storePassword 'c9fc6fc4e8b845d3b7fe859b85f2ba94'
+            keyAlias 'QGJlbnNvbjc2NjcvZ2V0am9iczRtZQ=='
+            keyPassword '2dd801f9a0a943e8a2e37d87e101b745'
+        }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
@@ -163,7 +169,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
