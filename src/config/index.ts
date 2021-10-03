@@ -1,6 +1,6 @@
 const config = {
   networkTimeout: 10000,
-  apiHost: 'http://192.168.1.10:8080/',
+  apiHost: 'http://getjobs-dev-backend.eba-iukcicq5.ap-southeast-1.elasticbeanstalk.com/',
   // apiHost: 'http://localhost:8080/',
 };
 
