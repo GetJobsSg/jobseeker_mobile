@@ -24,6 +24,7 @@ DerivedData
 # Android/IntelliJ
 #
 build/
+release/
 .idea
 .gradle
 local.properties
@@ -39,8 +40,6 @@ yarn-error.log
 # BUCK
 buck-out/
 \.buckd/
-*.keystore
-!debug.keystore
 
 # fastlane
 #

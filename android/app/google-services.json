@@ -40,6 +40,42 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283151762227:android:4e9c6c2e379294fe60f446",
+        "android_client_info": {
+          "package_name": "com.jilcreation.getjobs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "283151762227-7fs3e26tiqjjk5ala13jo009scirh72n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUhKwFcTzOcby7-7lsa45QBEYX2E5p6xk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "283151762227-7fs3e26tiqjjk5ala13jo009scirh72n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "283151762227-5agf94r5268v2b4ea81s0nj66j6ntlnv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.getjobs.jobseeker"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
