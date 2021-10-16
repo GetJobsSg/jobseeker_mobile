@@ -2,7 +2,7 @@
 
 1. [Node](https://nodejs.org/en/) >= 14.x
 2. Android Studio >= 4.x, Android SDK >= [29](https://developer.android.com/studio/releases/platforms#10), Android NDK >= [20.1.5948944](https://developer.android.com/ndk/downloads)
-3. Xcode >= 12.x (Recommended - 12.5)
+3. Xcode >= 13.0
 4. If you are using VSCode, please install these extensions to help you see the linting error whenever your code not match to a coding rules
    - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
    - [Eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
