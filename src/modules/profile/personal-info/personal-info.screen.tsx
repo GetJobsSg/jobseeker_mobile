@@ -181,7 +181,7 @@ const PersonalInfo = () => {
             message: errors.vaccinated,
             shown: touched.vaccinated && errors.vaccinated,
           }}
-          label="Have you fully vacinated?"
+          label="Are you fully vacinated?"
           alignment="vertical"
           value={values.vaccinated}
           onChange={(selected) => setFieldValue('vaccinated', selected.value)}
