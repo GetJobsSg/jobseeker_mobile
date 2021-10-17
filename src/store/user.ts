@@ -171,6 +171,7 @@ export const UserStore = types
       try {
         self.isSendingOTP = true;
         self.verifyOTPError = '';
+        self.sendOTPError = '';
         self.rootStore.uiStore.showLoadingSpinner();
         yield apis.updateProfile({ mobile });
         yield apis.resendOTP('mobile');

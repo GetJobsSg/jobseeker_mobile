@@ -5,6 +5,7 @@ import { fontSize } from '../../../themes';
 import { Screen, Header, IconButton, Text, RadioGroup } from '../../../components';
 import { TrainingQuestion } from '../types';
 import { useMst } from '../../../store';
+import { useSuccess } from '../../../custom_hooks';
 
 const TrainingScreen = () => {
   const navigation = useNavigation();
@@ -23,8 +24,13 @@ const TrainingScreen = () => {
   const [questionsArr, setQuestionsArr] = useState(questions);
 
   const {
-    userStore: { completeTraining },
+    userStore: { completeTraining, isUpdating, error },
   } = useMst();
+
+  const successUpdateAns = useSuccess({ loadingState: isUpdating, errorState: error });
+  if (successUpdateAns) {
+    setTimeout(() => navigation.goBack(), 0);
+  }
 
   const handleComplete = () => {
     completeTraining();
