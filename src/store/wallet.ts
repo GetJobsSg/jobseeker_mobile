@@ -1,5 +1,5 @@
-import { flow, Instance, SnapshotOut, toGenerator, types } from 'mobx-state-tree';
-import { withErrorHandler } from './extensions';
+import { flow, Instance, SnapshotOut, types } from 'mobx-state-tree';
+import { withErrorHandler, withRootStore } from './extensions';
 import { WalletResponse } from '../modules/wallet/types';
 import * as apis from '../apis';
 
@@ -8,7 +8,9 @@ export const WalletStore = types
   .props({
     amountDollar: types.optional(types.number, 0),
     isLoading: types.optional(types.boolean, false),
+    isLoadingWithdraw: types.optional(types.boolean, false),
     error: types.optional(types.string, ''),
+    errorWithdraw: types.optional(types.string, ''),
   })
   .views((self) => ({
     get formattedAmountDollar() {
@@ -17,6 +19,7 @@ export const WalletStore = types
     },
   }))
   .extend(withErrorHandler)
+  .extend(withRootStore)
   .actions((self) => ({
     getWallet: flow(function* getWallet() {
       try {
@@ -30,14 +33,22 @@ export const WalletStore = types
         self.isLoading = false;
       }
     }),
+  }))
+  .actions((self) => ({
     withdraw: flow(function* withdraw(id: number) {
       try {
-        self.isLoading = true;
-        yield* toGenerator(apis.withdrawWallet(id));
+        self.isLoadingWithdraw = true;
+        self.errorWithdraw = '';
+        self.rootStore.uiStore.showLoadingSpinner();
+        yield apis.withdrawWallet(id);
+        yield apis.getWallet();
+        self.getWallet();
+        self.rootStore.transactionStore.getAllTransactions();
       } catch (e) {
-        self.error = self.getErrMsg(e);
+        self.errorWithdraw = self.getErrMsg(e);
       } finally {
-        self.isLoading = false;
+        self.isLoadingWithdraw = false;
+        self.rootStore.uiStore.hideLoadingSpinner();
       }
     }),
   }));

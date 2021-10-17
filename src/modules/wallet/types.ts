@@ -4,7 +4,6 @@ import { Routes } from '../../navigator/routes';
 
 type WalletParamsList = {
   [Routes.wallet_overview]: undefined;
-  [Routes.wallet_allTransaction]: undefined;
   [Routes.wallet_transactionDetails]: { id: number };
   [Routes.wallet_bank_accountDetails]: { id: number };
   [Routes.wallet_add_edit_bank_account]: { id: number };

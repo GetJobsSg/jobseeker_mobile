@@ -29,14 +29,12 @@ export const TransactionStore = types
     getAllTransactions: flow(function* getAllTransactions() {
       try {
         self.isLoading = true;
-        const res = yield* toGenerator(apis.getAllTransactions());
         self.transactions.clear();
-
+        const res = yield* toGenerator(apis.getAllTransactions());
         if (!res?.data) return;
 
-        res.data.forEach((item: TransactionInfoResponse) => {
-          self.transactions.push(self.transformToState(item));
-        });
+        const result = res.data.map((item: TransactionInfoResponse) => self.transformToState(item));
+        self.transactions = result;
       } catch (e) {
         self.error = self.getErrMsg(e);
       } finally {

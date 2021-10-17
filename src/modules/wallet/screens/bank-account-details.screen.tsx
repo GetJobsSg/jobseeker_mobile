@@ -10,6 +10,7 @@ import { colors, spacing } from '../../../themes';
 import { useMst } from '../../../store';
 import { commonStyles } from '../../../common';
 import { WalletBankAccountDetailProps } from '../types';
+import { useSuccess } from '../../../custom_hooks';
 
 const BankAccountDetailScreen = () => {
   const navigation = useNavigation<any>();
@@ -19,7 +20,7 @@ const BankAccountDetailScreen = () => {
 
   const {
     authStore: { isAuthenticated },
-    walletStore: { withdraw, isLoading },
+    walletStore: { withdraw, isLoading, isLoadingWithdraw, errorWithdraw },
     bankAccountInfoStore: { getBankAccount, accountNo, bank },
   } = useMst();
 
@@ -29,9 +30,13 @@ const BankAccountDetailScreen = () => {
     }
   }, [isAuthenticated, id, getBankAccount]);
 
+  const successWithdraw = useSuccess({ loadingState: isLoadingWithdraw, errorState: errorWithdraw });
+  if (successWithdraw) {
+    navigation.goBack();
+  }
+
   const onSelectWithdraw = () => {
     withdraw(id);
-    navigation.popToTop();
   };
 
   const onSelectEdit = () => {
@@ -65,6 +70,9 @@ const BankAccountDetailScreen = () => {
       </ScrollView>
 
       <View style={commonStyles.STICKY_BOTTOM}>
+        {!!errorWithdraw && (
+          <Text style={{ fontSize: 12, color: colors.danger, marginBottom: 10 }}>{errorWithdraw}</Text>
+        )}
         <Button block disabled={isLoading} label="Withdraw" onPress={() => onSelectWithdraw()} />
       </View>
     </SafeAreaView>
