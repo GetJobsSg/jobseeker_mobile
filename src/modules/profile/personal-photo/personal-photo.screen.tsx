@@ -4,18 +4,27 @@ import { Asset } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { Screen, Header, IconButton, Text, Frame } from '../../../components';
 import { useMst } from '../../../store';
+import { useSuccess } from '../../../custom_hooks';
 
 const PersonalPhotoScreen = () => {
   const navigation = useNavigation();
   const [photo, setPhoto] = useState<Asset>();
   const {
-    userStore: { profileImg, uploadPersonalPhoto },
+    userStore: { profileImg, uploadPersonalPhoto, isUpdating, error },
   } = useMst();
 
   const handleUpload = () => {
     if (!photo) return;
     uploadPersonalPhoto({ profileImage: photo });
   };
+
+  const successUpload = useSuccess({ loadingState: isUpdating, errorState: error });
+  if (successUpload) {
+    // trick to remove warning
+    setTimeout(() => {
+      navigation.goBack();
+    }, 0);
+  }
 
   return (
     <Screen preset="fixed">

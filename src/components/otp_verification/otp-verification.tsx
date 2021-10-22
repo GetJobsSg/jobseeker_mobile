@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
 import { CodeField, useBlurOnFulfill } from 'react-native-confirmation-code-field';
-// import { colors } from '../../themes';
 import { Button, Text } from '..';
 import { OTPVerificationProps } from './otp-verification.props';
 import {
@@ -16,15 +15,67 @@ import {
 } from './otp-verification.style';
 
 const CELL_COUNT = 5;
+const INITIAL_COUNTDOWN_TIME = 90;
 
 const OTPVerification = (props: OTPVerificationProps) => {
-  const { errorText, title, subTitle, onConfirm /* onResendOTP */ } = props;
+  const { errorText, title, subTitle, initCountdownTimerOnmount = false, onConfirm, onResendOTP } = props;
+
   const [code, setCode] = useState('');
   const ref = useBlurOnFulfill({ value: code, cellCount: CELL_COUNT });
+
+  const [remainingSecond, setRemainingSecond] = useState(INITIAL_COUNTDOWN_TIME);
+  const timerRef = useRef(-1);
+
+  const handleStopCountdown = () => {
+    clearInterval(timerRef.current);
+    timerRef.current = -1;
+  };
+
+  const updateTime = () => {
+    setRemainingSecond((prev) => {
+      if (prev <= 0) {
+        handleStopCountdown();
+        return INITIAL_COUNTDOWN_TIME;
+      }
+      return prev - 1;
+    });
+  };
+
+  const handleStartCountdown = () => {
+    const intervalId = setInterval(() => updateTime(), 1000);
+    timerRef.current = Number(intervalId);
+  };
 
   const handleConfirmOTPCode = () => {
     if (code.length !== CELL_COUNT) return;
     onConfirm(code);
+  };
+
+  const handleResendOTP = () => {
+    handleStartCountdown();
+    onResendOTP();
+  };
+
+  useEffect(() => {
+    // start the countdown counter when page mounted
+    if (initCountdownTimerOnmount) {
+      handleStartCountdown();
+    }
+    return () => handleStopCountdown();
+  }, []);
+
+  const renderResendView = () => {
+    if (remainingSecond === INITIAL_COUNTDOWN_TIME) {
+      return (
+        <Text preset="hint">
+          Did not get your OTP?{' '}
+          <Text preset="hint" style={{ textDecorationLine: 'underline' }} onPress={handleResendOTP}>
+            Resend
+          </Text>
+        </Text>
+      );
+    }
+    return <Text preset="hint">Resend verification in {remainingSecond} seconds</Text>;
   };
 
   return (
@@ -46,16 +97,7 @@ const OTPVerification = (props: OTPVerificationProps) => {
           )}
         />
         {!!errorText && <Text style={ERROR_HINT}>Invalid code. Please try again later.</Text>}
-        {/* <Text preset="hint">
-          Did not get your OTP?{' '}
-          <Text
-            preset="hint"
-            style={{ textDecorationLine: 'underline', color: colors.darkBlue0 }}
-            onPress={onResendOTP}
-          >
-            Resend
-          </Text>
-        </Text> */}
+        {renderResendView()}
       </View>
       <Button disabled={code.length !== CELL_COUNT} label="Verify" onPress={handleConfirmOTPCode} />
     </>

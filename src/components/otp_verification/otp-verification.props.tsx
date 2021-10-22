@@ -2,8 +2,8 @@ export interface OTPVerificationProps {
   cellCount?: number;
   title?: string;
   subTitle?: string;
-  initResendCounterOnMount?: false;
+  initCountdownTimerOnmount?: boolean;
   onConfirm: (code: string) => void;
-  onResendOTP?: () => void;
+  onResendOTP: () => void;
   errorText?: string;
 }

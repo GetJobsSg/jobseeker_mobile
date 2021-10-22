@@ -31,6 +31,7 @@ const MobileEditScreen = () => {
       sendOTPError,
       // verify otp
       verifyOTP,
+      resendOTP,
       isVerifyingOTP,
       verifyOTPError,
     },
@@ -69,6 +70,8 @@ const MobileEditScreen = () => {
           subTitle="We have sent an OTP to your mobile number xxxx for verification"
           onConfirm={(code) => verifyOTP('mobile', code)}
           errorText={verifyOTPError}
+          initCountdownTimerOnmount
+          onResendOTP={() => resendOTP('mobile')}
         />
       );
     }
