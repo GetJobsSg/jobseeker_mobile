@@ -22,7 +22,7 @@ const Header = (props: HeaderProps) => {
   return (
     <View style={[headerStyle.container, containerStyle]}>
       <View style={headerStyle.leftContainer}>{leftIcon}</View>
-      <View style={headerStyle.textContainer}>
+      <View style={headerStyle.titleContainer}>
         <Text style={[headerStyle.title, color ? { color } : null]} numberOfLines={1}>
           {title}
         </Text>

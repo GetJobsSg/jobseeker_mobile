@@ -65,7 +65,6 @@ const WalletOverviewScreen = () => {
           <IconButton icon="circle_back_btn" style={commonStyles.SAFE_PADDING} onPress={() => navigation.goBack()} />
         }
       />
-
       <View
         style={[
           commonStyles.SAFE_PADDING,
