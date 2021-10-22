@@ -41,25 +41,7 @@ const ProfileHeader = () => {
     return 'title2';
   };
 
-  if (isLoading) {
-    return <ProfileHeaderPlaceholder />;
-    // return (
-    //   <View style={PROFILE_CONTAINER}>
-    //     <View style={USERINFO_WRAPPER}>
-    //       <View>
-    //         <View style={{ height: 25, width: 100, backgroundColor: '#ececec', borderRadius: 10 }} />
-    //         <View style={{ height: 20, width: 120, backgroundColor: '#ececec', borderRadius: 10, marginTop: 10 }} />
-    //       </View>
-    //       <View style={{ width: 60, height: 60, borderRadius: 60, backgroundColor: '#ececec' }} />
-    //     </View>
-    //     <View style={[STATISTIC_WRAPPER, { justifyContent: 'space-between' }]}>
-    //       <View style={{ height: 30, width: 70, backgroundColor: '#ececec', borderRadius: 10 }} />
-    //       <View style={{ height: 30, width: 70, backgroundColor: '#ececec', borderRadius: 10 }} />
-    //       <View style={{ height: 30, width: 70, backgroundColor: '#ececec', borderRadius: 10 }} />
-    //     </View>
-    //   </View>
-    // );
-  }
+  if (isLoading) return <ProfileHeaderPlaceholder />;
 
   return (
     <View style={PROFILE_CONTAINER}>
@@ -72,7 +54,7 @@ const ProfileHeader = () => {
             <Text style={SHOW_PROFILE}>View Profile</Text>
           </View>
         </TouchableWithoutFeedback>
-        <Avatar uri={profileImg} />
+        <Avatar uri={profileImg} placeholder={require('../../assets/images/profile-placeholder.png')} />
       </View>
 
       <View style={STATISTIC_WRAPPER}>
