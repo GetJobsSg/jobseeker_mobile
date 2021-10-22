@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { View } from 'react-native';
-import { Button, Header, Text, Screen, IconButton, Spinner } from '../../../components';
+import { Button, Header, Text, Screen, IconButton, Row, Spinner } from '../../../components';
 import { Routes } from '../../../navigator/routes';
 import { colors, spacing } from '../../../themes';
 import { useMst } from '../../../store';
@@ -91,20 +91,22 @@ const InboxDetails = () => {
     }
 
     return (
-      <>
-        <Button
-          style={{ width: 140, marginBottom: spacing.sm }}
-          label="Accept"
-          onPress={() => acceptJobOffer(jobId as number)}
-        />
-
-        <Button
-          style={{ width: 140 }}
-          preset="outlined"
-          label="Declined"
-          onPress={() => declineJobOffer(jobId as number)}
-        />
-      </>
+      <Row>
+        <View style={{ flex: 1 }}>
+          <Button style={{ width: '100%' }} label="Accept" onPress={() => acceptJobOffer(jobId as number)} />
+        </View>
+        <View style={{ width: 10 }} />
+        <View style={{ flex: 1 }}>
+          <Button
+            block
+            preset="outlined"
+            style={{ width: '100%', flex: 1, borderColor: colors.danger }}
+            onPress={() => declineJobOffer(jobId as number)}
+          >
+            <Text style={{ color: colors.danger, fontWeight: 'bold' }}>Declined</Text>
+          </Button>
+        </View>
+      </Row>
     );
   };
 
@@ -124,7 +126,7 @@ const InboxDetails = () => {
             <Text style={{ fontWeight: 'bold', color: colors.accent }}>{formattedHourlyRate}</Text>
           </View>
 
-          <View style={{ marginTop: spacing.sm }}>{renderActionInfo()}</View>
+          <View style={{ marginTop: spacing.xl }}>{renderActionInfo()}</View>
         </View>
       );
     }

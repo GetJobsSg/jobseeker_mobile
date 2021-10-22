@@ -1,4 +1,4 @@
-import { TextStyle, ViewStyle } from 'react-native';
+import { TextStyle, ViewStyle, Platform } from 'react-native';
 import { colors, fontSize, spacing } from '../../../themes';
 
 export const CONTAINER_WRAPPER = {
@@ -15,7 +15,7 @@ export const CARD_CONTAINER = {
   backgroundColor: colors.white,
   borderWidth: 0.2,
   borderColor: colors.lightGrey1,
-  shadowColor: colors.black,
+  shadowColor: Platform.OS === 'ios' ? colors.lightGrey1 : colors.black,
   shadowOpacity: 1,
   elevation: 2,
   shadowOffset: { width: 0, height: 4 },
