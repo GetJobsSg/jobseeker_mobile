@@ -97,7 +97,6 @@ const JobDetails = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
       <Header
-        style={commonStyles.SAFE_PADDING}
         title="Job Details"
         leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />}
       />

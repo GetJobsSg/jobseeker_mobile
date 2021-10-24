@@ -1,9 +1,9 @@
 import React, { useEffect, useCallback } from 'react';
-import { FlatList, RefreshControl, ListRenderItem, View } from 'react-native';
+import { FlatList, RefreshControl, ListRenderItem } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../../navigator/routes';
-import { Text, Row, Header, Screen, IconButton, Card, Button } from '../../../components';
+import { Text, Row, Header, FixedScreen, IconButton, Card, Button } from '../../../components';
 import { colors, spacing } from '../../../themes';
 import { useMst } from '../../../store';
 import { BankAccountInfo } from '../../../store/bank-account-info';
@@ -55,16 +55,23 @@ const WithdrawalScreen = () => {
   );
 
   return (
-    <Screen preset="fixed" refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />}>
-      <Header title="Withdraw" leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />} />
-      <Text preset="header" style={{ marginBottom: 20 }}>
-        Select a Bank Account
-      </Text>
-      <FlatList data={bankAccounts.slice()} renderItem={renderItem} />
+    <FixedScreen
+      appBar={
+        <Header title="Withdraw" leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />} />
+      }
+    >
+      <FlatList
+        refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />}
+        ListHeaderComponent={
+          <Text preset="header" style={{ marginBottom: 20 }}>
+            Select a Bank Account
+          </Text>
+        }
+        data={bankAccounts.slice()}
+        renderItem={renderItem}
+      />
       <Button block label="Add Account" onPress={() => onSelectAddBankAccount()} />
-
-      <View style={{ marginVertical: 20 }} />
-    </Screen>
+    </FixedScreen>
   );
 };
 

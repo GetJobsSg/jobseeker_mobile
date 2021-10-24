@@ -4,7 +4,7 @@ import { spacing } from '../../themes';
 export const CONTAINER = {
   flexDirection: 'row',
   justifyContent: 'space-between',
-  paddingBottom: spacing.xl,
+  paddingVertical: spacing.md,
 } as ViewStyle;
 
 export const LEFT_WRAPPER = {

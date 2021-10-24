@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { View } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { CodeField, useBlurOnFulfill } from 'react-native-confirmation-code-field';
-import { Button, Header, IconButton, Screen, Text } from '../../../components';
+import { Button, Header, IconButton, ScrollingScreen, Text } from '../../../components';
 import { CELL_ROOT, CELL, CELL_FOCUSED, CELL_TEXT } from './punch-clock.styles';
 import { JobParamsList } from '../types';
 import { Routes } from '../../../navigator/routes';
@@ -51,8 +51,9 @@ const PunchClock = () => {
   };
 
   return (
-    <Screen>
-      <Header leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />} />
+    <ScrollingScreen
+      appBar={<Header leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />} />}
+    >
       <Text preset="header">{headerTitle}</Text>
       <View
         style={{
@@ -100,7 +101,7 @@ const PunchClock = () => {
         disabled={isLoadingClockIn || isLoadingClockOut}
         onPress={() => handleClockInOut(code)}
       />
-    </Screen>
+    </ScrollingScreen>
   );
 };
 

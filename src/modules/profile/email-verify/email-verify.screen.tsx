@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { Routes } from '../../../navigator/routes';
 import { useSuccess } from '../../../custom_hooks';
 import { useMst } from '../../../store';
-import { Screen, Header, IconButton, OtpVerification } from '../../../components';
+import { FixedScreen, Header, IconButton, OtpVerification } from '../../../components';
 import { ProfileParamList } from '../types';
 
 type ScreenRouteProp = RouteProp<ProfileParamList, Routes.verifyEmail>;
@@ -28,11 +28,14 @@ const EmailVerifyScreen = () => {
   }, [navigation, successVerifyOTP]);
 
   return (
-    <Screen preset="fixed">
-      <Header
-        title="Email Verification"
-        leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />}
-      />
+    <FixedScreen
+      appBar={
+        <Header
+          title="Email Verification"
+          leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />}
+        />
+      }
+    >
       <OtpVerification
         title="Verify your email address"
         subTitle={`We have sent an OTP to ${email}. Please insert the passcode for verification`}
@@ -40,7 +43,7 @@ const EmailVerifyScreen = () => {
         onResendOTP={() => resendOTP('email')}
         errorText={verifyOTPError}
       />
-    </Screen>
+    </FixedScreen>
   );
 };
 

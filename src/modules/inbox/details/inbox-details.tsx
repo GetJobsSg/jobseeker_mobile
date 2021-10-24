@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { View } from 'react-native';
-import { Button, Header, Text, Screen, IconButton, Row, Spinner } from '../../../components';
+import { Button, Header, Text, ScrollingScreen, IconButton, Row, Spinner } from '../../../components';
 import { Routes } from '../../../navigator/routes';
 import { colors, spacing } from '../../../themes';
 import { useMst } from '../../../store';
@@ -139,9 +139,11 @@ const InboxDetails = () => {
   }
 
   return (
-    <Screen preset="scroll">
-      <Header title="Message" leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />} />
-
+    <ScrollingScreen
+      appBar={
+        <Header title="Message" leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />} />
+      }
+    >
       <Text preset="title2" style={{ marginTop: spacing.md }}>
         {title}
       </Text>
@@ -153,7 +155,7 @@ const InboxDetails = () => {
       <Text preset="hint" style={{ marginTop: spacing.xl }}>
         {fullDateReceived}
       </Text>
-    </Screen>
+    </ScrollingScreen>
   );
 };
 

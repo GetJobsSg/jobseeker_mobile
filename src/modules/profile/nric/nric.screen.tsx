@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { observer } from 'mobx-react-lite';
 import { useFormik } from 'formik';
 
-import { Screen, Frame, Header, IconButton, Text, TextField } from '../../../components';
+import { ScrollingScreen, Frame, Header, IconButton, Text, TextField } from '../../../components';
 import { useSuccess } from '../../../custom_hooks';
 import { useMst } from '../../../store';
 import { NricFormData } from '../types';
@@ -37,13 +37,15 @@ const NricScreen = () => {
   if (isUploadSuccess) setTimeout(() => navigation.goBack(), 0);
 
   return (
-    <Screen preset="scroll" unsafeArea={['top', 'bottom']}>
-      <Header
-        title="NRIC / FIN"
-        leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />}
-        rightLabel={dirty && isValid ? <Text onPress={handleSubmit}>Save</Text> : null}
-      />
-
+    <ScrollingScreen
+      appBar={
+        <Header
+          title="NRIC / FIN"
+          leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />}
+          rightLabel={dirty && isValid ? <Text onPress={handleSubmit}>Save</Text> : null}
+        />
+      }
+    >
       <TextField
         error={{
           shown: !!errors.nricNo,
@@ -71,7 +73,7 @@ const NricScreen = () => {
           setFieldValue('nricBack', imageAsset);
         }}
       />
-    </Screen>
+    </ScrollingScreen>
   );
 };
 

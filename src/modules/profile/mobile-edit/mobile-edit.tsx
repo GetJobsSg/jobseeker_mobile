@@ -3,7 +3,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
-import { Button, Screen, Header, IconButton, PhoneInput, Text, OtpVerification } from '../../../components';
+import { Button, FixedScreen, Header, IconButton, PhoneInput, Text, OtpVerification } from '../../../components';
 import { useSuccess } from '../../../custom_hooks';
 import { Routes } from '../../../navigator/routes';
 import { useMst } from '../../../store';
@@ -96,13 +96,16 @@ const MobileEditScreen = () => {
   };
 
   return (
-    <Screen preset="fixed">
-      <Header
-        title="Mobile Number"
-        leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />}
-      />
+    <FixedScreen
+      appBar={
+        <Header
+          title="Mobile Number"
+          leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />}
+        />
+      }
+    >
       {renderContent()}
-    </Screen>
+    </FixedScreen>
   );
 };
 

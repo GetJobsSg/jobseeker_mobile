@@ -51,6 +51,10 @@ export const presets = {
       height: '100%',
     } as ViewStyle,
   },
+
+  headline: {
+    container: {},
+  },
 };
 
 export type HeaderPresets = keyof typeof presets;

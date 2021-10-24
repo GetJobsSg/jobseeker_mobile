@@ -19,7 +19,7 @@ const FixedScreen: React.FC<IFixedScreenProps> = (props: IFixedScreenProps) => {
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           style={{ flex: 1, backgroundColor: colors.white }}
         >
-          <View style={{ paddingHorizontal: spacing.lg }}>{children}</View>
+          <View style={{ paddingHorizontal: spacing.lg, flex: 1 }}>{children}</View>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
     </SafeArea>

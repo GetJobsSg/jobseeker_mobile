@@ -3,9 +3,8 @@ import { View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Routes } from '../../../navigator/routes';
-import { Header, Screen, IconButton, Text, Icon, Touchable } from '../../../components';
+import { Header, ScrollingScreen, IconButton, Text, Icon, Touchable } from '../../../components';
 import { colors, spacing, fontSize } from '../../../themes';
-import { commonStyles } from '../../../common';
 import { useMst } from '../../../store';
 import { WalletTransactionDetailsProps } from '../types';
 
@@ -53,14 +52,10 @@ const TransactionDetailScreen = () => {
   };
 
   return (
-    <Screen preset="scroll" addHorizontalPadding={false}>
-      <Header
-        leftIcon={
-          <IconButton icon="circle_back_btn" style={commonStyles.SAFE_PADDING} onPress={() => navigation.goBack()} />
-        }
-      />
-
-      <View style={[commonStyles.SAFE_PADDING, { marginTop: 20 }]}>
+    <ScrollingScreen
+      appBar={<Header leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />} />}
+    >
+      <View style={{ marginTop: 20 }}>
         <Text preset="title3" style={{ fontWeight: 'bold' }}>
           {isPositiveAmount ? "You've received" : 'We have deducted'}
         </Text>
@@ -111,7 +106,7 @@ const TransactionDetailScreen = () => {
           <Text>#{String(transactionId).padStart(10, '0')}</Text>
         </View>
       </View>
-    </Screen>
+    </ScrollingScreen>
   );
 };
 

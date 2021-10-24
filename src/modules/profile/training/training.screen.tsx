@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { fontSize } from '../../../themes';
-import { Screen, Header, IconButton, Text, RadioGroup } from '../../../components';
+import { ScrollingScreen, Header, IconButton, Text, RadioGroup } from '../../../components';
 import { TrainingQuestion } from '../types';
 import { useMst } from '../../../store';
 import { useSuccess } from '../../../custom_hooks';
@@ -53,12 +53,15 @@ const TrainingScreen = () => {
   };
 
   return (
-    <Screen preset="fixed">
-      <Header
-        title="Training"
-        leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />}
-        rightLabel={checkQuestionsComplete() ? <Text onPress={handleComplete}>Complete</Text> : null}
-      />
+    <ScrollingScreen
+      appBar={
+        <Header
+          title="Training"
+          leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />}
+          rightLabel={checkQuestionsComplete() ? <Text onPress={handleComplete}>Complete</Text> : null}
+        />
+      }
+    >
       {questionsArr.map((data: TrainingQuestion, index: number) => (
         <RadioGroup
           key={index}
@@ -75,7 +78,7 @@ const TrainingScreen = () => {
       <Text preset="hint" style={{ marginTop: 10 }}>
         Please note that you will have to answer &apos;Yes&apos; to all of the above in order to complete the training.
       </Text>
-    </Screen>
+    </ScrollingScreen>
   );
 };
 
