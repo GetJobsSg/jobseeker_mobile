@@ -24,6 +24,7 @@ export const PHONE_INPUT: TextStyle = {
   borderColor: colors.lightGrey1,
   fontSize: fontSize.sm,
   fontWeight: '600',
+  color: colors.black,
 };
 
 export const ERROR_HINTS: TextStyle = {

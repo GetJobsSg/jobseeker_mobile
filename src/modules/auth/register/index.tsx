@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { Formik, FormikHelpers } from 'formik';
 import Toast from 'react-native-toast-message';
 import { useMst } from '../../../store';
-import { Button, IconButton, Header, Screen, Text, TextField } from '../../../components';
+import { Button, IconButton, Header, ScrollingScreen, Text, TextField } from '../../../components';
 import { RegisterFormData, RegisterProps } from './types';
 import { usePrevious } from '../../../custom_hooks';
 import { registerValidationSchema } from './validation';
@@ -81,9 +81,9 @@ const RegisterScreen = observer((props: RegisterProps) => {
   };
 
   return (
-    <Screen preset="scroll">
-      <Header leftIcon={<IconButton icon={renderHeaderBtnIcon} onPress={() => props.navigation.goBack()} />} />
-
+    <ScrollingScreen
+      appBar={<Header leftIcon={<IconButton icon={renderHeaderBtnIcon} onPress={() => props.navigation.goBack()} />} />}
+    >
       {!success && (
         <Formik
           validateOnChange={validationRequred}
@@ -174,7 +174,7 @@ const RegisterScreen = observer((props: RegisterProps) => {
           <Button preset="outlined" label="Login Now" onPress={handlePostRegisterLogin} style={{ marginTop: 10 }} />
         </View>
       )}
-    </Screen>
+    </ScrollingScreen>
   );
 });
 

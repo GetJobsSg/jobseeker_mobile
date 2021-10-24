@@ -7,7 +7,6 @@ import { useFormik } from 'formik';
 import { Routes } from '../../../navigator/routes';
 import { useSuccess } from '../../../custom_hooks';
 import {
-  Screen,
   Text,
   Header,
   IconButton,
@@ -16,7 +15,9 @@ import {
   Selector,
   Sheet,
   Touchable,
+  ScrollingScreen,
 } from '../../../components';
+
 import { genderOptions, yesNoOptions } from '../../../constants/options';
 import { useMst } from '../../../store';
 import { spacing } from '../../../themes';
@@ -91,104 +92,104 @@ const PersonalInfo = () => {
   };
 
   return (
-    <Screen>
-      <View style={{ paddingBottom: 100 }}>
+    <ScrollingScreen
+      appBar={
         <Header
           leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />}
           rightLabel={dirty ? <Text onPress={handleSubmit}>Save</Text> : null}
           title="Personal Information"
         />
+      }
+    >
+      <Selector
+        actionLabel={!emailVerified ? 'Verify' : ''}
+        label="Email"
+        disabled={emailVerified}
+        onPress={() => navigation.navigate(Routes.verifyEmail, { email })}
+        value={email}
+      />
 
-        <Selector
-          actionLabel={!emailVerified ? 'Verify' : ''}
-          label="Email"
-          disabled={emailVerified}
-          onPress={() => navigation.navigate(Routes.verifyEmail, { email })}
-          value={email}
-        />
+      <Selector
+        actionLabel={mobile && !mobileVerified ? 'Verify' : 'Edit'}
+        label="Mobile"
+        onPress={() => navigation.navigate(Routes.editMobile, { mobile })}
+        value={mobile}
+      />
 
-        <Selector
-          actionLabel={mobile && !mobileVerified ? 'Verify' : 'Edit'}
-          label="Mobile"
-          onPress={() => navigation.navigate(Routes.editMobile, { mobile })}
-          value={mobile}
-        />
+      <TextField
+        value={values.firstName}
+        error={{
+          shown: touched.firstName && errors.firstName,
+          message: errors.firstName,
+        }}
+        label="First Name"
+        onChangeText={handleChange('firstName')}
+      />
 
-        <TextField
-          value={values.firstName}
-          error={{
-            shown: touched.firstName && errors.firstName,
-            message: errors.firstName,
-          }}
-          label="First Name"
-          onChangeText={handleChange('firstName')}
-        />
+      <TextField
+        error={{
+          shown: touched.lastName && errors.lastName,
+          message: errors.lastName,
+        }}
+        value={values.lastName}
+        label="Last Name"
+        onChangeText={handleChange('lastName')}
+      />
 
-        <TextField
-          error={{
-            shown: touched.lastName && errors.lastName,
-            message: errors.lastName,
-          }}
-          value={values.lastName}
-          label="Last Name"
-          onChangeText={handleChange('lastName')}
-        />
+      <Selector
+        label="Birth Date"
+        value={values.birthDate ? moment(values.birthDate).format(DD_MMM_YYYY) : ''}
+        placeholder="Select your birth date"
+        error={{
+          shown: touched.birthDate && errors.birthDate,
+          message: errors.birthDate,
+        }}
+        onPress={() => birthRef.current.open()}
+      />
+      <Sheet type="datePicker" onOK={(data) => setFieldValue('birthDate', data.toISOString())} ref={birthRef} />
 
-        <Selector
-          label="Birth Date"
-          value={values.birthDate ? moment(values.birthDate).format(DD_MMM_YYYY) : ''}
-          placeholder="Select your birth date"
-          error={{
-            shown: touched.birthDate && errors.birthDate,
-            message: errors.birthDate,
-          }}
-          onPress={() => birthRef.current.open()}
+      {/* TODO: create picker component */}
+      <Selector
+        label="Education Level"
+        value={getEducationLevelVal()}
+        placeholder="Select an education level"
+        error={{
+          shown: touched.educationLevelID && errors.educationLevelID,
+          message: errors.educationLevelID,
+        }}
+        onPress={() => educationLevelRef.current.open()}
+      />
+      <Sheet ref={educationLevelRef}>
+        <FlatList
+          data={educationLevel}
+          renderItem={({ item }) => renderEducationLevelItem(item as Education, setFieldValue)}
         />
-        <Sheet type="datePicker" onOK={(data) => setFieldValue('birthDate', data.toISOString())} ref={birthRef} />
+      </Sheet>
 
-        {/* TODO: create picker component */}
-        <Selector
-          label="Education Level"
-          value={getEducationLevelVal()}
-          placeholder="Select an education level"
-          error={{
-            shown: touched.educationLevelID && errors.educationLevelID,
-            message: errors.educationLevelID,
-          }}
-          onPress={() => educationLevelRef.current.open()}
-        />
-        <Sheet ref={educationLevelRef}>
-          <FlatList
-            data={educationLevel}
-            renderItem={({ item }) => renderEducationLevelItem(item as Education, setFieldValue)}
-          />
-        </Sheet>
+      <RadioGroup
+        error={{
+          message: errors.gender,
+          shown: touched.gender && errors.gender,
+        }}
+        label="Gender"
+        alignment="horizontal"
+        value={values.gender}
+        onChange={(selected) => setFieldValue('gender', selected.value)}
+        options={genderOptions}
+      />
 
-        <RadioGroup
-          error={{
-            message: errors.gender,
-            shown: touched.gender && errors.gender,
-          }}
-          label="Gender"
-          alignment="horizontal"
-          value={values.gender}
-          onChange={(selected) => setFieldValue('gender', selected.value)}
-          options={genderOptions}
-        />
-
-        <RadioGroup
-          error={{
-            message: errors.vaccinated,
-            shown: touched.vaccinated && errors.vaccinated,
-          }}
-          label="Are you fully vaccinated?"
-          alignment="vertical"
-          value={values.vaccinated}
-          onChange={(selected) => setFieldValue('vaccinated', selected.value)}
-          options={yesNoOptions}
-        />
-      </View>
-    </Screen>
+      <RadioGroup
+        error={{
+          message: errors.vaccinated,
+          shown: touched.vaccinated && errors.vaccinated,
+        }}
+        label="Are you fully vaccinated?"
+        alignment="vertical"
+        value={values.vaccinated}
+        onChange={(selected) => setFieldValue('vaccinated', selected.value)}
+        options={yesNoOptions}
+      />
+    </ScrollingScreen>
   );
 };
 
