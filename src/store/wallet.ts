@@ -3,6 +3,12 @@ import { withErrorHandler, withRootStore } from './extensions';
 import { WalletResponse } from '../modules/wallet/types';
 import * as apis from '../apis';
 
+function sleep() {
+  return new Promise<void>((resolve) => {
+    setTimeout(() => resolve(), 500);
+  });
+}
+
 export const WalletStore = types
   .model('WalletStore')
   .props({
@@ -44,6 +50,7 @@ export const WalletStore = types
         yield apis.getWallet();
         self.getWallet();
         self.rootStore.transactionStore.getAllTransactions();
+        yield sleep(); // TRICK TO FIX: give some time for state to update to resolve popToTop not happen as expected
       } catch (e) {
         self.errorWithdraw = self.getErrMsg(e);
       } finally {

@@ -32,7 +32,7 @@ const BankAccountDetailScreen = () => {
 
   const successWithdraw = useSuccess({ loadingState: isLoadingWithdraw, errorState: errorWithdraw });
   if (successWithdraw) {
-    navigation.goBack();
+    navigation.popToTop();
   }
 
   const onSelectWithdraw = () => {
