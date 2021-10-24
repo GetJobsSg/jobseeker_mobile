@@ -9,7 +9,7 @@ const isIOS = Platform.OS === 'ios';
 const avoidViewBehaviour = isIOS ? 'padding' : undefined;
 
 /**
- * TODO: refactor screen component to FixedScreen and ScrollingScreen component
+ * TODO: deprecate this component
  */
 
 const Screen = (props: ScreenProps) => {

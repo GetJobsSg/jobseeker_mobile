@@ -87,7 +87,7 @@ const AddEditBankAccountScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
-      <View style={[{ flex: 1 }, commonStyles.SAFE_PADDING]}>
+      <View style={[{ flex: 1 }]}>
         <Formik
           validationSchema={bankAccountValidation}
           validateOnChange
@@ -102,7 +102,7 @@ const AddEditBankAccountScreen = () => {
                 rightLabel={dirty || id > 0 ? <Text onPress={handleSubmit}>Save</Text> : null}
               />
 
-              <View style={{ marginTop: spacing.md }}>
+              <View style={[commonStyles.SAFE_PADDING, { marginTop: spacing.md }]}>
                 <TextField
                   value={values.accountNo}
                   error={{

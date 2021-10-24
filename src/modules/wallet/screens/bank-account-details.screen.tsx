@@ -47,12 +47,11 @@ const BankAccountDetailScreen = () => {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
       <Header
         title="Withdraw"
-        style={commonStyles.SAFE_PADDING}
         leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />}
         rightLabel={<Text onPress={() => onSelectEdit()}>Edit</Text>}
       />
 
-      <ScrollView style={commonStyles.SAFE_PADDING}>
+      <ScrollView style={[commonStyles.SAFE_PADDING, { marginTop: 10 }]}>
         <Text preset="title2" style={{ color: colors.textSecondary }}>
           Account No.
         </Text>
