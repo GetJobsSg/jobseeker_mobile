@@ -1,14 +1,19 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, NativeSafeAreaViewProps } from 'react-native-safe-area-context';
 import { colors } from '../../../themes';
 
-interface ISafeArea {
+interface ISafeArea extends NativeSafeAreaViewProps {
   children: React.ReactNode | React.ReactNode[];
+  bgColor?: string;
 }
 
 const SafeArea: React.FC<ISafeArea> = (props: ISafeArea) => {
-  const { children } = props;
-  return <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>{children}</SafeAreaView>;
+  const { children, bgColor = colors.white, ...rest } = props;
+  return (
+    <SafeAreaView {...rest} style={{ flex: 1, backgroundColor: bgColor }}>
+      {children}
+    </SafeAreaView>
+  );
 };
 
 export default SafeArea;

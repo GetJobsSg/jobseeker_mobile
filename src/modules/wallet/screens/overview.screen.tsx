@@ -3,7 +3,7 @@ import { View, FlatList, RefreshControl, ListRenderItem } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../../navigator/routes';
-import { Text, Header, Screen, Icon, IconButton, Touchable, Row } from '../../../components';
+import { Text, Header, FixedScreen, Icon, IconButton, Touchable, Row } from '../../../components';
 import { colors, fontSize, spacing } from '../../../themes';
 import { useMst } from '../../../store';
 import { commonStyles } from '../../../common';
@@ -38,7 +38,7 @@ const WalletOverviewScreen = () => {
 
   const renderItem: ListRenderItem<TransactionInfo> = ({ item }) => (
     <Touchable onPress={onSelectTransaction(item.id)}>
-      <View style={[commonStyles.SAFE_PADDING, { paddingBottom: spacing.md }]}>
+      <View style={[commonStyles.SAFE_PADDING, { paddingVertical: spacing.md }]}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5 }}>
           <View>
             <Text preset="bold">{item.typeName}</Text>
@@ -53,18 +53,8 @@ const WalletOverviewScreen = () => {
     </Touchable>
   );
 
-  return (
-    <Screen
-      preset="fixed"
-      addHorizontalPadding={false}
-      refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />}
-    >
-      <Header
-        title="Wallet"
-        leftIcon={
-          <IconButton icon="circle_back_btn" style={commonStyles.SAFE_PADDING} onPress={() => navigation.goBack()} />
-        }
-      />
+  const renderWalletBalance = () => (
+    <>
       <View
         style={[
           commonStyles.SAFE_PADDING,
@@ -99,21 +89,27 @@ const WalletOverviewScreen = () => {
           </Touchable>
         </Row>
       </View>
+      <Text preset="title2" style={[commonStyles.SAFE_PADDING, { marginTop: 20, marginBottom: 10 }]}>
+        Transactions
+      </Text>
+    </>
+  );
 
-      <View style={{ flex: 1, marginTop: 20 }}>
-        <Text preset="title2" style={[commonStyles.SAFE_PADDING, { marginBottom: 20 }]}>
-          Transactions
-        </Text>
-
-        {transactions.length ? (
-          <FlatList data={transactions} renderItem={renderItem} />
-        ) : (
-          <Text preset="small" style={commonStyles.SAFE_PADDING}>
-            No transaction
-          </Text>
-        )}
-      </View>
-    </Screen>
+  return (
+    <FixedScreen
+      px={0}
+      appBar={
+        <Header title="Wallet" leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />} />
+      }
+    >
+      <FlatList
+        contentContainerStyle={{ flex: 1 }}
+        ListHeaderComponent={renderWalletBalance()}
+        refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />}
+        data={transactions}
+        renderItem={renderItem}
+      />
+    </FixedScreen>
   );
 };
 

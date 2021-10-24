@@ -1,13 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
-import { View, Text, RefreshControl } from 'react-native';
+import { View, Text, RefreshControl, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { IconTypes } from '../../../components/icon/icons';
-import { Screen, ProfileHeader, ListTile } from '../../../components';
+import { ProfileHeader, ListTile, BackgroundView, FixedScreen } from '../../../components';
 import LoginHeader from './login-header';
 import { useMst } from '../../../store';
-import { colors } from '../../../themes';
-import { commonStyles } from '../../../common';
+import { colors, spacing } from '../../../themes';
 import { IVerificationStatus } from '../../../constants/types';
 import { Routes } from '../../../navigator/routes';
 
@@ -24,7 +23,7 @@ const Account = () => {
       getUser();
       getEducationLevel();
     }
-  }, [getUser, isAuthenticated]);
+  }, [getUser, getEducationLevel, isAuthenticated]);
 
   const handleRefresh = () => {
     if (isAuthenticated) {
@@ -70,16 +69,16 @@ const Account = () => {
 
   const verification = getVerificationInfo();
 
-  return (
-    <Screen
-      refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />}
-      preset={isAuthenticated ? 'scroll' : 'fixed'}
-      addHorizontalPadding={false}
-    >
-      {isAuthenticated ? (
+  if (isAuthenticated) {
+    return (
+      <BackgroundView
+        scrollViewProps={{
+          refreshControl: <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} tintColor={colors.white} />,
+        }}
+      >
         <View>
           <ProfileHeader />
-          <View style={commonStyles.SAFE_PADDING}>
+          <View style={{ paddingHorizontal: spacing.lg }}>
             <ListTile
               leadingIcon={verification.icon}
               description={verification.description}
@@ -93,12 +92,6 @@ const Account = () => {
               title="Wallet"
               onPress={() => navigation.navigate(Routes.wallet_stack, { screen: Routes.wallet_overview })}
             />
-            {/* <ListTile
-              leadingIcon="ic_job_preferences"
-              traillingIcons={['ic_arrow_right']}
-              title="Job Preferences"
-              onPress={() => {}}
-            /> */}
             <ListTile
               leadingIcon="ic_settings"
               traillingIcons={['ic_arrow_right']}
@@ -107,12 +100,15 @@ const Account = () => {
             />
           </View>
         </View>
-      ) : (
-        <View style={commonStyles.CONTAINER}>
-          <LoginHeader />
-        </View>
-      )}
-    </Screen>
+      </BackgroundView>
+    );
+  }
+
+  return (
+    <FixedScreen>
+      <StatusBar barStyle="dark-content" />
+      <LoginHeader />
+    </FixedScreen>
   );
 };
 

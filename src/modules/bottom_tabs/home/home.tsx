@@ -4,9 +4,9 @@ import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../../navigator/routes';
 import Header from './header';
-import { Text, InfoCard, Screen } from '../../../components';
+import { BackgroundView, Text, InfoCard } from '../../../components';
 import { commonStyles } from '../../../common';
-import { spacing } from '../../../themes';
+import { colors, spacing } from '../../../themes';
 import { useMst } from '../../../store';
 
 const HomeScreen = () => {
@@ -40,14 +40,20 @@ const HomeScreen = () => {
   };
 
   return (
-    <Screen
-      preset="scroll"
-      addHorizontalPadding={false}
-      refreshControl={<RefreshControl refreshing={isLoadingRecentJobs} onRefresh={handleRefresh} />}
+    <BackgroundView
+      scrollViewProps={{
+        refreshControl: (
+          <RefreshControl
+            refreshing={isLoadingRecentJobs}
+            onRefresh={handleRefresh}
+            tintColor={colors.white}
+            style={{ backgroundColor: colors.primary }}
+          />
+        ),
+      }}
     >
       <Header />
-
-      <View style={commonStyles.SAFE_MARGIN}>
+      <View style={[commonStyles.SAFE_MARGIN]}>
         <Text preset="title2">Jobs Posted</Text>
         {recentJobs.length === 0 ? (
           <Text preset="hint" style={{ marginTop: spacing.md }}>
@@ -68,7 +74,7 @@ const HomeScreen = () => {
           ))
         )}
       </View>
-    </Screen>
+    </BackgroundView>
   );
 };
 

@@ -16,7 +16,7 @@ export { default as ProfileHeader } from './profile_header';
 export { default as RadioGroup } from './radio_group';
 export { default as Row } from './row';
 export { default as Screen } from './screen';
-export { SafeArea, FixedScreen, ScrollingScreen } from './screen';
+export { SafeArea, BackgroundView, FixedScreen, ScrollingScreen } from './screen';
 export { default as Sheet } from './sheet';
 export { default as Selector } from './selector';
 export { default as Spinner } from './spinner';
