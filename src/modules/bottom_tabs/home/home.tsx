@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import { RefreshControl, View } from 'react-native';
+import { RefreshControl, StatusBar, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../../navigator/routes';
@@ -52,6 +52,7 @@ const HomeScreen = () => {
         ),
       }}
     >
+      <StatusBar barStyle="light-content" />
       <Header />
       <View style={[commonStyles.SAFE_MARGIN]}>
         <Text preset="title2">Jobs Posted</Text>
