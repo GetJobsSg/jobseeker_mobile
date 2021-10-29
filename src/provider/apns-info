@@ -1,0 +1,3 @@
+Please take not that p8 file is generated from apple developer
+Find out more authKeys @https://developer.apple.com/account/resources/authkeys/list
+APNS authKey needs to be uploaded to firebase cloud messaging in order for ios push notification to work
