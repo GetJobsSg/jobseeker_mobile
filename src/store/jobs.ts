@@ -63,6 +63,7 @@ export const JobStore = types
           description: data.job.company.desc,
           logo: data.job.company.logo_img,
         },
+        applicationStatusId: data.job_application_status_id,
       };
     },
   }))
@@ -112,6 +113,7 @@ export const JobStore = types
         if (!res?.data) return;
 
         res.data.forEach((item) => {
+          console.log(self.transformToState(item));
           self.appliedJobs.push(self.transformToState(item));
         });
       } catch (e) {

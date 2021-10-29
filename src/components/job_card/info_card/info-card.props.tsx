@@ -3,6 +3,7 @@ export interface InfoCardProps {
   companyName: string;
   location: string;
   onPress: () => void;
+  applicationStatusId?: number;
   rate: string;
   date: string;
   time: string;

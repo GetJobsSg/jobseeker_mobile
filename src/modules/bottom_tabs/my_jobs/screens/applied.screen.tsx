@@ -23,6 +23,7 @@ const AppliedScreen = () => {
 
   const renderItem: ListRenderItem<JobInfo> = ({ item }) => (
     <InfoCard
+      applicationStatusId={item.applicationStatusId}
       companyName={item.company.name}
       date={item.formattedDate}
       location={item.location.address}

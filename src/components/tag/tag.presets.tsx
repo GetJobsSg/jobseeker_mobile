@@ -22,6 +22,17 @@ export const presets = {
       fontSize: fontSize.xxs,
     } as TextStyle,
   },
+  secondary: {
+    container: {
+      ...BASE,
+      backgroundColor: colors.lightGrey0,
+      borderColor: colors.lightGrey2,
+    } as ViewStyle,
+    text: {
+      color: colors.textLight,
+      fontSize: fontSize.xxs,
+    } as TextStyle,
+  },
 };
 
 export type TagPresets = keyof typeof presets;

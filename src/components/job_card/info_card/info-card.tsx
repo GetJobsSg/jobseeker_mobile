@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import { ApplicationStatus } from '../../../constants/types';
 import { Icon, Row, Tag, Text, Touchable } from '../..';
 import { InfoCardProps } from './info-card.props';
 import {
@@ -11,9 +12,16 @@ import {
   CARD_LOCATION,
   CARD_TITLE,
 } from './info-card.styles';
+import { capitalise } from '../../../utils/misc';
 
 const InfoCard = (props: InfoCardProps) => {
-  const { title, companyName, location, onPress, rate, date, time } = props;
+  const { applicationStatusId, title, companyName, location, onPress, rate, date, time } = props;
+
+  const getApplicationStatusLabel = () => {
+    if (applicationStatusId === undefined) return '';
+    if (applicationStatusId === ApplicationStatus.PENDING) return 'Pending Offer';
+    return capitalise(ApplicationStatus[applicationStatusId]);
+  };
 
   return (
     <View style={CONTAINER_WRAPPER}>
@@ -32,6 +40,11 @@ const InfoCard = (props: InfoCardProps) => {
               <Text style={CARD_AMOUNT}>{rate}</Text>
             </View>
           </Row>
+          {applicationStatusId !== undefined && (
+            <Row>
+              <Tag preset="secondary" label={getApplicationStatusLabel()} />
+            </Row>
+          )}
           <Row>
             <Tag label={date} />
             <Tag label={time} />
