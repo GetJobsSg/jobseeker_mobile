@@ -33,7 +33,7 @@ const InboxItem = (props: InboxItemProps) => {
     : ({ fontWeight: '400', color: colors.black } as TextStyle);
 
   return (
-    <TouchableOpacity style={{ paddingVertical: spacing.md }} onPress={handleOnPress} activeOpacity={0.6}>
+    <TouchableOpacity style={{ padding: spacing.md }} onPress={handleOnPress} activeOpacity={0.6}>
       <Row style={{ marginBottom: 0 }}>
         <Icon
           icon="inbox_message"

@@ -50,6 +50,7 @@ const InboxScreen = () => {
           Inbox
         </Text>
       }
+      px={0}
     >
       {inboxMessages.length === 0 ? (
         <Text style={{ paddingHorizontal: spacing.md }}>No Message</Text>
