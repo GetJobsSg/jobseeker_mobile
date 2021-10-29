@@ -5,7 +5,7 @@ import { colors, spacing } from '../../../themes';
 import { IScrollingScreenProps } from './scrolling-screen.props';
 
 const ScrollingScreen: React.FC<IScrollingScreenProps> = (props: IScrollingScreenProps) => {
-  const { children, appBar, scrollViewProps } = props;
+  const { children, appBar, scrollViewProps, px = spacing.lg } = props;
   return (
     <SafeArea>
       {appBar}
@@ -15,7 +15,7 @@ const ScrollingScreen: React.FC<IScrollingScreenProps> = (props: IScrollingScree
       >
         <ScrollView
           style={{ flex: 1, backgroundColor: colors.white }}
-          contentContainerStyle={{ paddingHorizontal: spacing.lg }}
+          contentContainerStyle={{ paddingHorizontal: px }}
           {...scrollViewProps}
         >
           <View>{children}</View>

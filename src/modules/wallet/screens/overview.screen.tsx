@@ -3,7 +3,7 @@ import { View, FlatList, RefreshControl, ListRenderItem } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../../navigator/routes';
-import { Text, Header, FixedScreen, Icon, IconButton, Touchable, Row } from '../../../components';
+import { Text, Header, FixedScreen, Icon, IconButton, Touchable, Row, ScrollingScreen } from '../../../components';
 import { colors, fontSize, spacing } from '../../../themes';
 import { useMst } from '../../../store';
 import { commonStyles } from '../../../common';
@@ -94,6 +94,33 @@ const WalletOverviewScreen = () => {
       </Text>
     </>
   );
+
+  if (transactions.length === 0) {
+    return (
+      <ScrollingScreen
+        appBar={
+          <Header title="Wallet" leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />} />
+        }
+        px={0}
+        scrollViewProps={{ refreshControl: <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} /> }}
+      >
+        {renderWalletBalance()}
+        <View
+          style={{
+            borderWidth: 1,
+            borderColor: colors.lightGrey1,
+            backgroundColor: colors.lightGrey0,
+            padding: 10,
+            paddingVertical: 20,
+            borderRadius: 15,
+            marginHorizontal: 15,
+          }}
+        >
+          <Text style={{ color: colors.lightGrey2, fontWeight: 'bold' }}>You have no transaction history</Text>
+        </View>
+      </ScrollingScreen>
+    );
+  }
 
   return (
     <FixedScreen
