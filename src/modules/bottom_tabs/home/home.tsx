@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../../navigator/routes';
 import Header from './header';
-import { BackgroundView, Text, InfoCard } from '../../../components';
+import { BackgroundView, Text, InfoCard, Spinner } from '../../../components';
 import { commonStyles } from '../../../common';
 import { colors, spacing } from '../../../themes';
 import { useMst } from '../../../store';
@@ -39,6 +39,45 @@ const HomeScreen = () => {
     navigation.navigate(Routes.job_stack, { screen: Routes.job_details, params: { id } });
   };
 
+  const renderContent = () => {
+    if (isLoadingRecentJobs) {
+      return (
+        <View style={{ backgroundColor: colors.white, marginBottom: 500 }}>
+          <Spinner preset="center" />
+        </View>
+      );
+    }
+
+    if (recentJobs.length === 0) {
+      return (
+        <View style={[commonStyles.SAFE_MARGIN, { marginBottom: 500 }]}>
+          <Text preset="title2">Jobs Posted</Text>
+          <Text preset="hint" style={{ marginTop: spacing.md }}>
+            No available jobs. Check back later!
+          </Text>
+        </View>
+      );
+    }
+
+    return (
+      <View style={[commonStyles.SAFE_MARGIN]}>
+        <Text preset="title2">Jobs Posted</Text>
+        {recentJobs.map((item) => (
+          <InfoCard
+            key={item.id}
+            companyName={item.company?.name}
+            date={item.formattedDate}
+            location={item.location?.address}
+            onPress={goToDetails(item.id)}
+            rate={item.formattedHourlyRate}
+            time={item.formattedTime}
+            title={item.title}
+          />
+        ))}
+      </View>
+    );
+  };
+
   return (
     <BackgroundView
       scrollViewProps={{
@@ -54,27 +93,7 @@ const HomeScreen = () => {
     >
       <StatusBar barStyle="light-content" />
       <Header />
-      <View style={[commonStyles.SAFE_MARGIN]}>
-        <Text preset="title2">Jobs Posted</Text>
-        {recentJobs.length === 0 ? (
-          <Text preset="hint" style={{ marginTop: spacing.md }}>
-            No available jobs. Check back later!
-          </Text>
-        ) : (
-          recentJobs.map((item) => (
-            <InfoCard
-              key={item.id}
-              companyName={item.company?.name}
-              date={item.formattedDate}
-              location={item.location?.address}
-              onPress={goToDetails(item.id)}
-              rate={item.formattedHourlyRate}
-              time={item.formattedTime}
-              title={item.title}
-            />
-          ))
-        )}
-      </View>
+      {renderContent()}
     </BackgroundView>
   );
 };
