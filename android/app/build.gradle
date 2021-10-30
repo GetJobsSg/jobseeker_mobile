@@ -150,7 +150,7 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file('release.keystore')
+            storeFile file('release.keystore.old')
             storePassword 'c9fc6fc4e8b845d3b7fe859b85f2ba94'
             keyAlias 'QGJlbnNvbjc2NjcvZ2V0am9iczRtZQ=='
             keyPassword '2dd801f9a0a943e8a2e37d87e101b745'

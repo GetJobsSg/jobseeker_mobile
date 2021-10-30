@@ -13,7 +13,7 @@ const BackgroundView = (props: BackgroundViewProps) => {
       <StatusBar barStyle="light-content" />
       <View style={BG_VIEW_CONTAINER}>
         <View style={[TOP_BG_LAYER, { backgroundColor: bgColor }]} />
-        <ScrollView contentContainerStyle={{ backgroundColor: colors.white, flex: 1 }} {...scrollViewProps}>
+        <ScrollView contentContainerStyle={{ backgroundColor: colors.white }} {...scrollViewProps}>
           {children}
         </ScrollView>
       </View>

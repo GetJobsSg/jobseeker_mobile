@@ -78,7 +78,7 @@ const Account = () => {
       >
         <View>
           <ProfileHeader />
-          <View style={{ paddingHorizontal: spacing.lg }}>
+          <View style={{ paddingHorizontal: spacing.lg, paddingBottom: 300 }}>
             <ListTile
               leadingIcon={verification.icon}
               description={verification.description}
