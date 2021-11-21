@@ -1,56 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { fontSize } from '../../../themes';
 import { ScrollingScreen, Header, IconButton, Text, RadioGroup } from '../../../components';
-import { TrainingQuestion } from '../types';
 import { useMst } from '../../../store';
 import { useSuccess } from '../../../custom_hooks';
+import Statements, { QuestionId } from './statement';
 
 const TrainingScreen = () => {
   const navigation = useNavigation();
 
-  const questions: Array<TrainingQuestion> = [
-    {
-      question: 'Are you clear about the code of conduct that you are supposed to adhere to?',
-      isCompleted: 0,
-    },
-    {
-      question: 'Do you know how to get help if a problem arises?',
-      isCompleted: 0,
-    },
-  ];
-
-  const [questionsArr, setQuestionsArr] = useState(questions);
-
   const {
-    userStore: { completeTraining, isUpdating, error },
+    userStore: { hasTatoo, hasDisability, trainingCompleted, completeTraining, isUpdating, error },
   } = useMst();
 
+  const initAnswer = () => {
+    const initialAns: { [key: string]: number } = {};
+
+    // training not completed, do not need to initialize
+    if (!trainingCompleted) return {};
+
+    // training is completed before, initialize previous answer submitted
+    Statements.forEach((statement) => {
+      if (statement.id === QuestionId.DISABILITY) initialAns[QuestionId.DISABILITY] = Number(hasDisability);
+      else if (statement.id === QuestionId.TATOO) initialAns[QuestionId.TATOO] = Number(hasTatoo);
+      else initialAns[statement.id] = 1; // cheked the rest of answer
+    });
+    return initialAns;
+  };
+
+  const [answer, setAnswer] = useState<{ [key: string]: number }>(initAnswer());
+
+  const isAllQuestionAnswered = () => Object.keys(answer).length === Object.keys(Statements).length;
+
+  const handleSubmitAnswer = () => {
+    completeTraining({
+      has_disability: !!answer[QuestionId.DISABILITY], // cast '0' | '1' to boolean
+      has_tattoo: !!answer[QuestionId.TATOO],
+      training_completed: true,
+    });
+  };
+
   const successUpdateAns = useSuccess({ loadingState: isUpdating, errorState: error });
-  if (successUpdateAns) {
-    setTimeout(() => navigation.goBack(), 0);
-  }
 
-  const handleComplete = () => {
-    completeTraining();
-  };
-
-  const setQuestionComplete = (index: number, value: number) => {
-    const currQuestions = questionsArr.slice();
-    currQuestions[index].isCompleted = value;
-    setQuestionsArr(currQuestions);
-  };
-
-  const checkQuestionsComplete = () => {
-    for (let i = 0; i < questionsArr.length; i++) {
-      if (!questionsArr[i].isCompleted) {
-        return false;
-      }
-    }
-
-    return true;
-  };
+  useEffect(() => {
+    if (successUpdateAns) navigation.goBack();
+  }, [navigation, successUpdateAns]);
 
   return (
     <ScrollingScreen
@@ -58,26 +53,20 @@ const TrainingScreen = () => {
         <Header
           title="Training"
           leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />}
-          rightLabel={checkQuestionsComplete() ? <Text onPress={handleComplete}>Complete</Text> : null}
+          rightLabel={isAllQuestionAnswered() ? <Text onPress={handleSubmitAnswer}>Complete</Text> : null}
         />
       }
     >
-      {questionsArr.map((data: TrainingQuestion, index: number) => (
+      {Statements.map((statement) => (
         <RadioGroup
-          key={index}
-          label={data.question}
+          key={statement.id}
+          label={statement.statement}
           labelStyle={{ fontSize: fontSize.xs }}
-          value={data.isCompleted}
-          onChange={(selected) => setQuestionComplete(index, selected.value as number)}
-          options={[
-            { label: 'Yes', value: 1 },
-            { label: 'No', value: 0 },
-          ]}
+          value={answer[statement.id]}
+          onChange={(selected) => setAnswer((prevAns) => ({ ...prevAns, [statement.id]: selected.value }))}
+          options={statement.options}
         />
       ))}
-      <Text preset="hint" style={{ marginTop: 10 }}>
-        Please note that you will have to answer &apos;Yes&apos; to all of the above in order to complete the training.
-      </Text>
     </ScrollingScreen>
   );
 };

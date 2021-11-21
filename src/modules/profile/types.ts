@@ -42,6 +42,8 @@ export interface ProfilePayload {
   education_level_id: number | null;
   vaccinated: boolean;
   training_completed: boolean;
+  has_disability: boolean;
+  has_tattoo: boolean;
 }
 
 export type OTPVerifyType = 'email' | 'mobile';
@@ -75,6 +77,8 @@ export interface ProfileInfo {
   vaccinated: boolean | null;
   gender: GenderResponse | null;
   training_completed: boolean;
+  has_disability: boolean;
+  has_tattoo: boolean;
 }
 
 export interface GenderResponse {
@@ -100,9 +104,4 @@ export interface JobStatisticInfo {
   rating: number;
   completed_jobs: number;
   total_work_hours: number;
-}
-
-export interface TrainingQuestion {
-  question: string;
-  isCompleted: number;
 }

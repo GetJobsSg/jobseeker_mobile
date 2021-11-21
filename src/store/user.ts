@@ -38,6 +38,8 @@ export const UserStore = types
     verificationStatus: types.optional(types.number, IVerificationStatus.NOT_INITIATED),
     gender: types.maybeNull(types.number),
     trainingCompleted: types.optional(types.boolean, false),
+    hasTatoo: types.optional(types.boolean, false),
+    hasDisability: types.optional(types.boolean, false),
     rating: types.optional(types.number, 0),
     completedJobs: types.optional(types.number, 0),
     totalWorkHours: types.optional(types.number, 0),
@@ -99,6 +101,8 @@ export const UserStore = types
         self.vaccinated = parseVaccinatedStatus(profile.vaccinated);
         self.gender = profile.gender?.id || null;
         self.trainingCompleted = profile.training_completed;
+        self.hasDisability = profile.has_disability;
+        self.hasTatoo = profile.has_tattoo;
         self.rating = job_statistics.rating;
         self.completedJobs = job_statistics.completed_jobs;
         self.totalWorkHours = job_statistics.total_work_hours;
@@ -211,13 +215,15 @@ export const UserStore = types
       }
     }),
 
-    completeTraining: flow(function* completeTraining() {
+    completeTraining: flow(function* completeTraining(trainingData: {
+      training_completed: boolean;
+      has_disability: boolean;
+      has_tattoo: boolean;
+    }) {
       try {
         self.isUpdating = true;
         self.rootStore.uiStore.showLoadingSpinner();
-        yield apis.updateProfile({
-          training_completed: true,
-        });
+        yield apis.updateProfile(trainingData);
         yield self.getUser();
       } catch (e) {
         self.error = self.getErrMsg(e);
