@@ -3,6 +3,7 @@ import { ApplicationStatus, JobStatus } from '../constants/types';
 import { withErrorHandler } from './extensions';
 import { CompanyStore } from './company';
 import { CategoryStore } from './category';
+import { DressCodeStore } from './dressCode';
 import { JobStatusStore } from './status-job';
 import { LocationStore } from './location';
 import * as apis from '../apis';
@@ -15,8 +16,7 @@ export const JobInfoStore = types
     id: types.optional(types.number, 0),
     referenceCode: types.optional(types.string, ''),
     title: types.optional(types.string, ''),
-    requirements: types.optional(types.string, ''),
-    responsibilities: types.optional(types.string, ''),
+    desc: types.optional(types.string, ''),
     startDate: types.optional(types.string, ''),
     endDate: types.optional(types.string, ''),
     startTime: types.optional(types.string, ''),
@@ -25,6 +25,7 @@ export const JobInfoStore = types
     startCode: types.optional(types.string, ''),
     endCode: types.optional(types.string, ''),
     jobStatus: types.optional(JobStatusStore, {}),
+    dressCode: types.optional(DressCodeStore, {}),
     category: types.optional(CategoryStore, {}),
     location: types.optional(LocationStore, {}),
     company: types.optional(CompanyStore, {}),
@@ -84,16 +85,19 @@ export const JobInfoStore = types
         // jobInfo
         self.id = job.id;
         self.title = job.title;
+        self.desc = job.desc;
         self.hourlyRate = job.hourly_rate;
         self.startDate = job.start_date;
         self.endDate = job.end_date;
         self.startTime = job.start_time;
         self.endTime = job.end_time;
-        self.requirements = job.requirements;
-        self.responsibilities = job.responsibilities;
 
         // address
         self.location.address = job_locations[0]?.address;
+
+        // dresscodeInfo
+        self.dressCode.id = job.dress_code.id;
+        self.dressCode.name = job.dress_code.name;
 
         // companyInfo
         self.company.id = job.company.id;

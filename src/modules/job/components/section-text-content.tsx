@@ -16,6 +16,7 @@ interface SectionTextContentProps {
 
 const SectionTextContent = (props: SectionTextContentProps) => {
   const { sectionTitle, text } = props;
+  if (!text) return null;
   return (
     <View style={CONTAINER}>
       <Text preset="title2" style={{ marginBottom: spacing.sm }}>

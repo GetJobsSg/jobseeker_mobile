@@ -26,6 +26,8 @@ const JobDetails = () => {
     jobInfoStore: {
       getJobDetails,
       applyJob,
+      desc,
+      dressCode,
       isApplying,
       isAllowApply,
       isLoading,
@@ -33,8 +35,6 @@ const JobDetails = () => {
       formattedHourlyRate,
       formattedDate,
       formattedTime,
-      responsibilities,
-      requirements,
       company,
       location,
     },
@@ -105,9 +105,8 @@ const JobDetails = () => {
         <SectionTitle title={title} rate={formattedHourlyRate} />
         <SectionEmployer companyLogo={company.logo} companyName={company.name} onPress={onSelectEmployer} />
         <SectionDateTime date={formattedDate} time={formattedTime} />
-
-        <SectionTextContent sectionTitle="Requirement" text={requirements} />
-        <SectionTextContent sectionTitle="Responsibilities" text={responsibilities} />
+        <SectionTextContent sectionTitle="Description" text={desc} />
+        <SectionTextContent sectionTitle="DressCode" text={dressCode.name} />
         <SectionTextContent sectionTitle="Location" text={location.address} />
 
         <View style={{ height: 100 }} />

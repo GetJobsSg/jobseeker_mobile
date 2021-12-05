@@ -29,6 +29,13 @@ export interface CompanyInfo {
   date_created: string;
 }
 
+export interface DressCodeInfo {
+  id: number;
+  name: string;
+  date_updated: string;
+  date_created: string;
+}
+
 export interface CategoryInfo {
   id: number;
   name: string;
@@ -59,6 +66,7 @@ export interface JobInfo {
   start_code: string;
   end_code: string;
   company: CompanyInfo;
+  dress_code: DressCodeInfo;
   job_category: CategoryInfo;
   job_status: JobStatus;
   date_updated: string;
