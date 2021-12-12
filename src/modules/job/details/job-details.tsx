@@ -106,7 +106,7 @@ const JobDetails = () => {
         <SectionEmployer companyLogo={company.logo} companyName={company.name} onPress={onSelectEmployer} />
         <SectionDateTime date={formattedDate} time={formattedTime} />
         <SectionTextContent sectionTitle="Description" text={desc} />
-        <SectionTextContent sectionTitle="DressCode" text={dressCode.name} />
+        <SectionTextContent sectionTitle="Dress Code" text={dressCode.name} />
         <SectionTextContent sectionTitle="Location" text={location.address} />
 
         <View style={{ height: 100 }} />

@@ -7,7 +7,6 @@ export const MAIN_CONTAINER = {
 } as ViewStyle;
 
 export const HEADER_CONTAINER = {
-  ...commonStyles.SAFE_PADDING,
   paddingBottom: 60,
   marginBottom: 50,
   paddingTop: 10,

@@ -56,6 +56,7 @@ const CompanyDetailsScreen = () => {
                 onPress={() => navigation.goBack()}
               />
             }
+            style={{ borderBottomColor: 'rgba(0,0,0,0)' }}
           />
         </View>
         <View style={FLOATING_VIEW}>
