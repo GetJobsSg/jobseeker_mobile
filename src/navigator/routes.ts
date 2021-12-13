@@ -28,6 +28,11 @@ export enum Routes {
   'editMobile' = 'editMobile',
   'verifyEmail' = 'verifyEmail',
 
+  // settings
+  'settingsList' = 'settingsList',
+  'termOfUse' = 'termOfUse',
+  'privacyPolicy' = 'privacyPolicy',
+
   // job
   'job_details' = 'job_details',
   'punch_clock' = 'punch_clock',
