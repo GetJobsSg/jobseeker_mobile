@@ -1,4 +1,9 @@
 declare module '*.html' {
-  const source: string;
-  export default any;
+  const source: any;
+  export default source;
+}
+
+declare module '*.png' {
+  const source: any;
+  export default source;
 }

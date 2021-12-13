@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Image, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { Formik, FormikHelpers } from 'formik';
 import Toast from 'react-native-toast-message';
@@ -10,6 +10,8 @@ import { useMst } from '../../../store';
 import { loginValidationSchema } from './validation';
 import { usePrevious } from '../../../custom_hooks';
 import { Routes } from '../../../navigator/routes';
+import AppLogo from '../../../assets/images/app-logo.png';
+import { windowWidth } from '../../../utils/screen';
 
 const initialValues: LoginFormData = {
   email: '',
@@ -62,7 +64,12 @@ const LoginScreen = observer((props: LoginProps) => {
 
   return (
     <FixedScreen
-      appBar={<Header leftIcon={<IconButton icon="circle_cross_btn" onPress={() => navigation.goBack()} />} />}
+      appBar={
+        <Header
+          style={{ borderBottomColor: 'transparent' }}
+          leftIcon={<IconButton icon="circle_cross_btn" onPress={() => navigation.goBack()} />}
+        />
+      }
     >
       <Formik
         validateOnChange={validationRequred}
@@ -72,7 +79,13 @@ const LoginScreen = observer((props: LoginProps) => {
       >
         {({ dirty, handleChange, values, isValid, errors, handleSubmit, touched }) => (
           <View>
-            <Text preset="header">Login</Text>
+            <View style={{ paddingTop: 30, paddingBottom: 30 }}>
+              <Image
+                style={{ width: windowWidth - 100, height: 50, alignSelf: 'center' }}
+                source={AppLogo}
+                resizeMode="contain"
+              />
+            </View>
 
             <TextField
               error={{
