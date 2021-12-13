@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
+import { Alert } from 'react-native';
 import { Routes } from '../../navigator/routes';
 import { ScrollingScreen, Button, ListTile, Header, IconButton, Text } from '../../components';
 import { colors } from '../../themes';
@@ -14,9 +15,15 @@ const SettingListScreen = () => {
   const navigation = useNavigation();
 
   const handleLogout = () => {
-    logout().then(() => {
-      navigation.goBack();
-    });
+    Alert.alert('Logout', 'Are you sure to logout GetJobs App?', [
+      { text: 'Cancel' },
+      {
+        text: 'Yes',
+        onPress: () => {
+          logout().then(() => navigation.goBack());
+        },
+      },
+    ]);
   };
 
   return (
