@@ -3,7 +3,7 @@ const yesNoOption = [
   { label: 'No', value: 0 },
 ];
 
-const underStoodCheck = [{ label: 'I understood', value: 1 }];
+const underStoodCheck = [{ label: 'I Acknowledge', value: 1 }];
 
 export enum QuestionId {
   DISABILITY = 1,
@@ -14,39 +14,35 @@ const statement = [
   {
     id: QuestionId.DISABILITY,
     statement:
-      'Do you have any physical disabilities that will prevent you from performing the Job?\n(Example: Vision, Hearing, Communication, Walking and Carrying loads up to 10kg)',
+      'Do you have any physical disabilities that will prevent you from performing the Job? (Example: Vision, Hearing, Communication, Walking and Carrying loads up to 10kg) Please contact us if you have any such disabilities to proceed with your application.',
     options: yesNoOption,
   },
   {
     id: QuestionId.TATOO,
-    statement: 'Do you have any visible tattoo(s) that cannot be concealed with standard work attire?',
+    statement:
+      'Do you have any visible tattoo(s) that cannot be concealed with standard work attire? Please contact us if you have such tattoo(s) to proceed with your application?',
     options: yesNoOption,
   },
   {
     id: 3,
-    statement: 'The standard work attire required is Plain black pants/Jeans and Plain black leather shoes/sneakers',
-    options: underStoodCheck,
-  },
-  {
-    id: 4,
     statement:
-      'Grooming is important. Males must have neatly combed hairdo and shave off any facial hairs. Females with long hair must bun them up neatly and put on light make up.',
+      'Some jobs may require a specific dress code which will be stated in the job requirements. Else, if not stated, contact your employer for confirmation before attending the job.',
     options: underStoodCheck,
   },
   {
     id: 5,
-    statement: 'You must report to your Employer at least 20 mins before your job commencement.',
+    statement: 'You must report to your Employer at least 20 mins before the job commencement time',
     options: underStoodCheck,
   },
   {
     id: 6,
     statement:
-      'You must scan in the respective QR codes for Clock in and Clock out for each job, otherwise you will not be able to get your pay.',
+      'Scan or enter the respective codes given by your employer for Clock in and Clock out for each job, otherwise you will not be able to get your pay.',
     options: underStoodCheck,
   },
   {
     id: 7,
-    statement: 'You must follow the job directions given by your Supervisor on duty.',
+    statement: 'Follow the job directions given by your Supervisor on duty.',
     options: underStoodCheck,
   },
   {
@@ -56,12 +52,12 @@ const statement = [
   },
   {
     id: 9,
-    statement: 'If you need to leave early for whatever reason, please inform your Supervisor and Clock out.',
+    statement: 'If you need to leave early for any reason, please inform your Supervisor and Clock out.',
     options: underStoodCheck,
   },
   {
     id: 10,
-    statement: 'Remember to put on your best smile and work safe. ',
+    statement: 'Remember to put on your best smile and work safe.',
     options: underStoodCheck,
   },
 ];
