@@ -35,7 +35,7 @@ const Header = () => {
   const renderPlaceholder = () => <View style={NAME_PLACEHOLDER} />;
 
   const renderRandomGreeting = () => {
-    const greeting = ['Job seeker! 🎉', 'Job hunting buddy! 👫'];
+    const greeting = ['Job Seeker! 🎉', 'Friend! 👫'];
     return greeting[Math.floor(Math.random() * greeting.length)];
   };
 
@@ -47,7 +47,7 @@ const Header = () => {
       <View style={MAIN_CONTAINER}>
         <View style={[HEADER_CONTAINER]}>
           <View style={WELCOME_WRAPPER}>
-            <Text style={WELCOME}>Welcome back,</Text>
+            <Text style={WELCOME}>Welcome back</Text>
             {isLoading ? renderPlaceholder() : renderUsername()}
           </View>
         </View>
@@ -62,7 +62,7 @@ const Header = () => {
     <View style={MAIN_CONTAINER}>
       <View style={[HEADER_CONTAINER]}>
         <View style={WELCOME_WRAPPER}>
-          <Text style={WELCOME}>Hello there,</Text>
+          <Text style={WELCOME}>Hello there</Text>
           <Text preset="header" style={NAME} numberOfLines={1}>
             {renderRandomGreeting()}
           </Text>
