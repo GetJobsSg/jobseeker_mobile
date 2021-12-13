@@ -1,45 +1,18 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
-import { ScrollingScreen, Button, ListTile, Header, IconButton, Text } from '../../components';
-import { colors } from '../../themes';
-import { useMst } from '../../store';
+import { createStackNavigator } from '@react-navigation/stack';
+import PrivacyPolicyScreen from './privacy-policy';
+import TermOfUseScreen from './term-of-use';
+import SettingListScreen from './setting-list';
+import { Routes } from '../../navigator/routes';
 
-const Settings = (props: any) => {
-  const {
-    authStore: { isAuthenticated, logout, isLoadingLogout },
-  } = useMst();
-  const { navigation } = props;
+const Stack = createStackNavigator();
 
-  const handleLogout = () => {
-    logout().then(() => {
-      navigation.goBack();
-    });
-  };
+const WalletStack = () => (
+  <Stack.Navigator headerMode="none" initialRouteName={Routes.wallet_overview}>
+    <Stack.Screen name={Routes.settingsList} component={SettingListScreen} />
+    <Stack.Screen name={Routes.privacyPolicy} component={PrivacyPolicyScreen} />
+    <Stack.Screen name={Routes.termOfUse} component={TermOfUseScreen} />
+  </Stack.Navigator>
+);
 
-  return (
-    <ScrollingScreen
-      appBar={
-        <Header title="Settings" leftIcon={<IconButton icon="circle_back_btn" onPress={() => navigation.goBack()} />} />
-      }
-    >
-      <ListTile traillingIcons={['ic_arrow_right']} title="About" onPress={() => {}} />
-      <ListTile traillingIcons={['ic_arrow_right']} title="Privacy Policy" onPress={() => {}} />
-      <ListTile traillingIcons={['ic_arrow_right']} title="Terms and Conditions" onPress={() => {}} />
-
-      {isAuthenticated && (
-        <Button
-          preset="outlined"
-          style={{ borderColor: colors.lightGrey1, marginTop: 10 }}
-          block
-          disabled={isLoadingLogout}
-          onPress={handleLogout}
-          label="Logout"
-        >
-          <Text style={{ color: colors.darkGrey0 }}>Logout</Text>
-        </Button>
-      )}
-    </ScrollingScreen>
-  );
-};
-
-export default observer(Settings);
+export default WalletStack;
