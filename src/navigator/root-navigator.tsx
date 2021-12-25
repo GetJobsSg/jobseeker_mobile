@@ -11,7 +11,6 @@ import { SettingStack } from '../modules/settings';
 import { JobStack } from '../modules/job';
 import { InboxStack } from '../modules/inbox';
 import { CompanyStack } from '../modules/company';
-import { Spinner } from '../components';
 
 import { RootParams } from './types';
 import { Routes } from './routes';
@@ -37,7 +36,6 @@ const RootNavigator = () => (
       <RootStack.Screen name={Routes.company_stack} component={CompanyStack} />
     </RootStack.Navigator>
 
-    <Spinner />
     <Toast ref={(ref) => Toast.setRef(ref)} />
   </NavigationContainer>
 );
