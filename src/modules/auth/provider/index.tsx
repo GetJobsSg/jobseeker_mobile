@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { node } from 'prop-types';
 import auth from '@react-native-firebase/auth';
+import SplashScreen from 'react-native-splash-screen';
 import { useMst } from '../../../store';
 
 const AuthProvider: React.FC = (props) => {
@@ -28,6 +29,12 @@ const AuthProvider: React.FC = (props) => {
     const subscriber = auth().onIdTokenChanged(idTokenChanged);
     return subscriber;
   }, []);
+
+  useEffect(() => {
+    if (!initializing) {
+      SplashScreen.hide();
+    }
+  }, [initializing]);
 
   const { authStore } = useMst();
   const { setAuth } = authStore;
