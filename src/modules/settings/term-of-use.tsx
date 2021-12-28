@@ -1,10 +1,8 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { WebView } from 'react-native-webview';
-import TermUseHtml from './terms-of-use.html';
 import { FixedScreen, Header, IconButton } from '../../components';
 
-// const TermOfUseScreen = () => <WebView source={{ uri: 'https://reactnative.dev/' }} />;
 const TermOfUseScreen = () => {
   const navigation = useNavigation();
   return (
@@ -17,7 +15,7 @@ const TermOfUseScreen = () => {
         />
       }
     >
-      <WebView source={TermUseHtml} />
+      <WebView source={{ uri: 'https://www.getjobsfor.me/privacy' }} />
     </FixedScreen>
   );
 };
