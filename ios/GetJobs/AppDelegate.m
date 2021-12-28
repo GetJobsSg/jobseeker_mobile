@@ -7,6 +7,10 @@
 #import <React/RCTLinkingManager.h>
 #import "RNSplashScreen.h"
 
+#import <AppCenterReactNative.h>
+#import <AppCenterReactNativeAnalytics.h>
+#import <AppCenterReactNativeCrashes.h>
+
 // #ifdef FB_SONARKIT_ENABLED
 // #import <FlipperKit/FlipperClient.h>
 // #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
@@ -54,8 +58,18 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  // firebase
   [FIRApp configure];
-  [RNSplashScreen show]; 
+  
+  // splash screen
+  [RNSplashScreen show];
+  
+  // app center
+  [AppCenterReactNative register];
+  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
+  
   return YES;
 }
 
