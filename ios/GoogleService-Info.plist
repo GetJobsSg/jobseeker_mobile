@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>283151762227-518dcge6j5528ujv8gsq0337qgckhgk3.apps.googleusercontent.com</string>
+	<string>621013147758-po95uq2vh1jf7emqmm2hup3ltb6ge2r1.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.283151762227-518dcge6j5528ujv8gsq0337qgckhgk3</string>
+	<string>com.googleusercontent.apps.621013147758-po95uq2vh1jf7emqmm2hup3ltb6ge2r1</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCYh_vp9oGPG29wqVwpKifsXvGWOYhJBhg</string>
+	<string>AIzaSyCv46R-ycFE3AgbdcMzQKRB5OABCqoiKQs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>283151762227</string>
+	<string>621013147758</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.jilcreation.getjobs</string>
 	<key>PROJECT_ID</key>
-	<string>getjobs-jobseeker-dev</string>
+	<string>getjobs-jobseeker-prod</string>
 	<key>STORAGE_BUCKET</key>
-	<string>getjobs-jobseeker-dev.appspot.com</string>
+	<string>getjobs-jobseeker-prod.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:283151762227:ios:07d4c47528ea687960f446</string>
+	<string>1:621013147758:ios:4a4ddeddfb04199f10067f</string>
 </dict>
 </plist>
